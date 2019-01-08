@@ -1,5 +1,6 @@
 /build
 /.idea
 /android/local.properties
+/android/.gradle
 .packages
 /ios/Flutter/Generated.xcconfig
