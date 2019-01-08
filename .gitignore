@@ -4,3 +4,4 @@
 /android/.gradle
 .packages
 /ios/Flutter/Generated.xcconfig
+DerivedData
