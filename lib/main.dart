@@ -8,7 +8,7 @@ void main() {
 }
 
 void init() {
-  Utils.generatePersonUuidIfNeeded();
+  Utils.generateUserUuidIfNeeded();
 }
 
 class ProfileDemoApp extends StatelessWidget {

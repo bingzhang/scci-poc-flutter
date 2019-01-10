@@ -1,14 +1,14 @@
 
-class Person {
+class User {
   String uuid;
   String name;
   String phone;
   String birthDate;
 
-  Person({this.uuid, this.name, this.phone, this.birthDate});
+  User({this.uuid, this.name, this.phone, this.birthDate});
 
-  factory Person.fromJson(Map<String, dynamic> json) {
-    return Person(
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
       uuid: json['uuid'],
       name: json['name'],
       phone: json['phone'],

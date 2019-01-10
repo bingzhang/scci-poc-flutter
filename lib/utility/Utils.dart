@@ -3,21 +3,21 @@ import 'package:uuid/uuid.dart';
 
 class Utils {
 
-  static final String PERSON_UUID_KEY = "person_uuid";
+  static final String USER_UUID_KEY = "user_uuid";
 
-  static void generatePersonUuidIfNeeded() async {
-    String personUuid = await getPersonUuid();
-    if (personUuid == null) {
+  static void generateUserUuidIfNeeded() async {
+    String userUuid = await getUserUuid();
+    if (userUuid == null) {
       var uuid = new Uuid();
-      String personUuid = uuid.v4();
+      String generatedUuid = uuid.v4();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(PERSON_UUID_KEY, personUuid);
+      await prefs.setString(USER_UUID_KEY, generatedUuid);
     }
   }
 
-  static Future<String> getPersonUuid() async {
+  static Future<String> getUserUuid() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String personUuid = prefs.getString(PERSON_UUID_KEY);
-    return personUuid;
+    String userUuid = prefs.getString(USER_UUID_KEY);
+    return userUuid;
   }
 }
