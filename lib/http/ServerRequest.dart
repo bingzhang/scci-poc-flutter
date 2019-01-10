@@ -5,9 +5,9 @@ import 'package:profile_demo/model/User.dart';
 
 class ServerRequest {
 
-  Future<User> fetchUser() async {
+  static Future<User> fetchUser(String userUuid) async {
     final response = await http.get(
-        'https://localhost:8082/profile/87876786'); //TODO: DD - read from config
+        'http://10.51.8.198:8082/profile?uuid=$userUuid'); //TODO: configure server IP
 
     if (response.statusCode == 200) {
       return User.fromJson(json.decode(response.body));

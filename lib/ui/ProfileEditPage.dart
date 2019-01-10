@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:profile_demo/model/User.dart';
+import 'package:profile_demo/http/ServerRequest.dart';
+import 'package:profile_demo/utility/Utils.dart';
 
 class ProfileEditPage extends StatefulWidget {
   ProfileEditPage({Key key}) : super(key: key);
@@ -11,6 +14,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _birthDateController = TextEditingController();
+  User _user;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUser();
+  }
 
   @override
   void dispose() {
@@ -19,6 +29,19 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     _phoneController.dispose();
     _birthDateController.dispose();
     super.dispose();
+  }
+
+  void loadUser() async {
+    final String userUuid = await Utils.getUserUuid();
+    _user = await ServerRequest.fetchUser(userUuid);
+    if (_user == null) {
+      _user = new User.fromUuid(userUuid);
+    }
+    setState(() {
+      _nameController.text = _user.name;
+      _phoneController.text = _user.phone;
+      _birthDateController.text = _user.birthDate;
+    });
   }
 
   @override
@@ -34,7 +57,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           children: <Widget>[
             TextField(
                 controller: _nameController,
-                autofocus: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Please, type your name',
