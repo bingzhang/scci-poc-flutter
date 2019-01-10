@@ -21,3 +21,8 @@ class Utils {
     return userUuid;
   }
 }
+
+class Constants {
+  static final String SERVER_HOST = "http://10.51.8.198";
+  static final String SERVER_PORT = "8082";
+}

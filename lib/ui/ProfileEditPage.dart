@@ -79,19 +79,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 RaisedButton(
                   child: const Text('Save'),
                   onPressed: () {
-                    return showDialog(
-                      context: context,
-                      builder: (context) {
-                        var name = _nameController.text;
-                        var phone = _phoneController.text;
-                        var birthDate = _birthDateController.text;
-                        return AlertDialog(
-                          // Retrieve the text the user has typed in using our
-                          // TextEditingController
-                          content: Text('Name: $name\nPhone: $phone\nBirthdate: $birthDate'),
-                        );
-                      },
-                    );
+                    setState(() {
+                      _user.name = _nameController.text;
+                      _user.phone = _phoneController.text;
+                      _user.birthDate = _birthDateController.text;
+                    });
+                    handleSaveResult();
                   },
                 ),
                 RaisedButton(
@@ -105,6 +98,23 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void handleSaveResult() async {
+    bool succeeded = await ServerRequest.saveUser(_user);
+    String saveResultMsg = (succeeded ? "Suceeded" : "Failed") + " to save user profile";
+    showDialogResult(saveResultMsg);
+  }
+
+  void showDialogResult(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(message),
+        );
+      },
     );
   }
 }

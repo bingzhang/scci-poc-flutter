@@ -11,6 +11,15 @@ class User {
     this.uuid = uuid;
   }
 
+  toJson() {
+    return {
+      'uuid': uuid,
+      'name': name,
+      'phone': phone,
+      'birth_date': birthDate
+    };
+  }
+
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       uuid: json['uuid'],
