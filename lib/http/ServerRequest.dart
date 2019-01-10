@@ -41,4 +41,20 @@ class ServerRequest {
       return false;
     }
   }
+
+  static Future<bool> deleteUser(String userUuid) async {
+    if (userUuid == null) {
+      return false;
+    }
+
+    final response = await http.delete('$host:$port/profile?uuid=$userUuid');
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print('Failed to delete user');
+      print(response.body);
+      return false;
+    }
+  }
 }

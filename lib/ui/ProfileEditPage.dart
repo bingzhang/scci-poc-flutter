@@ -84,13 +84,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       _user.phone = _phoneController.text;
                       _user.birthDate = _birthDateController.text;
                     });
-                    handleSaveResult();
+                    performSave();
                   },
                 ),
                 RaisedButton(
                   child: const Text('Delete'),
                   onPressed: () {
-                    //TODO: Implement delete profile
+                    performDelete();
                   },
                 ),
               ],
@@ -101,10 +101,29 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     );
   }
 
-  void handleSaveResult() async {
-    bool succeeded = await ServerRequest.saveUser(_user);
-    String saveResultMsg = (succeeded ? "Suceeded" : "Failed") + " to save user profile";
+  void performSave() async {
+    bool saveSucceeded = await ServerRequest.saveUser(_user);
+    String saveResultMsg =
+        (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
     showDialogResult(saveResultMsg);
+  }
+
+  void performDelete() async {
+    bool deleteSucceeded = await ServerRequest.deleteUser(_user.uuid);
+    String deleteResultMsg =
+        (deleteSucceeded ? "Succeeded" : "Failed") + " to delete user profile";
+    showDialogResult(deleteResultMsg);
+    restoreTextFields(deleteSucceeded);
+  }
+
+  void restoreTextFields(bool restore) {
+    if (restore) {
+      setState(() {
+        _nameController.text = "";
+        _phoneController.text = "";
+        _birthDateController.text = "";
+      });
+    }
   }
 
   void showDialogResult(String message) {
