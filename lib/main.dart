@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/ProfileHomePage.dart';
+import 'package:profile_demo/utility/Utils.dart';
 
-void main() => runApp(ProfileDemoApp());
+void main() {
+  runApp(ProfileDemoApp());
+  init();
+}
+
+void init() {
+  Utils.generatePersonUuidIfNeeded();
+}
 
 class ProfileDemoApp extends StatelessWidget {
   // This widget is the root of your application.
