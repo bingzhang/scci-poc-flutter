@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:profile_demo/model/Person.dart';
 
 class ServerRequest {
+
   Future<Person> fetchPerson() async {
     final response = await http.get(
         'https://localhost:8082/profile/87876786'); //TODO: DD - read from config

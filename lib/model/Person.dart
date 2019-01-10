@@ -9,10 +9,10 @@ class Person {
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
-      uuid: json['Uuid'],
-      name: json['Name'],
-      phone: json['Phone'],
-      birthDate: json['BirthDate'],
+      uuid: json['uuid'],
+      name: json['name'],
+      phone: json['phone'],
+      birthDate: json['birth_date'],
     );
   }
 }
