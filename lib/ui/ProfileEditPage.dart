@@ -169,7 +169,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   String validateName(String name) {
-    RegExp regExp = new RegExp(r'^[A-Za-z ]+$');
+    RegExp regExp = new RegExp("[a-zA-Z]+ [a-zA-Z]+");
     if (!regExp.hasMatch(name))
       return 'Please enter only alphabetical characters.';
     else
