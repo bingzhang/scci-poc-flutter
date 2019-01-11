@@ -85,7 +85,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         padding: EdgeInsets.all(8.0),
         child: TextFormField(
             controller: _phoneController,
-            keyboardType: TextInputType.phone,
+            keyboardType: TextInputType.text,
             validator: validateMobile,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -96,7 +96,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         padding: EdgeInsets.all(8.0),
         child: TextFormField(
             controller: _birthDateController,
-            keyboardType: TextInputType.datetime,
+            keyboardType: TextInputType.text,
             validator: validateBirthDate,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
