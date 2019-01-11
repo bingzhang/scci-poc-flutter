@@ -16,6 +16,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   final _phoneController = TextEditingController();
   final _birthDateController = TextEditingController();
   User _user;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = false;
 
   @override
   void initState() {
@@ -51,54 +53,84 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       appBar: AppBar(
         title: Text('Edit Profile'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
+      body: new SingleChildScrollView(
+        child: new Container(
+          padding: const EdgeInsets.all(20.0),
+          child: new Form(
+            key: _formKey,
+            autovalidate: _autoValidate,
+            child: profileInfoForm(),
+          ),
+        ),
+      ),
+    );
+  }
+  Widget profileInfoForm() {
+    return new Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: TextFormField(
+            controller: _nameController,
+            keyboardType: TextInputType.text,
+            validator: validateName,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Please, type your name',
+                labelText: 'Name:')),
+      ),
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: TextFormField(
+            controller: _phoneController,
+            keyboardType: TextInputType.phone,
+            validator: validateMobile,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Please, type your name',
+                labelText: 'Phone:')),
+      ),
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: TextFormField(
+            controller: _birthDateController,
+            keyboardType: TextInputType.datetime,
+            validator: validateBirthDate,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Please, type your date of birth',
+                labelText: 'Date of Birth:')),
+      ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Please, type your name',
-                    labelText: 'Name:')),
-            TextField(
-                controller: _phoneController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Please, type your name',
-                    labelText: 'Phone:')),
-            TextField(
-                controller: _birthDateController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Please, type your date of birth',
-                    labelText: 'Date of Birth:')),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                RaisedButton(
-                  child: const Text('Save'),
-                  onPressed: () {
-                    setState(() {
+            RaisedButton(
+              child: const Text('Save'),
+              onPressed: () {
+                  if(_formKey.currentState.validate()) {
+                    _formKey.currentState.setState(() {
                       _user.name = _nameController.text;
                       _user.phone = _phoneController.text;
                       _user.birthDate = _birthDateController.text;
                     });
                     performSave();
-                  },
-                ),
-                RaisedButton(
-                  child: const Text('Delete'),
-                  onPressed: () {
-                    performDelete();
-                  },
-                ),
-              ],
-            )
+                  } else {
+                    setState(() {
+                      _autoValidate = true;
+                    });
+                  }
+              },
+            ),
+            RaisedButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                performDelete();
+              },
+            ),
           ],
-        ),
-      ),
+        )
+      ],
     );
   }
 
@@ -125,5 +157,31 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         _birthDateController.clear();
       });
     }
+  }
+  
+  //Validations
+  String validateMobile(String mobile) {
+    RegExp regExp = new RegExp('[0-9]{11}');
+    if (regExp.hasMatch(mobile))
+      return 'Mobile Number can be 10 digits maximum';
+    else
+      return null;
+  }
+
+  String validateName(String name) {
+    RegExp regExp = new RegExp(r'^[A-Za-z ]+$');
+    if (!regExp.hasMatch(name))
+      return 'Please enter only alphabetical characters.';
+    else
+      return null;
+  }
+
+  String validateBirthDate(String date) {
+    //TODO propper regex
+    RegExp regExp = new RegExp("[a-zA-Z]");
+    if (!regExp.hasMatch(date))
+      return 'Birht date should be in format: yyyy/MM/dd';
+    else
+      return null;
   }
 }
