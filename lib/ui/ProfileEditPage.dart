@@ -162,9 +162,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   
   //Validations
   String validateMobile(String mobile) {
-    RegExp regExp = new RegExp('[0-9]{11}');
-    if (regExp.hasMatch(mobile))
-      return 'Mobile Number can be 10 digits maximum';
+    RegExp regExp = new RegExp(r"^(\+?1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$");
+    if (!regExp.hasMatch(mobile))
+      return 'Please, type valid phone number. Ex: (111) 111-1111';
     else
       return null;
   }
@@ -172,13 +172,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   String validateName(String name) {
     RegExp regExp = new RegExp("[a-zA-Z]+ [a-zA-Z]+");
     if (!regExp.hasMatch(name))
-      return 'Please enter name and family.';
+      return 'Please, type name and family.';
     else
       return null;
   }
 
   String validateBirthDate(String date) {
-    const String validationErr = 'Please, enter valid date in format: yyyy/MM/dd';
+    const String validationErr = 'Please, type valid date in format: yyyy/MM/dd';
     RegExp dateRegEx = new RegExp(r"([12]\d{3}/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01]))$");
     if (!dateRegEx.hasMatch(date)) {
       return validationErr;
