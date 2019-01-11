@@ -1,8 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/ProfileEditPage.dart';
+import 'package:profile_demo/utility/Utils.dart';
+import 'package:profile_demo/ui/Alert.dart';
 
-class ProfileHomePage extends StatelessWidget {
+class ProfileHomePage extends StatefulWidget {
   ProfileHomePage({Key key}) : super(key: key);
+
+  @override
+  _ProfileHomePageState createState() => _ProfileHomePageState();
+}
+
+class _ProfileHomePageState extends State<ProfileHomePage> {
+  final _hostController = TextEditingController();
+
+  @override
+  void dispose() {
+    _hostController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadHost();
+  }
+
+  void loadHost() async {
+    final String serverHost = await Utils.getHostAddress();
+    setState(() {
+      _hostController.text = serverHost;
+    });
+  }
+
+  void performSaveHostAddress(String hostAddress) async {
+    Utils.saveHostAddress(hostAddress);
+    Alert.showDialogResult(context, 'Host addres $hostAddress saved');
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +69,32 @@ class ProfileHomePage extends StatelessWidget {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              alignment: Alignment.topCenter,
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: TextField(
+                      controller: _hostController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Please, type your host',
+                            labelText: 'Host:')),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: RaisedButton(
+                      child: const Text('Save'),
+                      onPressed: () => performSaveHostAddress(_hostController.text),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             RaisedButton(
               child: const Text('Profile'),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfileEditPage()),
