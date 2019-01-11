@@ -88,7 +88,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             validator: validateMobile,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Please, type your name',
+                hintText: 'Please, type your phone number',
                 labelText: 'Phone:')),
       ),
       Padding(
