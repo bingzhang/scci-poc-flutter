@@ -5,12 +5,22 @@ import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class ServerRequest {
-  static final host = Constants.SERVER_HOST;
-  static final port = Constants.SERVER_PORT;
+  static const defaultHost = Constants.DEFAULT_SERVER_HOST;
+  static const serverPort = Constants.SERVER_PORT;
 
   static Future<User> fetchUser(String userUuid) async {
-    final response = await http
-        .get('$host:$port/profile?uuid=$userUuid'); //TODO: configure server IP
+    String serverHost = await Utils.getHostAddress();
+    if (serverHost == null) {
+      serverHost = Constants.DEFAULT_SERVER_HOST;
+    }
+    http.Response response;
+    try {
+      response =
+          await http.get('$serverHost:$serverPort/profile?uuid=$userUuid');
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
 
     if (response.statusCode == 200) {
       return User.fromJson(json.decode(response.body));
@@ -28,10 +38,19 @@ class ServerRequest {
     if (user == null) {
       return false;
     }
-
+    String serverHost = await Utils.getHostAddress();
+    if (serverHost == null) {
+      serverHost = Constants.DEFAULT_SERVER_HOST;
+    }
     String userJson = json.encode(user);
-    final response = await http.post('$host:$port/profile',
-        body: userJson, encoding: Encoding.getByName("utf-8"));
+    http.Response response;
+    try {
+      response = await http.post('$serverHost:$serverPort/profile',
+          body: userJson, encoding: Encoding.getByName("utf-8"));
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
 
     if (response.statusCode == 200) {
       return true;
@@ -46,8 +65,18 @@ class ServerRequest {
     if (userUuid == null) {
       return false;
     }
-
-    final response = await http.delete('$host:$port/profile?uuid=$userUuid');
+    String serverHost = await Utils.getHostAddress();
+    if (serverHost == null) {
+      serverHost = Constants.DEFAULT_SERVER_HOST;
+    }
+    http.Response response;
+    try {
+      response =
+          await http.delete('$serverHost:$serverPort/profile?uuid=$userUuid');
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
 
     if (response.statusCode == 200) {
       return true;
