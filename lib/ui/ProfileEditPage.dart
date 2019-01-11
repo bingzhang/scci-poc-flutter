@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/http/ServerRequest.dart';
 import 'package:profile_demo/utility/Utils.dart';
+import 'package:profile_demo/ui/Alert.dart';
 
 class ProfileEditPage extends StatefulWidget {
   ProfileEditPage({Key key}) : super(key: key);
@@ -105,14 +106,14 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     bool saveSucceeded = await ServerRequest.saveUser(_user);
     String saveResultMsg =
         (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
-    showDialogResult(saveResultMsg);
+    Alert.showDialogResult(context, saveResultMsg);
   }
 
   void performDelete() async {
     bool deleteSucceeded = await ServerRequest.deleteUser(_user.uuid);
     String deleteResultMsg =
         (deleteSucceeded ? "Succeeded" : "Failed") + " to delete user profile";
-    showDialogResult(deleteResultMsg);
+    Alert.showDialogResult(context, deleteResultMsg);
     restoreTextFields(deleteSucceeded);
   }
 
@@ -124,16 +125,5 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         _birthDateController.clear();
       });
     }
-  }
-
-  void showDialogResult(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text(message),
-        );
-      },
-    );
   }
 }
