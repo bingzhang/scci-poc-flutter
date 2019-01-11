@@ -8,10 +8,7 @@ class ServerRequest {
   static const _serverPort = Constants.SERVER_PORT;
 
   static Future<User> fetchUser(String userUuid) async {
-    String serverHost = await Utils.getHostAddress();
-    if (serverHost == null) {
-      serverHost = Constants.DEFAULT_SERVER_HOST;
-    }
+    String serverHost = await _constructHostValue();
     http.Response response;
     try {
       response =
@@ -37,10 +34,7 @@ class ServerRequest {
     if (user == null) {
       return false;
     }
-    String serverHost = await Utils.getHostAddress();
-    if (serverHost == null) {
-      serverHost = Constants.DEFAULT_SERVER_HOST;
-    }
+    String serverHost = await _constructHostValue();
     String userJson = json.encode(user);
     http.Response response;
     try {
@@ -64,10 +58,7 @@ class ServerRequest {
     if (userUuid == null) {
       return false;
     }
-    String serverHost = await Utils.getHostAddress();
-    if (serverHost == null) {
-      serverHost = Constants.DEFAULT_SERVER_HOST;
-    }
+    String serverHost = await _constructHostValue();
     http.Response response;
     try {
       response =
@@ -84,5 +75,16 @@ class ServerRequest {
       print(response.body);
       return false;
     }
+  }
+
+  static Future<String> _constructHostValue() async {
+    String host = await Utils.getHostAddress();
+    if (host == null) {
+      host = Constants.DEFAULT_SERVER_HOST;
+    }
+    if (host.startsWith("http://") || host.startsWith("https://")) {
+      return host;
+    }
+    return 'http://$host';
   }
 }
