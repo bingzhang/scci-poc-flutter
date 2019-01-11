@@ -5,8 +5,7 @@ import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class ServerRequest {
-  static const defaultHost = Constants.DEFAULT_SERVER_HOST;
-  static const serverPort = Constants.SERVER_PORT;
+  static const _serverPort = Constants.SERVER_PORT;
 
   static Future<User> fetchUser(String userUuid) async {
     String serverHost = await Utils.getHostAddress();
@@ -16,7 +15,7 @@ class ServerRequest {
     http.Response response;
     try {
       response =
-          await http.get('$serverHost:$serverPort/profile?uuid=$userUuid');
+          await http.get('$serverHost:$_serverPort/profile?uuid=$userUuid');
     } catch (e) {
       print(e.toString());
       return null;
@@ -45,7 +44,7 @@ class ServerRequest {
     String userJson = json.encode(user);
     http.Response response;
     try {
-      response = await http.post('$serverHost:$serverPort/profile',
+      response = await http.post('$serverHost:$_serverPort/profile',
           body: userJson, encoding: Encoding.getByName("utf-8"));
     } catch (e) {
       print(e.toString());
@@ -72,7 +71,7 @@ class ServerRequest {
     http.Response response;
     try {
       response =
-          await http.delete('$serverHost:$serverPort/profile?uuid=$userUuid');
+          await http.delete('$serverHost:$_serverPort/profile?uuid=$userUuid');
     } catch (e) {
       print(e.toString());
       return false;
