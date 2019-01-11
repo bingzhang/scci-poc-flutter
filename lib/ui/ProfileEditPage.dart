@@ -119,9 +119,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   void restoreTextFields(bool restore) {
     if (restore) {
       setState(() {
-        _nameController.text = "";
-        _phoneController.text = "";
-        _birthDateController.text = "";
+        _nameController.clear();
+        _phoneController.clear();
+        _birthDateController.clear();
       });
     }
   }
