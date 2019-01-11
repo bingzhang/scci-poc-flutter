@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/http/ServerRequest.dart';
 import 'package:profile_demo/utility/Utils.dart';
@@ -171,22 +172,27 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   String validateName(String name) {
     RegExp regExp = new RegExp("[a-zA-Z]+ [a-zA-Z]+");
     if (!regExp.hasMatch(name))
-      return 'Please enter only alphabetical characters.';
+      return 'Please enter name and family.';
     else
       return null;
   }
 
   String validateBirthDate(String date) {
+    const String validationErr = 'Please, enter valid date in format: yyyy/MM/dd';
+    RegExp dateRegEx = new RegExp(r"([12]\d{3}/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01]))$");
+    if (!dateRegEx.hasMatch(date)) {
+      return validationErr;
+    }
+    final DateFormat dateFormat = new DateFormat("yyyy/MM/dd");
     DateTime birthDate;
     try {
-
-     birthDate = DateTime.parse(date);
-    } catch (e){
-        e.toString();
+      birthDate = dateFormat.parse(date);
+    } catch (e) {
+      print(e.toString());
     }
-    if (birthDate==null)
-      return 'Birht date should be in format: yyyy-MM-dd';
-    else
-      return null;
+    if (birthDate == null) {
+      return validationErr;
+    }
+    return null;
   }
 }
