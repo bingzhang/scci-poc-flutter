@@ -177,10 +177,15 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   String validateBirthDate(String date) {
-    //TODO propper regex
-    RegExp regExp = new RegExp("[a-zA-Z]");
-    if (!regExp.hasMatch(date))
-      return 'Birht date should be in format: yyyy/MM/dd';
+    DateTime birthDate;
+    try {
+
+     birthDate = DateTime.parse(date);
+    } catch (e){
+        e.toString();
+    }
+    if (birthDate==null)
+      return 'Birht date should be in format: yyyy-MM-dd';
     else
       return null;
   }
