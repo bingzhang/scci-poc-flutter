@@ -35,6 +35,6 @@ class Utils {
 }
 
 class Constants {
-  static const String DEFAULT_SERVER_HOST = "http://10.51.8.198";
+  static const String DEFAULT_SERVER_HOST = "https://profile.inabyte.com";
   static const String SERVER_PORT = "8082";
 }

@@ -12,7 +12,7 @@ class ServerRequest {
     http.Response response;
     try {
       response =
-          await http.get('$serverHost:$_serverPort/profile?uuid=$userUuid');
+          await http.get('$serverHost/profile?uuid=$userUuid');
     } catch (e) {
       print(e.toString());
       return null;
@@ -38,7 +38,7 @@ class ServerRequest {
     String userJson = json.encode(user);
     http.Response response;
     try {
-      response = await http.post('$serverHost:$_serverPort/profile',
+      response = await http.post('$serverHost/profile',
           body: userJson, encoding: Encoding.getByName("utf-8"));
     } catch (e) {
       print(e.toString());
@@ -62,7 +62,7 @@ class ServerRequest {
     http.Response response;
     try {
       response =
-          await http.delete('$serverHost:$_serverPort/profile?uuid=$userUuid');
+          await http.delete('$serverHost/profile?uuid=$userUuid');
     } catch (e) {
       print(e.toString());
       return false;
