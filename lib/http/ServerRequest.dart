@@ -32,7 +32,7 @@ class ServerRequest {
     if (user == null) {
       return false;
     }
-    String serverHost = await _constructHostValue();
+    String serverHost = _constructHostValue();
     String userJson = json.encode(user);
     http.Response response;
     try {

@@ -20,6 +20,10 @@ class Utils {
     final String userUuid = prefs.getString(_USER_UUID_KEY);
     return userUuid;
   }
+
+  static bool isStringEmpty(String stringToCheck) {
+    return (stringToCheck == null || stringToCheck.isEmpty);
+  }
 }
 
 class Constants {

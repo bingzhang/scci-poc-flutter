@@ -20,6 +20,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   User _user;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
+  Role _selectedUserRole = Role.unknown;
 
   @override
   void initState() {
@@ -46,6 +47,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       _nameController.text = _user.name;
       _phoneController.text = _user.phone;
       _birthDateController.text = _user.birthDate;
+      _selectedUserRole = _user.role;
     });
   }
 
@@ -61,14 +63,14 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           child: new Form(
             key: _formKey,
             autovalidate: _autoValidate,
-            child: profileInfoForm(),
+            child: _profileInfoForm(),
           ),
         ),
       ),
     );
   }
 
-  Widget profileInfoForm() {
+  Widget _profileInfoForm() {
     return new Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -77,7 +79,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           child: TextFormField(
               controller: _nameController,
               keyboardType: TextInputType.text,
-              validator: validateName,
+              validator: _validateName,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Please, type your name',
@@ -88,7 +90,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           child: TextFormField(
               controller: _phoneController,
               keyboardType: TextInputType.text,
-              validator: validateMobile,
+              validator: _validateMobile,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Please, type your phone number',
@@ -99,7 +101,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           child: TextFormField(
               controller: _birthDateController,
               keyboardType: TextInputType.text,
-              validator: validateBirthDate,
+              validator: _validateBirthDate,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Please, type your date of birth',
@@ -108,38 +110,26 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text('Role:')
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Radio(
-                    value: Role.student,
-                    groupValue: Role.staff,
-                    onChanged: null),
-                Text('Student')
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Radio(
-                    value: Role.staff, groupValue: Role.staff, onChanged: null),
-                Text('Staff')
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Radio(
-                    value: Role.other, groupValue: Role.staff, onChanged: null),
-                Text('Other')
-              ],
-            )
+            Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[const Text('Role:')])),
+            RadioListTile(
+                title: const Text('Student'),
+                value: Role.student,
+                groupValue: _selectedUserRole,
+                onChanged: _onRoleChanged),
+            RadioListTile(
+                title: const Text('Staff'),
+                value: Role.staff,
+                groupValue: _selectedUserRole,
+                onChanged: _onRoleChanged),
+            RadioListTile(
+                title: const Text('Other'),
+                value: Role.other,
+                groupValue: _selectedUserRole,
+                onChanged: _onRoleChanged)
           ],
         ),
         Row(
@@ -153,8 +143,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     _user.name = _nameController.text;
                     _user.phone = _phoneController.text;
                     _user.birthDate = _birthDateController.text;
+                    _user.role = _selectedUserRole;
                   });
-                  performSave();
+                  _performSave();
                 } else {
                   setState(() {
                     _autoValidate = true;
@@ -165,7 +156,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             RaisedButton(
               child: const Text('Delete'),
               onPressed: () {
-                performDelete();
+                _performDelete();
               },
             ),
           ],
@@ -174,33 +165,45 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     );
   }
 
-  void performSave() async {
+  void _performSave() async {
+    bool isRoleValid = _validateSelectedUserRole();
+    if (!isRoleValid) {
+      Alert.showDialogResult(context, 'Please, select role.');
+      return;
+    }
     bool saveSucceeded = await ServerRequest.saveUser(_user);
     String saveResultMsg =
         (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
     Alert.showDialogResult(context, saveResultMsg);
   }
 
-  void performDelete() async {
+  void _performDelete() async {
     bool deleteSucceeded = await ServerRequest.deleteUser(_user.uuid);
     String deleteResultMsg =
         (deleteSucceeded ? "Succeeded" : "Failed") + " to delete user profile";
     Alert.showDialogResult(context, deleteResultMsg);
-    restoreTextFields(deleteSucceeded);
+    _restoreUserValues(deleteSucceeded);
   }
 
-  void restoreTextFields(bool restore) {
+  void _restoreUserValues(bool restore) {
     if (restore) {
       setState(() {
         _nameController.clear();
         _phoneController.clear();
         _birthDateController.clear();
+        _selectedUserRole = Role.unknown;
       });
     }
   }
 
+  void _onRoleChanged(Role role) {
+    setState(() {
+      _selectedUserRole = role;
+    });
+  }
+
   //Validations
-  String validateMobile(String mobile) {
+  String _validateMobile(String mobile) {
     RegExp regExp = new RegExp(
         r"^(\+?1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$");
     if (!regExp.hasMatch(mobile))
@@ -209,7 +212,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       return null;
   }
 
-  String validateName(String name) {
+  String _validateName(String name) {
     RegExp regExp = new RegExp("[a-zA-Z]+ [a-zA-Z]+");
     if (!regExp.hasMatch(name))
       return 'Please, type name and family.';
@@ -217,7 +220,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       return null;
   }
 
-  String validateBirthDate(String date) {
+  String _validateBirthDate(String date) {
     const String validationErr =
         'Please, type valid date in format: yyyy/MM/dd';
     RegExp dateRegEx =
@@ -236,5 +239,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       return validationErr;
     }
     return null;
+  }
+
+  bool _validateSelectedUserRole() {
+    return _selectedUserRole != Role.unknown;
   }
 }
