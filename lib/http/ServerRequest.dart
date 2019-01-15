@@ -5,14 +5,12 @@ import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class ServerRequest {
-  static const _serverPort = Constants.SERVER_PORT;
 
   static Future<User> fetchUser(String userUuid) async {
-    String serverHost = await _constructHostValue();
+    String serverHost = _constructHostValue();
     http.Response response;
     try {
-      response =
-          await http.get('$serverHost/profile?uuid=$userUuid');
+      response = await http.get('$serverHost/profile?uuid=$userUuid');
     } catch (e) {
       print(e.toString());
       return null;
@@ -58,11 +56,10 @@ class ServerRequest {
     if (userUuid == null) {
       return false;
     }
-    String serverHost = await _constructHostValue();
+    String serverHost = _constructHostValue();
     http.Response response;
     try {
-      response =
-          await http.delete('$serverHost/profile?uuid=$userUuid');
+      response = await http.delete('$serverHost/profile?uuid=$userUuid');
     } catch (e) {
       print(e.toString());
       return false;
@@ -77,11 +74,8 @@ class ServerRequest {
     }
   }
 
-  static Future<String> _constructHostValue() async {
-    String host = await Utils.getHostAddress();
-    if (host == null) {
-      host = Constants.DEFAULT_SERVER_HOST;
-    }
+  static String _constructHostValue() {
+    String host = Constants.DEFAULT_SERVER_HOST;
     if (host.startsWith("http://") || host.startsWith("https://")) {
       return host;
     }
