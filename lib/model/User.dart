@@ -37,7 +37,8 @@ class User {
     if (Utils.isStringEmpty(roleString)) {
       return Role.unknown;
     }
-    return Role.values.firstWhere((role) => _userRoleToString(role) == roleString);
+    return Role.values
+        .firstWhere((role) => _userRoleToString(role) == roleString);
   }
 
   static String _userRoleToString(Role role) {
@@ -45,8 +46,8 @@ class User {
       return _userRoleToString(Role.unknown);
     }
     String roleToString = role.toString();
-    const int subStringStartIndex = 'Role.'.length; //remove enum class from toString method
-    return roleToString
-        .substring(subStringStartIndex);
+    const int subStringStartIndex =
+        'Role.'.length; //remove enum class from toString method
+    return roleToString.substring(subStringStartIndex);
   }
 }
