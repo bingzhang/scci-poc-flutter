@@ -9,7 +9,6 @@ class ProfileHomePage extends StatefulWidget {
 }
 
 class _ProfileHomePageState extends State<ProfileHomePage> {
-
   @override
   void dispose() {
     super.dispose();
@@ -22,11 +21,43 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
         title: Text("Profile Demo"),
       ),
       body: Center(
-        child: RaisedButton(
-          child: const Text('Profile'),
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEditPage())),
-        ),
-      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Visibility(
+              visible: true,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                        child: const Text('Directions'), onPressed: null),
+                    RaisedButton(
+                        child: const Text('Information'), onPressed: null)
+                  ])),
+          Visibility(
+              visible: true,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                        child: const Text('Factulty Listing'), onPressed: null),
+                    RaisedButton(child: const Text('Schedule'), onPressed: null)
+                  ])),
+          Visibility(
+              visible: true,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                        child: const Text('Directions'), onPressed: null)
+                  ])),
+          RaisedButton(
+            child: const Text('Profile'),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileEditPage())),
+          )
+        ],
+      )),
     );
   }
 }
