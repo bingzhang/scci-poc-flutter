@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:profile_demo/model/User.dart';
+import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/http/ServerRequest.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/Alert.dart';
@@ -66,61 +67,99 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       ),
     );
   }
+
   Widget profileInfoForm() {
     return new Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-      Padding(
-        padding: EdgeInsets.all(8.0),
-        child: TextFormField(
-            controller: _nameController,
-            keyboardType: TextInputType.text,
-            validator: validateName,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Please, type your name',
-                labelText: 'Name:')),
-      ),
-      Padding(
-        padding: EdgeInsets.all(8.0),
-        child: TextFormField(
-            controller: _phoneController,
-            keyboardType: TextInputType.text,
-            validator: validateMobile,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Please, type your phone number',
-                labelText: 'Phone:')),
-      ),
-      Padding(
-        padding: EdgeInsets.all(8.0),
-        child: TextFormField(
-            controller: _birthDateController,
-            keyboardType: TextInputType.text,
-            validator: validateBirthDate,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Please, type your date of birth',
-                labelText: 'Date of Birth:')),
-      ),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: TextFormField(
+              controller: _nameController,
+              keyboardType: TextInputType.text,
+              validator: validateName,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Please, type your name',
+                  labelText: 'Name:')),
+        ),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: TextFormField(
+              controller: _phoneController,
+              keyboardType: TextInputType.text,
+              validator: validateMobile,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Please, type your phone number',
+                  labelText: 'Phone:')),
+        ),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: TextFormField(
+              controller: _birthDateController,
+              keyboardType: TextInputType.text,
+              validator: validateBirthDate,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Please, type your date of birth',
+                  labelText: 'Date of Birth:')),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text('Role:')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Radio(
+                    value: Role.student,
+                    groupValue: Role.staff,
+                    onChanged: null),
+                Text('Student')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Radio(
+                    value: Role.staff, groupValue: Role.staff, onChanged: null),
+                Text('Staff')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Radio(
+                    value: Role.other, groupValue: Role.staff, onChanged: null),
+                Text('Other')
+              ],
+            )
+          ],
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             RaisedButton(
               child: const Text('Save'),
               onPressed: () {
-                  if(_formKey.currentState.validate()) {
-                    _formKey.currentState.setState(() {
-                      _user.name = _nameController.text;
-                      _user.phone = _phoneController.text;
-                      _user.birthDate = _birthDateController.text;
-                    });
-                    performSave();
-                  } else {
-                    setState(() {
-                      _autoValidate = true;
-                    });
-                  }
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.setState(() {
+                    _user.name = _nameController.text;
+                    _user.phone = _phoneController.text;
+                    _user.birthDate = _birthDateController.text;
+                  });
+                  performSave();
+                } else {
+                  setState(() {
+                    _autoValidate = true;
+                  });
+                }
               },
             ),
             RaisedButton(
@@ -159,10 +198,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       });
     }
   }
-  
+
   //Validations
   String validateMobile(String mobile) {
-    RegExp regExp = new RegExp(r"^(\+?1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$");
+    RegExp regExp = new RegExp(
+        r"^(\+?1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$");
     if (!regExp.hasMatch(mobile))
       return 'Please, type valid phone number. Ex: (111) 111-1111';
     else
@@ -178,8 +218,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   String validateBirthDate(String date) {
-    const String validationErr = 'Please, type valid date in format: yyyy/MM/dd';
-    RegExp dateRegEx = new RegExp(r"([12]\d{3}/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01]))$");
+    const String validationErr =
+        'Please, type valid date in format: yyyy/MM/dd';
+    RegExp dateRegEx =
+        new RegExp(r"([12]\d{3}/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01]))$");
     if (!dateRegEx.hasMatch(date)) {
       return validationErr;
     }
