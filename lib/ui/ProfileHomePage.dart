@@ -12,7 +12,7 @@ class ProfileHomePage extends StatefulWidget {
   _ProfileHomePageState createState() => _ProfileHomePageState();
 }
 
-class _ProfileHomePageState extends State<ProfileHomePage> with RouteAware {
+class _ProfileHomePageState extends State<ProfileHomePage> {
   Role _userRole;
 
   @override
@@ -38,7 +38,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> with RouteAware {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile Demo"),
+        title: Text('Profile Demo'),
       ),
       body: Center(
           child: Column(
@@ -60,7 +60,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> with RouteAware {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Factulty Listing'), onPressed: null),
+                        child: const Text('Faculty Listing'), onPressed: null),
                     RaisedButton(child: const Text('Schedule'), onPressed: null)
                   ])),
           Visibility(
@@ -72,10 +72,12 @@ class _ProfileHomePageState extends State<ProfileHomePage> with RouteAware {
                         child: const Text('Directions'), onPressed: null)
                   ])),
           RaisedButton(
-            child: const Text('Profile'),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfileEditPage())),
-          )
+              child: const Text('Profile'),
+              onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileEditPage()))
+                  .then((value) => _loadUser()))
         ],
       )),
     );
