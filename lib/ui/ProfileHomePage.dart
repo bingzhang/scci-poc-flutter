@@ -4,6 +4,7 @@ import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/http/ServerRequest.dart';
 import 'package:profile_demo/ui/ProfileEditPage.dart';
+import 'package:profile_demo/ui/WebContentPage.dart';
 
 class ProfileHomePage extends StatefulWidget {
   ProfileHomePage({Key key}) : super(key: key);
@@ -50,9 +51,13 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Directions'), onPressed: null),
+                        child: const Text('Directions'), onPressed:(){
+                      openWeb("Directions", "https://goo.gl/maps/vc7DRLgiMM22");
+                    }),
                     RaisedButton(
-                        child: const Text('Information'), onPressed: null)
+                        child: const Text('Information'), onPressed: (){
+                      openWeb("Information", "http://catalog.illinois.edu/general-information/");
+                    })
                   ])),
           Visibility(
               visible: _userRole == Role.staff,
@@ -60,8 +65,12 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Faculty Listing'), onPressed: null),
-                    RaisedButton(child: const Text('Schedule'), onPressed: null)
+                        child: const Text('Faculty Listing'), onPressed: (){
+                      openWeb("Faculty Listing", "https://directory.illinois.edu/facultyListing");
+                    }),
+                    RaisedButton(child: const Text('Schedule'), onPressed: (){
+                      openWeb("Schedule", "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
+                    })
                   ])),
           Visibility(
               visible: _userRole == Role.other,
@@ -69,7 +78,9 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Directions'), onPressed: null)
+                        child: const Text('Directions'), onPressed: (){
+                      openWeb("Directions", "https://goo.gl/maps/vc7DRLgiMM22");
+                    })
                   ])),
           RaisedButton(
               child: const Text('Profile'),
@@ -81,5 +92,13 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
         ],
       )),
     );
+  }
+
+  openWeb(String title, String url) async {
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => WebContentPage(url,title)));
+
   }
 }
