@@ -10,9 +10,16 @@ class WebContentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new WebviewScaffold(
-        url: url,
-        appBar: new AppBar(
-          title: new Text(title),
-        ));
+      url: url,
+      hidden: true,
+      appBar: new AppBar(
+        title: new Text(title),
+      ),
+      initialChild: Container(
+        child: const Center(
+          child: Text('Loading.....'),
+        ),
+      ),
+    );
   }
 }
