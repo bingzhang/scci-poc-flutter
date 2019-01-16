@@ -13,12 +13,8 @@ class WebContentPage extends StatelessWidget {
       url: url,
       hidden: true,
       appBar: new AppBar(
+        centerTitle: true,
         title: new Text(title),
-      ),
-      initialChild: Container(
-        child: const Center(
-          child: Text('Loading.....'),
-        ),
       ),
     );
   }
