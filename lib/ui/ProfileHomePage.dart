@@ -51,13 +51,17 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Directions'), onPressed:(){
-                      openWeb("Directions", "https://goo.gl/maps/vc7DRLgiMM22");
-                    }),
+                        child: const Text('Directions'),
+                        onPressed: () {
+                          _openWeb(
+                              "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
+                        }),
                     RaisedButton(
-                        child: const Text('Information'), onPressed: (){
-                      openWeb("Information", "http://catalog.illinois.edu/general-information/");
-                    })
+                        child: const Text('Information'),
+                        onPressed: () {
+                          _openWeb("Information",
+                              "http://catalog.illinois.edu/general-information/");
+                        })
                   ])),
           Visibility(
               visible: _userRole == Role.staff,
@@ -65,12 +69,17 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Faculty Listing'), onPressed: (){
-                      openWeb("Faculty Listing", "https://directory.illinois.edu/facultyListing");
-                    }),
-                    RaisedButton(child: const Text('Schedule'), onPressed: (){
-                      openWeb("Schedule", "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
-                    })
+                        child: const Text('Faculty Listing'),
+                        onPressed: () {
+                          _openWeb("Faculty Listing",
+                              "https://directory.illinois.edu/facultyListing");
+                        }),
+                    RaisedButton(
+                        child: const Text('Schedule'),
+                        onPressed: () {
+                          _openWeb("Schedule",
+                              "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
+                        })
                   ])),
           Visibility(
               visible: _userRole == Role.other,
@@ -78,9 +87,11 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Directions'), onPressed: (){
-                      openWeb("Directions", "https://goo.gl/maps/vc7DRLgiMM22");
-                    })
+                        child: const Text('Directions'),
+                        onPressed: () {
+                          _openWeb(
+                              "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
+                        })
                   ])),
           RaisedButton(
               child: const Text('Profile'),
@@ -94,11 +105,10 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
     );
   }
 
-  openWeb(String title, String url) async {
-        Navigator.push(
+  void _openWeb(String title, String url) {
+    Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => WebContentPage(url,title)));
-
+            builder: (context) => new WebContentPage(url: url, title: title)));
   }
 }
