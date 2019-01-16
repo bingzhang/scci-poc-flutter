@@ -17,7 +17,7 @@ class ProfileDemoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Profile Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color.fromARGB(255, 28, 38, 58),
       ),
       home: ProfileHomePage(),
     );

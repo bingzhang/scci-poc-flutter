@@ -136,7 +136,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             RaisedButton(
-              child: const Text('Save'),
+              color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+              child: const Text(
+                'Save',
+                style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+              ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.setState(() {
@@ -154,7 +158,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               },
             ),
             RaisedButton(
-              child: const Text('Delete'),
+              color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+              child: const Text(
+                'Delete',
+                style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+              ),
               onPressed: () {
                 _performDelete();
               },

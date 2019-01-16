@@ -39,7 +39,12 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Demo'),
+        title: new Image.asset(
+          'images/illinois_vertical.png',
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.center,
+        ),
+        centerTitle: true,
       ),
       body: Center(
           child: Column(
@@ -51,13 +56,21 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Directions'),
+                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        child: const Text(
+                          'Directions',
+                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                        ),
                         onPressed: () {
                           _openWeb(
                               "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
                         }),
                     RaisedButton(
-                        child: const Text('Information'),
+                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        child: const Text(
+                          'Information',
+                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                        ),
                         onPressed: () {
                           _openWeb("Information",
                               "http://catalog.illinois.edu/general-information/");
@@ -69,13 +82,21 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Faculty Listing'),
+                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        child: const Text(
+                          'Faculty Listing',
+                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                        ),
                         onPressed: () {
                           _openWeb("Faculty Listing",
                               "https://directory.illinois.edu/facultyListing");
                         }),
                     RaisedButton(
-                        child: const Text('Schedule'),
+                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        child: const Text(
+                          'Schedule',
+                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                        ),
                         onPressed: () {
                           _openWeb("Schedule",
                               "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
@@ -87,14 +108,22 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        child: const Text('Directions'),
+                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        child: const Text(
+                          'Directions',
+                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                        ),
                         onPressed: () {
                           _openWeb(
                               "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
                         })
                   ])),
           RaisedButton(
-              child: const Text('Profile'),
+              color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+              child: const Text(
+                'Profile',
+                style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+              ),
               onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(

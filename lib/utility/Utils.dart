@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter/material.dart';
 
 class Utils {
 
@@ -29,4 +30,6 @@ class Utils {
 class Constants {
   static const String DEFAULT_SERVER_HOST = "https://profile.inabyte.com";
   static const String SERVER_PORT = "8082";
+  static const Color BUTTON_DEFAULT_BACK_COLOR = Color.fromARGB(255, 20, 28, 45);
+  static const TextStyle BUTTON_DEFAULT_TEXT_STYLE = TextStyle(color: Colors.white);
 }
