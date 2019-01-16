@@ -7,6 +7,9 @@ import 'package:profile_demo/utility/Utils.dart';
 class ServerRequest {
 
   static Future<User> fetchUser(String userUuid) async {
+    if (Utils.isStringEmpty(userUuid)) {
+      return null;
+    }
     String serverHost = _constructHostValue();
     http.Response response;
     try {
@@ -53,8 +56,8 @@ class ServerRequest {
   }
 
   static Future<bool> deleteUser(String userUuid) async {
-    if (userUuid == null) {
-      return false;
+    if (Utils.isStringEmpty(userUuid)) {
+      return null;
     }
     String serverHost = _constructHostValue();
     http.Response response;
