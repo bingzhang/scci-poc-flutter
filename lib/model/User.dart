@@ -34,7 +34,7 @@ class User {
   }
 
   static Role _userRoleFromString(String roleString) {
-    if (Utils.isStringEmpty(roleString)) {
+    if (AppUtils.isStringEmpty(roleString)) {
       return Role.unknown;
     }
     return Role.values

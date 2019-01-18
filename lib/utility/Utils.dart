@@ -2,8 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 
-class Utils {
-
+class AppUtils {
   static const String _USER_UUID_KEY = "user_uuid";
 
   static void generateUserUuidIfNeeded() async {
@@ -27,9 +26,36 @@ class Utils {
   }
 }
 
-class Constants {
+class AppConstants {
   static const String DEFAULT_SERVER_HOST = "https://profile.inabyte.com";
   static const String SERVER_PORT = "8082";
-  static const Color BUTTON_DEFAULT_BACK_COLOR = Color.fromARGB(255, 20, 28, 45);
-  static const TextStyle BUTTON_DEFAULT_TEXT_STYLE = TextStyle(color: Colors.white);
+}
+
+class UiUtils {
+  static DecorationImage buildDecorationImage(String imagePath) {
+    if (AppUtils.isStringEmpty(imagePath)) {
+      return null;
+    }
+    return DecorationImage(image: AssetImage(imagePath));
+  }
+}
+
+class UiConstants {
+  static const Color BUTTON_DEFAULT_BACK_COLOR =
+      Color.fromARGB(255, 20, 28, 45);
+  static const TextStyle BUTTON_DEFAULT_TEXT_STYLE =
+      TextStyle(color: Colors.white);
+  static const Border ROUNDED_BUTTON_BORDER = Border(
+      top: _roundedButtonBorderSide,
+      right: _roundedButtonBorderSide,
+      bottom: _roundedButtonBorderSide,
+      left: _roundedButtonBorderSide);
+  static const ROUNDED_BUTTON_BOX_SHAPE = BoxShape.rectangle;
+  static const ROUNDED_BUTTON_BORDER_RADIUS =
+      BorderRadius.all(Radius.circular(5.0));
+  static const ROUNDED_BUTTON_PADDING =
+      Padding(padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 22.5));
+
+  static const BorderSide _roundedButtonBorderSide = BorderSide(
+      color: BUTTON_DEFAULT_BACK_COLOR, width: 2.0, style: BorderStyle.solid);
 }

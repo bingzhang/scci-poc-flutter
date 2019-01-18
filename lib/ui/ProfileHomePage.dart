@@ -5,6 +5,7 @@ import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/http/ServerRequest.dart';
 import 'package:profile_demo/ui/ProfileEditPage.dart';
 import 'package:profile_demo/ui/WebContentPage.dart';
+import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
 
 class ProfileHomePage extends StatefulWidget {
   ProfileHomePage({Key key}) : super(key: key);
@@ -28,7 +29,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
   }
 
   void _loadUser() async {
-    final String userUuid = await Utils.getUserUuid();
+    final String userUuid = await AppUtils.getUserUuid();
     final User user = await ServerRequest.fetchUser(userUuid);
     setState(() {
       _userRole = (user != null) ? user.role : Role.unknown;
@@ -56,20 +57,20 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
                         child: const Text(
                           'Directions',
-                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
                         ),
                         onPressed: () {
                           _openWeb(
                               "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
                         }),
                     RaisedButton(
-                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
                         child: const Text(
                           'Information',
-                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
                         ),
                         onPressed: () {
                           _openWeb("Information",
@@ -82,20 +83,20 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
                         child: const Text(
                           'Faculty Listing',
-                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
                         ),
                         onPressed: () {
                           _openWeb("Faculty Listing",
                               "https://directory.illinois.edu/facultyListing");
                         }),
                     RaisedButton(
-                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
                         child: const Text(
                           'Schedule',
-                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
                         ),
                         onPressed: () {
                           _openWeb("Schedule",
@@ -108,27 +109,22 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                        color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
                         child: const Text(
                           'Directions',
-                          style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
                         ),
                         onPressed: () {
                           _openWeb(
                               "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
                         })
                   ])),
-          RaisedButton(
-              color: Constants.BUTTON_DEFAULT_BACK_COLOR,
-              child: const Text(
-                'Profile',
-                style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
-              ),
-              onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileEditPage()))
-                  .then((value) => _loadUser()))
+          RoundedImageButton(
+            imageRelativePath: 'images/Illinois.jpg',
+            onTapGesture: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileEditPage()))
+                .then((value) => _loadUser()),
+          ),
         ],
       )),
     );

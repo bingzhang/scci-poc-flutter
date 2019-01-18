@@ -38,7 +38,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   void loadUser() async {
-    final String userUuid = await Utils.getUserUuid();
+    final String userUuid = await AppUtils.getUserUuid();
     _user = await ServerRequest.fetchUser(userUuid);
     if (_user == null) {
       _user = new User.fromUuid(userUuid);
@@ -136,10 +136,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             RaisedButton(
-              color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+              color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
               child: const Text(
                 'Save',
-                style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
               ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
@@ -158,10 +158,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               },
             ),
             RaisedButton(
-              color: Constants.BUTTON_DEFAULT_BACK_COLOR,
+              color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
               child: const Text(
                 'Delete',
-                style: Constants.BUTTON_DEFAULT_TEXT_STYLE,
+                style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
               ),
               onPressed: () {
                 _performDelete();
