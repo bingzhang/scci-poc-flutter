@@ -51,62 +51,41 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Visibility(
-              visible: _userRole != Role.unknown,
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
-                  child: RoundedImageButton(
-                      imageRelativePath: 'images/campus.jpg',
-                      onTapGesture: () {
-                        _openWeb("Getting Around",
-                            "https://goo.gl/maps/vc7DRLgiMM22");
-                      }))),
-          Visibility(
-              visible: _userRole == Role.student,
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
-                  child: RoundedImageButton(
-                      imageRelativePath: 'images/Bardeen-Quad2.jpg',
-                      onTapGesture: () {
-                        _openWeb("General Info",
-                            "http://catalog.illinois.edu/general-information/");
-                      }))),
-          Visibility(
-              visible: _userRole != Role.unknown,
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
-                  child: RoundedImageButton(
-                      imageRelativePath: 'images/athletics.jpg',
-                      onTapGesture: () {
-                        _openWeb("Athletics", "https://fightingillini.com/");
-                      }))),
-          Visibility(
+          RoundedImageButton(
+              visible: (_userRole != Role.unknown),
+              imageRelativePath: 'images/campus.jpg',
+              onTapGesture: () {
+                _openWeb("Getting Around", "https://goo.gl/maps/vc7DRLgiMM22");
+              }),
+          RoundedImageButton(
+              visible: (_userRole == Role.student),
+              imageRelativePath: 'images/Bardeen-Quad2.jpg',
+              onTapGesture: () {
+                _openWeb("General Info",
+                    "http://catalog.illinois.edu/general-information/");
+              }),
+          RoundedImageButton(
+              visible: (_userRole != Role.unknown),
+              imageRelativePath: 'images/athletics.jpg',
+              onTapGesture: () {
+                _openWeb("Athletics", "https://fightingillini.com/");
+              }),
+          RoundedImageButton(
               visible:
                   ((_userRole == Role.student) || (_userRole == Role.staff)),
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
-                  child: RoundedImageButton(
-                      imageRelativePath: 'images/krannert.jpg',
-                      onTapGesture: () {
-                        _openWeb(
-                            "Events", "https://krannertcenter.com/calendar");
-                      }))),
-          Visibility(
-              visible: (_userRole == Role.student),
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
-                  child: RoundedImageButton(
-                      imageRelativePath: 'images/Altgeld.jpg',
-                      onTapGesture: () {
-                        _openWeb("Schedule",
-                            "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
-                      }))),
+              imageRelativePath: 'images/krannert.jpg',
+              onTapGesture: () {
+                _openWeb("Events", "https://krannertcenter.com/calendar");
+              }),
           RoundedImageButton(
+              visible: (_userRole == Role.student),
+              imageRelativePath: 'images/Altgeld.jpg',
+              onTapGesture: () {
+                _openWeb("Schedule",
+                    "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
+              }),
+          RoundedImageButton(
+            visible: true,
             imageRelativePath: 'images/Illinois.jpg',
             onTapGesture: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ProfileEditPage()))
