@@ -54,7 +54,8 @@ class UiConstants {
   static const ROUNDED_BUTTON_BORDER_RADIUS =
       BorderRadius.all(Radius.circular(5.0));
   static const ROUNDED_BUTTON_PADDING =
-      Padding(padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 22.5));
+      Padding(padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 30.0));
+  static const double HOME_BUTTONS_PADDING_H = 10.0;
 
   static const BorderSide _roundedButtonBorderSide = BorderSide(
       color: BUTTON_DEFAULT_BACK_COLOR, width: 2.0, style: BorderStyle.solid);

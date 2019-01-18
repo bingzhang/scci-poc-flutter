@@ -5,7 +5,8 @@ class RoundedImageButton extends StatelessWidget {
   final String imageRelativePath;
   final GestureTapCallback onTapGesture;
 
-  RoundedImageButton({Key key, this.imageRelativePath, this.onTapGesture}) : super(key: key);
+  RoundedImageButton({Key key, this.imageRelativePath, this.onTapGesture})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

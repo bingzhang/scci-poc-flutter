@@ -52,73 +52,60 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Visibility(
+              visible: _userRole != Role.unknown,
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
+                  child: RoundedImageButton(
+                      imageRelativePath: 'images/campus.jpg',
+                      onTapGesture: () {
+                        _openWeb("Getting Around",
+                            "https://goo.gl/maps/vc7DRLgiMM22");
+                      }))),
+          Visibility(
               visible: _userRole == Role.student,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
-                        child: const Text(
-                          'Directions',
-                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
-                        ),
-                        onPressed: () {
-                          _openWeb(
-                              "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
-                        }),
-                    RaisedButton(
-                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
-                        child: const Text(
-                          'Information',
-                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
-                        ),
-                        onPressed: () {
-                          _openWeb("Information",
-                              "http://catalog.illinois.edu/general-information/");
-                        })
-                  ])),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
+                  child: RoundedImageButton(
+                      imageRelativePath: 'images/Bardeen-Quad2.jpg',
+                      onTapGesture: () {
+                        _openWeb("General Info",
+                            "http://catalog.illinois.edu/general-information/");
+                      }))),
           Visibility(
-              visible: _userRole == Role.staff,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
-                        child: const Text(
-                          'Faculty Listing',
-                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
-                        ),
-                        onPressed: () {
-                          _openWeb("Faculty Listing",
-                              "https://directory.illinois.edu/facultyListing");
-                        }),
-                    RaisedButton(
-                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
-                        child: const Text(
-                          'Schedule',
-                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
-                        ),
-                        onPressed: () {
-                          _openWeb("Schedule",
-                              "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
-                        })
-                  ])),
+              visible: _userRole != Role.unknown,
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
+                  child: RoundedImageButton(
+                      imageRelativePath: 'images/athletics.jpg',
+                      onTapGesture: () {
+                        _openWeb("Athletics", "https://fightingillini.com/");
+                      }))),
           Visibility(
-              visible: _userRole == Role.other,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                        color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
-                        child: const Text(
-                          'Directions',
-                          style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
-                        ),
-                        onPressed: () {
-                          _openWeb(
-                              "Directions", "https://goo.gl/maps/vc7DRLgiMM22");
-                        })
-                  ])),
+              visible:
+                  ((_userRole == Role.student) || (_userRole == Role.staff)),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
+                  child: RoundedImageButton(
+                      imageRelativePath: 'images/krannert.jpg',
+                      onTapGesture: () {
+                        _openWeb(
+                            "Events", "https://krannertcenter.com/calendar");
+                      }))),
+          Visibility(
+              visible: (_userRole == Role.student),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: UiConstants.HOME_BUTTONS_PADDING_H),
+                  child: RoundedImageButton(
+                      imageRelativePath: 'images/Altgeld.jpg',
+                      onTapGesture: () {
+                        _openWeb("Schedule",
+                            "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
+                      }))),
           RoundedImageButton(
             imageRelativePath: 'images/Illinois.jpg',
             onTapGesture: () => Navigator.push(context,
