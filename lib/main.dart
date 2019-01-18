@@ -15,7 +15,7 @@ class ProfileDemoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Profile Demo',
+      title: 'UUIC',
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 28, 38, 58),
       ),
