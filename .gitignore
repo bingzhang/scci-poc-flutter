@@ -13,3 +13,6 @@ xcuserdata
 /ios/Flutter/App.framework
 /ios/Flutter/Flutter.framework
 /ios/Flutter/Generated.xcconfig
+/ios/Flutter/flutter_assets/isolate_snapshot_data
+/ios/Flutter/flutter_assets/vm_snapshot_data
+/ios/Flutter/flutter_assets/kernel_blob.bin
