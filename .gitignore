@@ -4,9 +4,12 @@
 /android/.gradle
 .packages
 .flutter-plugins
-/ios/Flutter/Generated.xcconfig
+
 DerivedData
 xcuserdata
 /ios/.symlinks
 /ios/Pods
 /ios/Podfile*
+/ios/Flutter/App.framework
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Generated.xcconfig
