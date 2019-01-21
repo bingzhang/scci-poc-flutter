@@ -52,18 +52,22 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
         centerTitle: true,
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0,UiConstants.HOME_TOP_SPACING, 0, 0),
+    child:Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           RoundedImageButton(
               visible: true,
               imageRelativePath: 'images/campus.jpg',
+              sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
               onTapGesture: () {
                 _openWeb("Getting Around", "https://goo.gl/maps/vc7DRLgiMM22");
               }),
           RoundedImageButton(
               visible: (_userRole == Role.student),
               imageRelativePath: 'images/Bardeen-Quad2.jpg',
+              sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
               onTapGesture: () {
                 _openWeb("General Info",
                     "http://catalog.illinois.edu/general-information/");
@@ -71,6 +75,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
           RoundedImageButton(
               visible: true,
               imageRelativePath: 'images/athletics.jpg',
+              sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
               onTapGesture: () {
                 _openWeb("Athletics", "https://fightingillini.com/");
               }),
@@ -78,12 +83,14 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
               visible:
                   ((_userRole == Role.student) || (_userRole == Role.staff)),
               imageRelativePath: 'images/krannert.jpg',
+              sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
               onTapGesture: () {
                 _openWeb("Events", "https://krannertcenter.com/calendar");
               }),
           RoundedImageButton(
               visible: (_userRole == Role.student),
               imageRelativePath: 'images/Altgeld.jpg',
+              sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
               onTapGesture: () {
                 _openWeb("Schedule",
                     "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
@@ -91,13 +98,16 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
           RoundedImageButton(
             visible: true,
             imageRelativePath: 'images/Illinois.jpg',
+            sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
             onTapGesture: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ProfileEditPage()))
                 .then((value) => _loadUser()),
           ),
         ],
+    )
       )),
     );
+
   }
 
   void _openWeb(String title, String url) {

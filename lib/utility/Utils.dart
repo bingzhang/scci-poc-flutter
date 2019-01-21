@@ -40,7 +40,7 @@ class UiUtils {
     if (AppUtils.isStringEmpty(imagePath)) {
       return null;
     }
-    return DecorationImage(image: AssetImage(imagePath));
+    return DecorationImage(image: AssetImage(imagePath), fit: BoxFit.fill);
   }
 }
 
@@ -59,7 +59,10 @@ class UiConstants {
       BorderRadius.all(Radius.circular(5.0));
   static const ROUNDED_BUTTON_PADDING =
       Padding(padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 30.0));
-  static const double HOME_BUTTONS_PADDING_H = 10.0;
+  static const double HOME_BUTTONS_SPACING = 12;
+  static const double HOME_BUTTONS_PADDING_W = 6;
+  static const double HOME_TOP_SPACING = 32;
+  static const double HOME_BUTTONS_ASPECT_RATIO = 0.40;
 
   static const BorderSide _roundedButtonBorderSide = BorderSide(
       color: BUTTON_DEFAULT_BACK_COLOR, width: 2.0, style: BorderStyle.solid);
