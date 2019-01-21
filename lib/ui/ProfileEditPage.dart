@@ -183,7 +183,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     bool saveSucceeded = await ServerRequest.saveUser(_user);
     String saveResultMsg =
         (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
-    Alert.showDialogResult(context, saveResultMsg);
+    bool alertDismissed = await Alert.showDialogResult(context, saveResultMsg);
+    if (saveSucceeded && alertDismissed) {
+      Navigator.pop(context);
+    }
   }
 
   void _performDelete() async {
