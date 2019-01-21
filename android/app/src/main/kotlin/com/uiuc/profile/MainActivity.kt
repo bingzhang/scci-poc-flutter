@@ -1,4 +1,4 @@
-package com.inabyte.profiledemo
+package com.uiuc.profile
 
 import android.os.Bundle
 
