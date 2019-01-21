@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 UIUC. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
 import 'package:profile_demo/utility/Utils.dart';
 

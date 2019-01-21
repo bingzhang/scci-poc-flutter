@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 UIUC. All rights reserved.
+ */
+
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';

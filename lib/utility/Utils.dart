@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 UIUC. All rights reserved.
+ */
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
