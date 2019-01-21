@@ -52,7 +52,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           RoundedImageButton(
-              visible: (_userRole != Role.unknown),
+              visible: true,
               imageRelativePath: 'images/campus.jpg',
               onTapGesture: () {
                 _openWeb("Getting Around", "https://goo.gl/maps/vc7DRLgiMM22");
@@ -65,7 +65,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                     "http://catalog.illinois.edu/general-information/");
               }),
           RoundedImageButton(
-              visible: (_userRole != Role.unknown),
+              visible: true,
               imageRelativePath: 'images/athletics.jpg',
               onTapGesture: () {
                 _openWeb("Athletics", "https://fightingillini.com/");
