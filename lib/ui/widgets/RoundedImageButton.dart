@@ -22,7 +22,6 @@ class RoundedImageButton extends StatelessWidget {
         visible: visible,
         child: Padding(
             padding:
-//                EdgeInsets.only(bottom: UiConstants.HOME_BUTTONS_PADDING_H,left: UiConstants.HOME_BUTTONS_PADDING_W, right: UiConstants.HOME_BUTTONS_PADDING_W),
                   EdgeInsets.fromLTRB(UiConstants.HOME_BUTTONS_PADDING_W, 0, UiConstants.HOME_BUTTONS_PADDING_W, UiConstants.HOME_BUTTONS_SPACING),
             child: Ink(
               width: width,

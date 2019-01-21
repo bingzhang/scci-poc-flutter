@@ -54,8 +54,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
       body: Center(
           child: Padding(
             padding: EdgeInsets.fromLTRB(0,UiConstants.HOME_TOP_SPACING, 0, 0),
-    child:Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+    child:ListView(
         children: <Widget>[
           RoundedImageButton(
               visible: true,
