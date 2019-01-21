@@ -14,7 +14,10 @@ Steps: https://flutter.io/docs/get-started/install
 ##### Note: Release APK is created at `<app dir>/build/app/outputs/apk/release/app-release.apk`.
 #### 3.2 iOS
 ##### 3.2.1 Go to applications root directory - `cd <app dir>`
-##### 3.2.2 Run `flutter build ios` (`flutter build` defaults to `--release`). Note: that this step requires code signing certificate
+##### 3.2.2 Run `flutter build ios` (`flutter build` defaults to `--release`).
+##### Note: that this step requires code signing certificate.
+##### It will create `<application_root>/build/ios/iphoneos/Runner.app` application bundle.
+##### If the application bundle fails to install on iPhone device with `“CFBundleExecutable” specifies a file that is not executable` run `chmod +x <application_root>/build/ios/iphoneos/Runner.app/Runner`.
 
 ### 4. Install on a device
 #### 4.1 Android

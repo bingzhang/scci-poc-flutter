@@ -6,6 +6,7 @@
 .flutter-plugins
 /ios/Flutter/Generated.xcconfig
 DerivedData
+xcuserdata
 /ios/.symlinks
 /ios/Pods
 /ios/Podfile*
