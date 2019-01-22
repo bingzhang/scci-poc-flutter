@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
@@ -23,6 +24,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   final _birthDateController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
+  bool _loading = false;
   String _userName;
   String _userPhone;
   String _userBirthDate;
@@ -57,24 +59,28 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('My Profile'),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(20.0),
-          child: Form(
-            key: _formKey,
-            autovalidate: _autoValidate,
-            child: _profileInfoForm(),
-          ),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('My Profile'),
+        ),
+        body: ModalProgressHUD(
+            child: _buildEditProfileContainer(context), inAsyncCall: _loading));
+  }
+
+  Widget _buildEditProfileContainer(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Form(
+          key: _formKey,
+          autovalidate: _autoValidate,
+          child: _buildProfileInfoForm(),
         ),
       ),
     );
   }
 
-  Widget _profileInfoForm() {
+  Widget _buildProfileInfoForm() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -147,6 +153,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
+                  setLoading(true);
                   _formKey.currentState.setState(() {
                     _userName = _nameController.text;
                     _userPhone = _phoneController.text;
@@ -167,6 +174,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
               ),
               onPressed: () {
+                setLoading(true);
                 _performDelete();
               },
             ),
@@ -183,8 +191,14 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       return;
     }
     final String userUuid = await AppUtils.getUserUuid();
-    final User updatedUser = User(uuid: userUuid, name: _userName, phone: _userPhone, birthDate: _userBirthDate, role: _userRole);
+    final User updatedUser = User(
+        uuid: userUuid,
+        name: _userName,
+        phone: _userPhone,
+        birthDate: _userBirthDate,
+        role: _userRole);
     ProfileLogic().saveUser(updatedUser).then((saveSucceeded) {
+      setLoading(false);
       String saveResultMsg =
           (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
       Alert.showDialogResult(context, saveResultMsg).then((alertDismissed) {
@@ -202,6 +216,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       return;
     }
     ProfileLogic().deleteUser(userUuid).then((deleteSucceeded) {
+      setLoading(false);
       String deleteResultMsg = (deleteSucceeded ? 'Succeeded' : 'Failed') +
           ' to delete user profile';
       Alert.showDialogResult(context, deleteResultMsg).then((alertDismissed) {
@@ -268,5 +283,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   bool _validateSelectedUserRole() {
     return _userRole != Role.unknown;
+  }
+
+  void setLoading(bool isLoading) {
+    setState(() {
+      _loading = isLoading;
+    });
   }
 }
