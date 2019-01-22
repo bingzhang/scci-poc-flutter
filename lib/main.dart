@@ -5,14 +5,16 @@
 import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/ProfileHomePage.dart';
 import 'package:profile_demo/utility/Utils.dart';
+import 'package:profile_demo/logic/ProfileLogic.dart';
 
-void main() {
+void main() async {
+  await init();
   runApp(ProfileDemoApp());
-  init();
 }
 
-void init() {
-  AppUtils.generateUserUuidIfNeeded();
+Future<void> init() async {
+  await AppUtils.generateUserUuidIfNeeded();
+  await ProfileLogic().loadUser();
 }
 
 class ProfileDemoApp extends StatelessWidget {

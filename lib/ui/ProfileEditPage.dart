@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/model/Role.dart';
-import 'package:profile_demo/http/ServerRequest.dart';
+import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/Alert.dart';
 
@@ -21,10 +21,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _birthDateController = TextEditingController();
-  User _user;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  Role _selectedUserRole = Role.unknown;
+  String _userName;
+  String _userPhone;
+  String _userBirthDate;
+  Role _userRole = Role.unknown;
 
   @override
   void initState() {
@@ -42,16 +44,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   void loadUser() async {
-    final String userUuid = await AppUtils.getUserUuid();
-    _user = await ServerRequest.fetchUser(userUuid);
-    if (_user == null) {
-      _user = new User.fromUuid(userUuid);
-    }
+    final User user = ProfileLogic().getUser();
     setState(() {
-      _nameController.text = _user.name;
-      _phoneController.text = _user.phone;
-      _birthDateController.text = _user.birthDate;
-      _selectedUserRole = _user.role;
+      final bool hasUser = (user != null);
+      _nameController.text = (hasUser) ? user.name : null;
+      _phoneController.text = (hasUser) ? user.phone : null;
+      _birthDateController.text = (hasUser) ? user.birthDate : null;
+      _userRole = (hasUser) ? user.role : Role.unknown;
     });
   }
 
@@ -62,10 +61,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         centerTitle: true,
         title: Text('My Profile'),
       ),
-      body: new SingleChildScrollView(
-        child: new Container(
-          padding: const EdgeInsets.all(20.0),
-          child: new Form(
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Form(
             key: _formKey,
             autovalidate: _autoValidate,
             child: _profileInfoForm(),
@@ -76,7 +75,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   Widget _profileInfoForm() {
-    return new Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Padding(
@@ -119,21 +118,21 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[const Text('Role:')])),
+                    children: <Widget>[Text('Role:')])),
             RadioListTile(
-                title: const Text('Student'),
+                title: Text('Student'),
                 value: Role.student,
-                groupValue: _selectedUserRole,
+                groupValue: _userRole,
                 onChanged: _onRoleChanged),
             RadioListTile(
-                title: const Text('Staff'),
+                title: Text('Staff'),
                 value: Role.staff,
-                groupValue: _selectedUserRole,
+                groupValue: _userRole,
                 onChanged: _onRoleChanged),
             RadioListTile(
-                title: const Text('Other'),
+                title: Text('Other'),
                 value: Role.other,
-                groupValue: _selectedUserRole,
+                groupValue: _userRole,
                 onChanged: _onRoleChanged)
           ],
         ),
@@ -142,17 +141,16 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           children: <Widget>[
             RaisedButton(
               color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
-              child: const Text(
+              child: Text(
                 'Save',
                 style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
               ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.setState(() {
-                    _user.name = _nameController.text;
-                    _user.phone = _phoneController.text;
-                    _user.birthDate = _birthDateController.text;
-                    _user.role = _selectedUserRole;
+                    _userName = _nameController.text;
+                    _userPhone = _phoneController.text;
+                    _userBirthDate = _birthDateController.text;
                   });
                   _performSave();
                 } else {
@@ -164,7 +162,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             ),
             RaisedButton(
               color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
-              child: const Text(
+              child: Text(
                 'Delete',
                 style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
               ),
@@ -184,37 +182,48 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       Alert.showDialogResult(context, 'Please, select role.');
       return;
     }
-    bool saveSucceeded = await ServerRequest.saveUser(_user);
-    String saveResultMsg =
-        (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
-    bool alertDismissed = await Alert.showDialogResult(context, saveResultMsg);
-    if (saveSucceeded && alertDismissed) {
-      Navigator.pop(context);
-    }
+    final String userUuid = await AppUtils.getUserUuid();
+    final User updatedUser = User(uuid: userUuid, name: _userName, phone: _userPhone, birthDate: _userBirthDate, role: _userRole);
+    ProfileLogic().saveUser(updatedUser).then((saveSucceeded) {
+      String saveResultMsg =
+          (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
+      Alert.showDialogResult(context, saveResultMsg).then((alertDismissed) {
+        if (saveSucceeded && alertDismissed) {
+          Navigator.pop(context);
+        }
+      });
+    });
   }
 
   void _performDelete() async {
-    bool deleteSucceeded = await ServerRequest.deleteUser(_user.uuid);
-    String deleteResultMsg =
-        (deleteSucceeded ? "Succeeded" : "Failed") + " to delete user profile";
-    Alert.showDialogResult(context, deleteResultMsg);
-    _restoreUserValues(deleteSucceeded);
+    final String userUuid = await AppUtils.getUserUuid();
+    if (userUuid == null) {
+      Alert.showDialogResult(context, 'There is no saved profile to delete.');
+      return;
+    }
+    ProfileLogic().deleteUser(userUuid).then((deleteSucceeded) {
+      String deleteResultMsg = (deleteSucceeded ? 'Succeeded' : 'Failed') +
+          ' to delete user profile';
+      Alert.showDialogResult(context, deleteResultMsg).then((alertDismissed) {
+        if (deleteSucceeded && alertDismissed) {
+          _restoreUserValues();
+        }
+      });
+    });
   }
 
-  void _restoreUserValues(bool restore) {
-    if (restore) {
-      setState(() {
-        _nameController.clear();
-        _phoneController.clear();
-        _birthDateController.clear();
-        _selectedUserRole = Role.unknown;
-      });
-    }
+  void _restoreUserValues() {
+    setState(() {
+      _nameController.clear();
+      _phoneController.clear();
+      _birthDateController.clear();
+      _userRole = Role.unknown;
+    });
   }
 
   void _onRoleChanged(Role role) {
     setState(() {
-      _selectedUserRole = role;
+      _userRole = role;
     });
   }
 
@@ -258,6 +267,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   bool _validateSelectedUserRole() {
-    return _selectedUserRole != Role.unknown;
+    return _userRole != Role.unknown;
   }
 }

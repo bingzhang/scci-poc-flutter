@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/utility/Utils.dart';
-import 'package:profile_demo/http/ServerRequest.dart';
+import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/ui/ProfileEditPage.dart';
 import 'package:profile_demo/ui/WebContentPage.dart';
 import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
@@ -32,9 +32,8 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
     super.dispose();
   }
 
-  void _loadUser() async {
-    final String userUuid = await AppUtils.getUserUuid();
-    final User user = await ServerRequest.fetchUser(userUuid);
+  void _loadUser() {
+    final User user = ProfileLogic().getUser();
     setState(() {
       _userRole = (user != null) ? user.role : Role.unknown;
     });

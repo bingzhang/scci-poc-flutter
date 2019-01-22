@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class AppUtils {
   static const String _USER_UUID_KEY = "user_uuid";
 
-  static void generateUserUuidIfNeeded() async {
+  static Future<void> generateUserUuidIfNeeded() async {
     String userUuid = await getUserUuid();
     if (userUuid == null) {
       var uuid = new Uuid();
