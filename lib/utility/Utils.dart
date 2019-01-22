@@ -47,6 +47,7 @@ class UiUtils {
 class UiConstants {
   static const Color BUTTON_DEFAULT_BACK_COLOR =
       Color.fromARGB(255, 20, 28, 45);
+  static const APP_BRAND_COLOR = Color.fromARGB(255, 28, 38, 58);
   static const TextStyle BUTTON_DEFAULT_TEXT_STYLE =
       TextStyle(color: Colors.white);
   static const Border ROUNDED_BUTTON_BORDER = Border(

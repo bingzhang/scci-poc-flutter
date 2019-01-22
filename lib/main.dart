@@ -21,7 +21,7 @@ class ProfileDemoApp extends StatelessWidget {
     return MaterialApp(
       title: 'UIUC',
       theme: ThemeData(
-        primaryColor: Color.fromARGB(255, 28, 38, 58),
+        primaryColor: UiConstants.APP_BRAND_COLOR,
       ),
       home: ProfileHomePage(),
     );
