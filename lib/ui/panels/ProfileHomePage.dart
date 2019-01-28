@@ -7,8 +7,8 @@ import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
-import 'package:profile_demo/ui/ProfileEditPage.dart';
-import 'package:profile_demo/ui/WebContentPage.dart';
+import 'package:profile_demo/ui/panels/ProfileEditPage.dart';
+import 'package:profile_demo/ui/panels/WebContentPage.dart';
 import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
 
 class ProfileHomePage extends StatefulWidget {

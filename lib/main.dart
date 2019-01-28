@@ -3,7 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:profile_demo/ui/ProfileHomePage.dart';
+import 'package:profile_demo/ui/panels/ProfileHomePage.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 
