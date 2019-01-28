@@ -50,7 +50,7 @@ class StaticFormPanel6 extends StatelessWidget {
       Container radioContainer = Container(
         margin: widgetsMargin,
         child: RadioListTile(
-            title: Text('Radio $index'), value: index, onChanged: null),
+            title: Text('Radio $index'), groupValue: null, value: index, onChanged: null),
       );
       panelWidgets.add(radioContainer);
     }
