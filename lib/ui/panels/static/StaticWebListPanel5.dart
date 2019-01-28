@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/panels/WebContentPage.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
-class StaticWebListPanel extends StatelessWidget {
+class StaticWebListPanel5 extends StatelessWidget {
   List<StaticListModel> items;
-  StaticWebListPanel({Key key}) : super(key: key);
+  StaticWebListPanel5({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     items = constructStaticData();
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text("Web List"),
+          title: new Text("Web List 5"),
         ),
         body: new Column(children: <Widget>[
           new Expanded(
