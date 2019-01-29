@@ -27,13 +27,14 @@ class StaticListItem extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
               border: UiConstants.ROUNDED_BUTTON_BORDER,
+              color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
               shape: UiConstants.ROUNDED_BUTTON_BOX_SHAPE,
               borderRadius: UiConstants.ROUNDED_BUTTON_BORDER_RADIUS),
           child: InkWell(
             onTap: () {
               _onTapGesture(context, data.url, data.pageTitle);
             },
-            child: new Center(child: new Text(data.buttonTitle)),
+            child: new Center(child: new Text(data.buttonTitle,style: UiConstants.ROUNDED_TEXT_BUTTON_STYLE)),
           ),
         ));
   }
