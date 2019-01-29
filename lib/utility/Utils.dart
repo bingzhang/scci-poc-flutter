@@ -63,7 +63,7 @@ class AppUtils {
 }
 
 class AppConstants {
-  static const String DEFAULT_SERVER_HOST = "http://profile.inabyte.com";
+  static const String DEFAULT_SERVER_HOST = "https://profile.inabyte.com";
   static const String SERVER_PORT = "8082";
 }
 

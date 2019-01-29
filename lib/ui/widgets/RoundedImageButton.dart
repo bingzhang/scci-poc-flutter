@@ -11,32 +11,29 @@ class RoundedImageButton extends StatelessWidget {
   final String imagePath;
   final GestureTapCallback onTapGesture;
   final double sizeRatio;
+  final double innerGutter;
   final String text;
 
-  RoundedImageButton({Key key,
-    this.visible,
-    this.imageType,
-    this.imagePath,
-    this.onTapGesture,
-    this.sizeRatio,
-    this.text})
+  RoundedImageButton(
+      {Key key,
+      this.visible,
+      this.imageType,
+      this.imagePath,
+      this.onTapGesture,
+      this.sizeRatio,
+      this.innerGutter = UiConstants.HOME_BUTTONS_SPACING,
+      this.text})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double width = MediaQuery.of(context).size.width;
     double height = width * sizeRatio;
     return Visibility(
         visible: visible,
         child: Padding(
             padding: EdgeInsets.fromLTRB(
-                UiConstants.HOME_BUTTONS_PADDING_W,
-                0,
-                UiConstants.HOME_BUTTONS_PADDING_W,
-                UiConstants.HOME_BUTTONS_SPACING),
+                UiConstants.HOME_BUTTONS_PADDING_W, 0, UiConstants.HOME_BUTTONS_PADDING_W, innerGutter),
             child: Ink(
               width: width,
               height: height,
@@ -50,9 +47,7 @@ class RoundedImageButton extends StatelessWidget {
                 onTap: onTapGesture,
                 child: text == null || text.isEmpty
                     ? UiConstants.ROUNDED_BUTTON_PADDING
-                    : new Center(
-                    child: new Text(text,
-                        style: UiConstants.ROUNDED_TEXT_BUTTON_STYLE)),
+                    : new Center(child: new Text(text, style: UiConstants.ROUNDED_TEXT_BUTTON_STYLE)),
               ),
             )));
   }

@@ -58,8 +58,9 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
       return Text('Sorry, unable to load UI. Please try again later');
     }
     List<dynamic> widgets = UiLogic().getHomeWidgets();
+    double widgetsInnerGutter = UiLogic().getHomeInnerGutter();
     return ListView(
-        children: WidgetHelper.createPanelContentFor(context, widgets, _userRole, _getEditProfileTapGesture()));
+        children: WidgetHelper.createPanelContentFor(context, widgets, widgetsInnerGutter, _userRole, _getEditProfileTapGesture()));
   }
 
   GestureTapCallback _getEditProfileTapGesture() {

@@ -40,6 +40,13 @@ class UiLogic {
     return EdgeInsets.fromLTRB(left, top, right, bottom);
   }
 
+  double getHomeInnerGutter() {
+    if (!hasHomePanelDefinition()) {
+      return 0.0;
+    }
+    return AppUtils.parseDoubleFrom(_homePanelJson['inner_gutter']);
+  }
+
   bool hasHomePanelDefinition() {
     return (_homePanelJson != null);
   }

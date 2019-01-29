@@ -30,7 +30,7 @@ import 'package:profile_demo/ui/panels/static/StaticWebListPanel10.dart';
 
 class WidgetHelper {
   static List<Widget> createPanelContentFor(
-      BuildContext context, List<dynamic> widgets, Role role, GestureTapCallback editProfileTapGesture) {
+      BuildContext context, List<dynamic> widgets, double widgetsInnerGutter, Role role, GestureTapCallback editProfileTapGesture) {
     if (widgets == null || widgets.isEmpty) {
       return null;
     }
@@ -64,6 +64,7 @@ class WidgetHelper {
           imageType: imageType,
           imagePath: imagePath,
           sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+          innerGutter: widgetsInnerGutter,
           text: widgetTitle);
       widgetsList.add(currentWidget);
     });
