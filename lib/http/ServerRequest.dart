@@ -9,7 +9,6 @@ import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class ServerRequest {
-
   static Future<User> fetchUser(String userUuid) async {
     if (AppUtils.isStringEmpty(userUuid)) {
       return null;
@@ -43,8 +42,7 @@ class ServerRequest {
     String userJson = json.encode(user);
     http.Response response;
     try {
-      response = await http.post('$serverHost/profile',
-          body: userJson, encoding: Encoding.getByName("utf-8"));
+      response = await http.post('$serverHost/profile', body: userJson, encoding: Encoding.getByName("utf-8"));
     } catch (e) {
       print(e.toString());
       return false;
@@ -78,6 +76,25 @@ class ServerRequest {
       print('Failed to delete user');
       print(response.body);
       return false;
+    }
+  }
+
+  static Future<String> loadUiConfig() async {
+    String serverHost = _constructHostValue();
+    http.Response response;
+    try {
+      response = await http.get('$serverHost/ui/config');
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      print('Failed to load ui config');
+      print(response.body);
+      return null;
     }
   }
 
