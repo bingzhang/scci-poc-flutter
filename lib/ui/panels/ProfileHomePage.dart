@@ -5,6 +5,27 @@
 import 'package:flutter/material.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/model/Role.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel1.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel10.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel2.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel3.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel4.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel5.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel6.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel7.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel8.dart';
+import 'package:profile_demo/ui/panels/static/StaticFormPanel9.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel1.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel10.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel2.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel3.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel4.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel5.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel6.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel7.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel8.dart';
+import 'package:profile_demo/ui/panels/static/StaticWebListPanel9.dart';
+import 'package:profile_demo/ui/widgets/RoundedTextButton.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/ui/panels/ProfileEditPage.dart';
@@ -106,9 +127,177 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                                 builder: (context) => ProfileEditPage()))
                         .then((value) => _loadUser()),
                   ),
+                  //STATIC PANELS
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 1",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel1());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 2",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel2());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 3",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel3());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 4",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel4());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 5",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel5());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 6",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel6());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 7",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel7());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 8",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel8());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 9",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel9());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 10",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticFormPanel10());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 11",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel1());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 12",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel2());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 13",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel3());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 14",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel4());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 15",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel5());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 16",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel6());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 17",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel7());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 18",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel8());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 19",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel9());
+                    }
+                  ),
+                  RoundedTextButton(
+                    visible: (_userRole == Role.staff),
+                    text: "Static Panel 20",
+                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+                    onTapGesture: () {
+                      _openPanel(StaticWebListPanel10());
+                    }
+                  ),
                 ],
               ))),
     );
+  }
+
+  void _openPanel(Widget panel){
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => panel));
   }
 
   void _openWeb(String title, String url) {
