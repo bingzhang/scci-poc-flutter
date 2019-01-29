@@ -5,31 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/model/Role.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel1.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel10.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel2.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel3.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel4.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel5.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel6.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel7.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel8.dart';
-import 'package:profile_demo/ui/panels/static/StaticFormPanel9.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel1.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel10.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel2.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel3.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel4.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel5.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel6.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel7.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel8.dart';
-import 'package:profile_demo/ui/panels/static/StaticWebListPanel9.dart';
-import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
+import 'package:profile_demo/logic/UiLogic.dart';
+import 'package:profile_demo/ui/WidgetHelper.dart';
 import 'package:profile_demo/ui/panels/ProfileEditPage.dart';
-import 'package:profile_demo/ui/panels/WebContentPage.dart';
-import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
 
 class ProfileHomePage extends StatefulWidget {
   ProfileHomePage({Key key}) : super(key: key);
@@ -70,239 +49,21 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
         ),
         centerTitle: true,
       ),
-      body: Center(
-          child: Padding(
-              padding:
-                  EdgeInsets.fromLTRB(0, UiConstants.HOME_TOP_SPACING, 0, 0),
-              child: ListView(
-                children: <Widget>[
-                  RoundedImageButton(
-                      visible: true,
-                      imageRelativePath: 'images/campus.jpg',
-                      sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                      onTapGesture: () {
-                        _openWeb("Getting Around",
-                            "https://goo.gl/maps/vc7DRLgiMM22");
-                      }),
-                  RoundedImageButton(
-                      visible: (_userRole == Role.student),
-                      imageRelativePath: 'images/Bardeen-Quad2.jpg',
-                      sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                      onTapGesture: () {
-                        _openWeb("General Info",
-                            "http://catalog.illinois.edu/general-information/");
-                      }),
-                  RoundedImageButton(
-                      visible: true,
-                      imageRelativePath: 'images/athletics.jpg',
-                      sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                      onTapGesture: () {
-                        _openWeb("Athletics", "https://fightingillini.com/");
-                      }),
-                  RoundedImageButton(
-                      visible: ((_userRole == Role.student) ||
-                          (_userRole == Role.staff)),
-                      imageRelativePath: 'images/krannert.jpg',
-                      sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                      onTapGesture: () {
-                        _openWeb(
-                            "Events", "https://krannertcenter.com/calendar");
-                      }),
-                  RoundedImageButton(
-                      visible: (_userRole == Role.student),
-                      imageRelativePath: 'images/Altgeld.jpg',
-                      sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                      onTapGesture: () {
-                        _openWeb("Schedule",
-                            "https://courses.illinois.edu/schedule/DEFAULT/DEFAULT");
-                      }),
-                  RoundedImageButton(
-                    visible: true,
-                    imageRelativePath: 'images/Illinois.jpg',
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfileEditPage()))
-                        .then((value) => _loadUser()),
-                  ),
-                  //STATIC PANELS
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 1",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel1());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 2",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel2());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 3",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel3());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 4",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel4());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 5",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel5());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 6",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel6());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 7",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel7());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 8",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel8());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 9",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel9());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 10",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticFormPanel10());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 11",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel1());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 12",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel2());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 13",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel3());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 14",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel4());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 15",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel5());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 16",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel6());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 17",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel7());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 18",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel8());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 19",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel9());
-                    }
-                  ),
-                  RoundedImageButton(
-                    visible: (_userRole == Role.staff),
-                    text: "Static Panel 20",
-                    sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
-                    onTapGesture: () {
-                      _openPanel(StaticWebListPanel10());
-                    }
-                  ),
-                ],
-              ))),
+      body: Center(child: Padding(padding: UiLogic().getHomePadding(), child: _buildBodyContent())),
     );
   }
 
-  void _openPanel(Widget panel){
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => panel));
+  Widget _buildBodyContent() {
+    if (!UiLogic().hasHomePanelDefinition()) {
+      return Text('Sorry, unable to load UI. Please try again later');
+    }
+    List<dynamic> widgets = UiLogic().getHomeWidgets();
+    return ListView(
+        children: WidgetHelper.createPanelContentFor(context, widgets, _userRole, _getEditProfileTapGesture()));
   }
 
-  void _openWeb(String title, String url) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => new WebContentPage(url: url, title: title)));
+  GestureTapCallback _getEditProfileTapGesture() {
+    return () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEditPage()))
+        .then((value) => _loadUser());
   }
 }

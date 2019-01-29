@@ -24,7 +24,7 @@ class User {
       'name': name,
       'phone': phone,
       'birth_date': birthDate,
-      'role': _userRoleToString(role)
+      'role': AppUtils.userRoleToString(role)
     };
   }
 
@@ -34,24 +34,6 @@ class User {
         name: json['name'],
         phone: json['phone'],
         birthDate: json['birth_date'],
-        role: _userRoleFromString(json['role']));
-  }
-
-  static Role _userRoleFromString(String roleString) {
-    if (AppUtils.isStringEmpty(roleString)) {
-      return Role.unknown;
-    }
-    return Role.values
-        .firstWhere((role) => _userRoleToString(role) == roleString);
-  }
-
-  static String _userRoleToString(Role role) {
-    if (role == null) {
-      return _userRoleToString(Role.unknown);
-    }
-    String roleToString = role.toString();
-    const int subStringStartIndex =
-        'Role.'.length; //remove enum class from toString method
-    return roleToString.substring(subStringStartIndex);
+        role: AppUtils.userRoleFromString(json['role']));
   }
 }
