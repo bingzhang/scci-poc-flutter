@@ -24,7 +24,7 @@ class StaticWebListPanel10 extends StatelessWidget {
               child: new ListView.builder(
                   itemCount: items.length,
                   itemBuilder: (BuildContext buildContext, int index) {
-                    return new StaticListItem(items[index]);
+                    return new StaticListItem(items[index],context);
                   }))
         ]));
   }

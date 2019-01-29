@@ -25,7 +25,6 @@ import 'package:profile_demo/ui/panels/static/StaticWebListPanel6.dart';
 import 'package:profile_demo/ui/panels/static/StaticWebListPanel7.dart';
 import 'package:profile_demo/ui/panels/static/StaticWebListPanel8.dart';
 import 'package:profile_demo/ui/panels/static/StaticWebListPanel9.dart';
-import 'package:profile_demo/ui/widgets/RoundedTextButton.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/ui/panels/ProfileEditPage.dart';
@@ -128,7 +127,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                         .then((value) => _loadUser()),
                   ),
                   //STATIC PANELS
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 1",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -136,7 +135,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel1());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 2",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -144,7 +143,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel2());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 3",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -152,7 +151,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel3());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 4",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -160,7 +159,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel4());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 5",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -168,7 +167,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel5());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 6",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -176,7 +175,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel6());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 7",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -184,7 +183,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel7());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 8",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -192,7 +191,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel8());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 9",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -200,7 +199,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel9());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 10",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -208,7 +207,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticFormPanel10());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 11",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -216,7 +215,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel1());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 12",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -224,7 +223,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel2());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 13",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -232,7 +231,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel3());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 14",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -240,7 +239,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel4());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 15",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -248,7 +247,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel5());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 16",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -256,7 +255,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel6());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 17",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -264,7 +263,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel7());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 18",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -272,7 +271,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel8());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 19",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
@@ -280,7 +279,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
                       _openPanel(StaticWebListPanel9());
                     }
                   ),
-                  RoundedTextButton(
+                  RoundedImageButton(
                     visible: (_userRole == Role.staff),
                     text: "Static Panel 20",
                     sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,

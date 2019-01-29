@@ -5,6 +5,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_demo/model/static/StaticListModel.dart';
+import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
 import 'package:profile_demo/ui/widgets/StaticListItem.dart';
 import 'package:profile_demo/utility/StaticHelper.dart';
 
@@ -24,7 +25,7 @@ class StaticWebListPanel4 extends StatelessWidget {
               child: new ListView.builder(
                   itemCount: items.length,
                   itemBuilder: (BuildContext buildContext, int index) {
-                    return new StaticListItem(items[index]);
+                    return new StaticListItem(items[index],context);
                   }))
         ]));
   }
