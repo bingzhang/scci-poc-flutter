@@ -5,6 +5,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:profile_demo/model/static/StaticListModel.dart';
+
 class StaticHelper {
   static final EdgeInsets widgetsMargin = EdgeInsets.all(5.0);
   static final Random randomInstance = new Random();
@@ -95,5 +97,15 @@ class StaticHelper {
       dropdownWidgets.add(dropDownButton);
     }
     return dropdownWidgets;
+  }
+
+  static List<StaticListModel> constructWebWidgetsData() {
+    int size = 50;
+    List<StaticListModel> result = new List();
+    for (int i = 0; i < size; i++) {
+      result.add(
+          new StaticListModel("https://www.bing.com/search?q=$i", "Web Button $i", "Web $i"));
+    }
+    return result;
   }
 }

@@ -6,11 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_demo/model/static/StaticListModel.dart';
 import 'package:profile_demo/ui/widgets/StaticListItem.dart';
+import 'package:profile_demo/utility/StaticHelper.dart';
 
 class StaticWebListPanel5 extends StatelessWidget {
   final List<StaticListModel> items;
 
-  StaticWebListPanel5() : items = StaticListModel.constructStaticData();
+  StaticWebListPanel5() : items = StaticHelper.constructWebWidgetsData();
 
   @override
   Widget build(BuildContext context) {
