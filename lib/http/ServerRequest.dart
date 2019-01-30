@@ -99,7 +99,7 @@ class ServerRequest {
   }
 
   static String _constructHostValue() {
-    String host = AppConstants.DEFAULT_SERVER_HOST;
+    String host = AppConstants.serverHost;
     if (host.startsWith("http://") || host.startsWith("https://")) {
       return host;
     }

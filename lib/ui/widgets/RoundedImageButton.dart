@@ -21,7 +21,7 @@ class RoundedImageButton extends StatelessWidget {
       this.imagePath,
       this.onTapGesture,
       this.sizeRatio,
-      this.innerGutter = UiConstants.HOME_BUTTONS_SPACING,
+      this.innerGutter = UiConstants.buttonsSpacing,
       this.text})
       : super(key: key);
 
@@ -33,21 +33,21 @@ class RoundedImageButton extends StatelessWidget {
         visible: visible,
         child: Padding(
             padding: EdgeInsets.fromLTRB(
-                UiConstants.HOME_BUTTONS_PADDING_W, 0, UiConstants.HOME_BUTTONS_PADDING_W, innerGutter),
+                UiConstants.buttonsPaddingW, 0, UiConstants.buttonsPaddingW, innerGutter),
             child: Ink(
               width: width,
               height: height,
               decoration: BoxDecoration(
-                  border: UiConstants.ROUNDED_BUTTON_BORDER,
-                  color: UiConstants.APP_BRAND_COLOR,
+                  border: UiConstants.roundedButtonBorder,
+                  color: UiConstants.appBrandColor,
                   image: UiUtils.buildDecorationImage(imageType, imagePath),
-                  shape: UiConstants.ROUNDED_BUTTON_BOX_SHAPE,
-                  borderRadius: UiConstants.ROUNDED_BUTTON_BORDER_RADIUS),
+                  shape: UiConstants.roundedButtonBoxShape,
+                  borderRadius: UiConstants.roundedButtonBorderRadius),
               child: InkWell(
                 onTap: onTapGesture,
                 child: text == null || text.isEmpty
-                    ? UiConstants.ROUNDED_BUTTON_PADDING
-                    : new Center(child: new Text(text, style: UiConstants.ROUNDED_TEXT_BUTTON_STYLE)),
+                    ? UiConstants.roundedButtonPadding
+                    : new Center(child: new Text(text, style: UiConstants.roundedTextButtonStyle)),
               ),
             )));
   }

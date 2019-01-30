@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:profile_demo/model/Role.dart';
 
 class AppUtils {
-  static const String _USER_UUID_KEY = "user_uuid";
+  static const String _userUuidKey = "user_uuid";
 
   static Future<void> generateUserUuidIfNeeded() async {
     String userUuid = await getUserUuid();
@@ -16,13 +16,13 @@ class AppUtils {
       var uuid = new Uuid();
       final String generatedUuid = uuid.v4();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_USER_UUID_KEY, generatedUuid);
+      await prefs.setString(_userUuidKey, generatedUuid);
     }
   }
 
   static Future<String> getUserUuid() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String userUuid = prefs.getString(_USER_UUID_KEY);
+    final String userUuid = prefs.getString(_userUuidKey);
     return userUuid;
   }
 
@@ -63,8 +63,7 @@ class AppUtils {
 }
 
 class AppConstants {
-  static const String DEFAULT_SERVER_HOST = "https://profile.inabyte.com";
-  static const String SERVER_PORT = "8082";
+  static const String serverHost = "https://profile.inabyte.com";
 }
 
 class UiUtils {
@@ -86,29 +85,29 @@ class UiUtils {
 }
 
 class UiConstants {
-  static const Color BUTTON_DEFAULT_BACK_COLOR =
+  static const Color buttonDefaultBackColor =
       Color.fromARGB(255, 20, 28, 45);
-  static const APP_BRAND_COLOR = Color.fromARGB(255, 28, 38, 58);
-  static const TextStyle BUTTON_DEFAULT_TEXT_STYLE =
+  static const appBrandColor = Color.fromARGB(255, 28, 38, 58);
+  static const TextStyle buttonDefaultTextStyle =
       TextStyle(color: Colors.white);
 
-  static const TextStyle ROUNDED_TEXT_BUTTON_STYLE =
+  static const TextStyle roundedTextButtonStyle =
   TextStyle(color: Colors.white,fontSize:32);
-  static const Border ROUNDED_BUTTON_BORDER = Border(
+  static const Border roundedButtonBorder = Border(
       top: _roundedButtonBorderSide,
       right: _roundedButtonBorderSide,
       bottom: _roundedButtonBorderSide,
       left: _roundedButtonBorderSide);
-  static const ROUNDED_BUTTON_BOX_SHAPE = BoxShape.rectangle;
-  static const ROUNDED_BUTTON_BORDER_RADIUS =
+  static const roundedButtonBoxShape = BoxShape.rectangle;
+  static const roundedButtonBorderRadius =
       BorderRadius.all(Radius.circular(5.0));
-  static const ROUNDED_BUTTON_PADDING =
+  static const roundedButtonPadding =
       Padding(padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 30.0));
-  static const double HOME_BUTTONS_SPACING = 12;
-  static const double HOME_BUTTONS_PADDING_W = 6;
-  static const double HOME_TOP_SPACING = 32;
-  static const double HOME_BUTTONS_ASPECT_RATIO = 0.375;
+  static const double buttonsSpacing = 12;
+  static const double buttonsPaddingW = 6;
+  static const double topSpacing = 32;
+  static const double buttonsAspectRatio = 0.375;
 
   static const BorderSide _roundedButtonBorderSide = BorderSide(
-      color: BUTTON_DEFAULT_BACK_COLOR, width: 2.0, style: BorderStyle.solid);
+      color: buttonDefaultBackColor, width: 2.0, style: BorderStyle.solid);
 }

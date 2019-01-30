@@ -67,7 +67,7 @@ class WidgetHelper {
           onTapGesture: tapGesture,
           imageType: imageType,
           imagePath: imagePath,
-          sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+          sizeRatio: UiConstants.buttonsAspectRatio,
           innerGutter: widgetsInnerGutter,
           text: widgetTitle);
       widgetsList.add(currentWidget);

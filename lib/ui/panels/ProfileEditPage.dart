@@ -146,10 +146,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             RaisedButton(
-              color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
+              color: UiConstants.buttonDefaultBackColor,
               child: Text(
                 'Save',
-                style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
+                style: UiConstants.buttonDefaultTextStyle,
               ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
@@ -168,10 +168,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               },
             ),
             RaisedButton(
-              color: UiConstants.BUTTON_DEFAULT_BACK_COLOR,
+              color: UiConstants.buttonDefaultBackColor,
               child: Text(
                 'Delete',
-                style: UiConstants.BUTTON_DEFAULT_TEXT_STYLE,
+                style: UiConstants.buttonDefaultTextStyle,
               ),
               onPressed: () {
                 setLoading(true);

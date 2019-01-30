@@ -15,7 +15,7 @@ class StaticListItem extends RoundedImageButton {
   StaticListItem(this.data, this.context)
       : super(
             text: data.buttonTitle,
-            sizeRatio: UiConstants.HOME_BUTTONS_ASPECT_RATIO,
+            sizeRatio: UiConstants.buttonsAspectRatio,
             visible: true,
             onTapGesture: () {
               _onTapGesture(context, data.url, data.pageTitle);
