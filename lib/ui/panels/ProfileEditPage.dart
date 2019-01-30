@@ -202,7 +202,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       String saveResultMsg =
           (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
       Alert.showDialogResult(context, saveResultMsg).then((alertDismissed) {
-        if (saveSucceeded && alertDismissed) {
+        if (saveSucceeded && (true == alertDismissed)) {
           Navigator.pop(context);
         }
       });
@@ -220,7 +220,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       String deleteResultMsg = (deleteSucceeded ? 'Succeeded' : 'Failed') +
           ' to delete user profile';
       Alert.showDialogResult(context, deleteResultMsg).then((alertDismissed) {
-        if (deleteSucceeded && alertDismissed) {
+        if (deleteSucceeded) {
           _restoreUserValues();
         }
       });
