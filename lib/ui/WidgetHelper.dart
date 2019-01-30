@@ -29,18 +29,22 @@ import 'package:profile_demo/ui/panels/static/StaticWebListPanel9.dart';
 import 'package:profile_demo/ui/panels/static/StaticWebListPanel10.dart';
 
 class WidgetHelper {
-  static List<Widget> createPanelContentFor(
-      BuildContext context, List<dynamic> widgets, double widgetsInnerGutter, Role role, GestureTapCallback editProfileTapGesture) {
+  static List<Widget> createPanelContentFor(BuildContext context, List<dynamic> widgets, double widgetsInnerGutter,
+      Role role, GestureTapCallback editProfileTapGesture) {
     if (widgets == null || widgets.isEmpty) {
       return null;
     }
     List<Widget> widgetsList = List();
     widgets.forEach((widgetEntry) {
-      Widget currentWidget;
       Map<String, dynamic> widgetDestination = widgetEntry['destination'];
-      String destinationType = widgetDestination['type'];
-      String destinationValue = widgetDestination['value'];
-      String destinationTitle = widgetDestination['title'];
+      String destinationType;
+      String destinationValue;
+      String destinationTitle;
+      if (widgetDestination != null) {
+        destinationType = widgetDestination['type'];
+        destinationValue = widgetDestination['value'];
+        destinationTitle = widgetDestination['title'];
+      }
       Map<String, dynamic> widgetImage = widgetEntry['image'];
       String imageType;
       String imagePath;
@@ -58,7 +62,7 @@ class WidgetHelper {
       } else {
         tapGesture = _getTapGesture(context, destinationType, destinationValue, destinationTitle);
       }
-      currentWidget = RoundedImageButton(
+      Widget currentWidget = RoundedImageButton(
           visible: widgetVisible,
           onTapGesture: tapGesture,
           imageType: imageType,
