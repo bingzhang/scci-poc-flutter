@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
-import 'package:profile_demo/ui/panels/WebContentPage.dart';
+import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/panels/static/StaticFormPanel1.dart';
 import 'package:profile_demo/ui/panels/static/StaticFormPanel2.dart';
 import 'package:profile_demo/ui/panels/static/StaticFormPanel3.dart';
@@ -110,7 +110,7 @@ class WidgetHelper {
   }
 
   static void _openWebPanel(BuildContext context, String title, String url) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => new WebContentPage(url: url, title: title)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => new WebContentPanel(url: url, title: title)));
   }
 
   static Widget _getPanelById(String panelId) {

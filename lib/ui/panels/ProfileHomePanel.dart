@@ -8,16 +8,16 @@ import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 import 'package:profile_demo/ui/WidgetHelper.dart';
-import 'package:profile_demo/ui/panels/ProfileEditPage.dart';
+import 'package:profile_demo/ui/panels/ProfileEditPanel.dart';
 
-class ProfileHomePage extends StatefulWidget {
-  ProfileHomePage({Key key}) : super(key: key);
+class ProfileHomePanel extends StatefulWidget {
+  ProfileHomePanel({Key key}) : super(key: key);
 
   @override
-  _ProfileHomePageState createState() => _ProfileHomePageState();
+  _ProfileHomePanelState createState() => _ProfileHomePanelState();
 }
 
-class _ProfileHomePageState extends State<ProfileHomePage> {
+class _ProfileHomePanelState extends State<ProfileHomePanel> {
   Role _userRole;
 
   @override
@@ -64,7 +64,7 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
   }
 
   GestureTapCallback _getEditProfileTapGesture() {
-    return () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEditPage()))
+    return () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEditPanel()))
         .then((value) => _loadUser());
   }
 }

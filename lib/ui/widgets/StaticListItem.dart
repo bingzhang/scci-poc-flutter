@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:profile_demo/model/static/StaticListModel.dart';
 import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
 import 'package:profile_demo/utility/Utils.dart';
-import 'package:profile_demo/ui/panels/WebContentPage.dart';
+import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 
 class StaticListItem extends RoundedImageButton {
   final StaticListModel data;
@@ -25,6 +25,6 @@ class StaticListItem extends RoundedImageButton {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => new WebContentPage(url: url, title: title)));
+            builder: (context) => new WebContentPanel(url: url, title: title)));
   }
 }

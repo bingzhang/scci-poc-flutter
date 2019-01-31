@@ -11,14 +11,14 @@ import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/Alert.dart';
 
-class ProfileEditPage extends StatefulWidget {
-  ProfileEditPage({Key key}) : super(key: key);
+class ProfileEditPanel extends StatefulWidget {
+  ProfileEditPanel({Key key}) : super(key: key);
 
   @override
-  _ProfileEditPageState createState() => _ProfileEditPageState();
+  _ProfileEditPanelState createState() => _ProfileEditPanelState();
 }
 
-class _ProfileEditPageState extends State<ProfileEditPage> {
+class _ProfileEditPanelState extends State<ProfileEditPanel> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _birthDateController = TextEditingController();
