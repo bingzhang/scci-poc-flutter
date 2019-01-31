@@ -10,6 +10,7 @@ import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/Alert.dart';
+import 'student/StudentHomePanel.dart';
 
 class ProfileEditPanel extends StatefulWidget {
   ProfileEditPanel({Key key}) : super(key: key);
@@ -203,7 +204,12 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
           (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
       Alert.showDialogResult(context, saveResultMsg).then((alertDismissed) {
         if (saveSucceeded && (true == alertDismissed)) {
-          Navigator.pop(context);
+          if (_userRole == Role.student) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => StudentHomePanel()));
+          } else {
+            Navigator.pop(context);
+          }
         }
       });
     });
