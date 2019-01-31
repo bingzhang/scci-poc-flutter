@@ -6,15 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'StudentCampusPanel.dart';
 import 'StudentSchedulePanel.dart';
+import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 
 class StudentHomePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('SAVVI'),
-        ),
+        appBar: HeaderAppBar(context: context),
         body: Column(
           children: <Widget>[
             Text('Slide 6 panel'),
