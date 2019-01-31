@@ -62,7 +62,7 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('My Profile'),
+          title: Text('My Profile' /*, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold)*/),
         ),
         body: ModalProgressHUD(
             child: _buildEditProfileContainer(context), inAsyncCall: _loading));
