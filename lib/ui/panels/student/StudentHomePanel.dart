@@ -7,6 +7,7 @@ import 'package:swipedetector/swipedetector.dart';
 import 'StudentCampusPanel.dart';
 import 'StudentSchedulePanel.dart';
 import 'StudentEventsPanel.dart';
+import 'package:profile_demo/ui/panels/ProfileEditPanel.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
@@ -16,18 +17,21 @@ class StudentHomePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: HeaderAppBar(context: context),
-        body: ListView(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Opacity(
-              opacity: 0.3,
-              child: SwipeDetector(
-                child: Image.asset(
-                  'images/header_about.jpg',
-                  fit: BoxFit.cover,
-                  height: 380,
+            Expanded(
+              child: Opacity(
+                opacity: 0.3,
+                child: SwipeDetector(
+                  child: Image.asset(
+                    'images/header_about.jpg',
+                    fit: BoxFit.cover,
+                    height: 380,
+                  ),
+                  onSwipeLeft: _openPanel(context, StudentCampusPanel()),
+                  onSwipeRight: _openPanel(context, StudentSchedulePanel()),
                 ),
-                onSwipeLeft: _openPanel(context, StudentCampusPanel()),
-                onSwipeRight: _openPanel(context, StudentSchedulePanel()),
               ),
             ),
             HorizontalDivider(),
@@ -45,7 +49,7 @@ class StudentHomePanel extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[Text('Time Until'), Text('1 hr 20 min')],
+                    children: <Widget>[Text('Time Until', style: TextStyle(fontSize: 20),), Text('1 hr 20 min', style: TextStyle(fontSize: 32))],
                   ),
                 ),
                 Padding(
@@ -122,25 +126,21 @@ class StudentHomePanel extends StatelessWidget {
               ),
             ),
             HorizontalDivider(),
-            LayoutBuilder(
-              builder: (context, constraints) => SizedBox(
-                    width: double.infinity,
-                    child: Container(
-                      height: 50,
-                      child: Row(
-                        children: <Widget>[
-                          Flexible(
-                              flex: 1,
-                              child: Image.asset('images/icon-settings.png')),
-                          Flexible(flex: 1, child: TextFormField()),
-                          Flexible(
-                              flex: 1,
-                              child: Image.asset('images/icon-search.png'))
-                        ],
+            Container(
+                color: Colors.grey,
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: _openPanel(context, ProfileEditPanel()),
+                      child: Image.asset(
+                        'images/icon-settings.png',
+                        height: 50,
                       ),
                     ),
-                  ),
-            ),
+                    Expanded(child: TextFormField()),
+                    Image.asset('images/icon-search.png', height: 50)
+                  ],
+                ))
           ],
         ));
   }
