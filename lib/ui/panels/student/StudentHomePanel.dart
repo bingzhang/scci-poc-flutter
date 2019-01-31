@@ -21,17 +21,53 @@ class StudentHomePanel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              child: Opacity(
-                opacity: 0.3,
-                child: SwipeDetector(
-                  child: Image.asset(
-                    'images/header_about.jpg',
-                    fit: BoxFit.cover,
-                    height: 380,
+              child: Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Opacity(
+                      opacity: 0.2,
+                      child: SwipeDetector(
+                        child: Image.asset(
+                          'images/header_about.jpg',
+                          fit: BoxFit.cover,
+                          height: 380,
+                        ),
+                        onSwipeLeft: _openPanel(context, StudentCampusPanel()),
+                        onSwipeRight:
+                            _openPanel(context, StudentSchedulePanel()),
+                      ),
+                    ),
                   ),
-                  onSwipeLeft: _openPanel(context, StudentCampusPanel()),
-                  onSwipeRight: _openPanel(context, StudentSchedulePanel()),
-                ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Tuestday, January 29th',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                          Text('8:10 am', style: TextStyle(fontSize: 32.0))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 0.0),
+                      child: Column(
+                        children: <Widget>[
+                          Image.asset('images/icon-weather.png', height: 50.0),
+                          Text('30˚ F')
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
             HorizontalDivider(),
@@ -49,7 +85,13 @@ class StudentHomePanel extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[Text('Time Until', style: TextStyle(fontSize: 20),), Text('1 hr 20 min', style: TextStyle(fontSize: 32))],
+                    children: <Widget>[
+                      Text(
+                        'Time Until',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Text('1 hr 20 min', style: TextStyle(fontSize: 32))
+                    ],
                   ),
                 ),
                 Padding(
