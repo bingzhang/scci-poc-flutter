@@ -37,12 +37,46 @@ class StudentCampusPanel extends StatelessWidget {
                       Text("43°F", style: TextStyle(color: Colors.black45),),
                     ]),
                   ],),
+                  Expanded(child:Container(
+                    //color: Colors.white,)
+                    margin: EdgeInsets.only(top:10),
+                    padding:EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    decoration: new BoxDecoration(
+                      color: Colors.white, //new Color.fromRGBO(255, 0, 0, 0.0),
+                      borderRadius: new BorderRadius.only(
+                        topLeft:  const  Radius.circular(10.0),
+                        topRight: const  Radius.circular(10.0))
+                    ),
+                    child: Column(crossAxisAlignment:CrossAxisAlignment.start, children: <Widget>[
+                      Row(crossAxisAlignment:CrossAxisAlignment.end, children: <Widget>[
+                        Expanded(child: Column(),),
+                        Column(children: <Widget>[
+                          Image.asset('images/icon-walk.png', width: 42, height: 42, fit: BoxFit.cover),
+                          Text('5min from you', style: TextStyle(color: Colors.black45),)
+                        ],),
+                        Container(width: 20),
+                        Column(children: <Widget>[
+                          Image.asset('images/icon-time.png', width: 42, height: 42, fit: BoxFit.cover),
+                          Text('10 min', style: TextStyle(color: Colors.black45),)
+                        ],),
+                      ],),
+                      Container(height: 20),
+                      Text('Beckman Institute Cafe', style: TextStyle(fontWeight:FontWeight.w600, fontSize: 16, color: Colors.black87),),
+                      Text('Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.',
+                        style: TextStyle(fontWeight:FontWeight.w300, fontSize: 14, color: Colors.black54),
+                      ),
+
+                    ],),
+                  )),
+
+
+
                 ])
               )),
               Container(padding:EdgeInsets.fromLTRB(10, 10, 10, 10), child:
                 Text("Driving Options Nearby", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),)
               ),
-              Container(height: 1, color: Colors.black45,),
+              Container(height: 1, color: Colors.black26,),
               Container(padding:EdgeInsets.fromLTRB(10, 10, 10, 10), child:
                 //ListView(scrollDirection: Axis.horizontal, children: <Widget>[
                 Row(children: <Widget>[
@@ -53,11 +87,11 @@ class StudentCampusPanel extends StatelessWidget {
                   Container(padding: EdgeInsets.only(right: 10), child:Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover)),
                 ],)
               ),
-              Container(height: 1, color: Colors.black45,),
+              Container(height: 1, color: Colors.black26,),
               Container(padding:EdgeInsets.fromLTRB(10, 20, 10, 20), child:
                 Text("Assignments Due Next", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),)
               ),
-              Container(height: 1, color: Colors.black45,),
+              Container(height: 1, color: Colors.black26,),
               Container(padding:EdgeInsets.fromLTRB(10, 20, 10, 20), child:
                 Text("Today's Schedule", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),)
               ),
