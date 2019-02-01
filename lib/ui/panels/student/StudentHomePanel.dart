@@ -12,6 +12,7 @@ import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
+import 'package:profile_demo/ui/widgets/Clock.dart';
 
 class StudentHomePanel extends StatelessWidget {
   @override
@@ -42,22 +43,7 @@ class StudentHomePanel extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Tuesday, January 29th",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: Colors.black87),
-                                ),
-                                Text("8:10 am",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 26,
-                                        color: Colors.black87)),
-                              ]),
+                          Clock(),
                           Expanded(child: Column()),
                           Column(children: <Widget>[
                             Image.asset('images/icon-weather.png',

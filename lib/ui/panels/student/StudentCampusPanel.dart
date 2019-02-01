@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/ui/widgets/Clock.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 
@@ -28,10 +29,7 @@ class StudentCampusPanel extends StatelessWidget {
                 ),),
                 child: Column(children: <Widget>[
                   Row(children: <Widget>[
-                    Column(crossAxisAlignment:CrossAxisAlignment.start, children:<Widget>[
-                      Text("Tuesday, January 29th", style: TextStyle(fontWeight:FontWeight.w600, fontSize: 12, color: Colors.black87),),
-                      Text("11:20 am", style: TextStyle(fontWeight:FontWeight.w300, fontSize: 26, color: Colors.black87)),
-                    ]),
+                    Clock(),
                     Expanded(child:Column()),
                     Column(children:<Widget>[
                       Image.asset('images/icon-weather.png', width: 42, height: 42, fit: BoxFit.cover),
