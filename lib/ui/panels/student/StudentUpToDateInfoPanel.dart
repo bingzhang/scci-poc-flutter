@@ -36,8 +36,8 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
                       Text("43°F", style: TextStyle(color: Colors.black45),),
                     ]),
                   ],),
-                  Expanded(child:Container(
-                    //color: Colors.white,)
+                  Expanded(child:Row()),
+                  Container(
                     margin: EdgeInsets.only(top:10),
                     padding:EdgeInsets.fromLTRB(10, 10, 10, 10),
                     decoration: new BoxDecoration(
@@ -66,7 +66,7 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
                       ),
 
                     ],),
-                  )),
+                  ),
 
 
 
