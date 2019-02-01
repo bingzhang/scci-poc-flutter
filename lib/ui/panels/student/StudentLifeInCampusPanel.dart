@@ -12,7 +12,7 @@ class StudentLifeOnCampusPanel extends StatelessWidget {
     return Scaffold(
         appBar: HeaderAppBar(context: context),
         body: Column(
-          children: <Widget>[Text('Life on campus')],
+          children: <Widget>[Text('Slide 8 right')],
         ));
   }
 }

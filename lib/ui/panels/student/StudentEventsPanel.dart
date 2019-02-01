@@ -11,7 +11,7 @@ class StudentEventsPanel extends StatelessWidget {
     return Scaffold(
         appBar: HeaderAppBar(context: context),
         body: Column(
-          children: <Widget>[Text('Slide 8 right panel')],
+          children: <Widget>[Text('Slide 9 right panel')],
         ));
   }
 }
