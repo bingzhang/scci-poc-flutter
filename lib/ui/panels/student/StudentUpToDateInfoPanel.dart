@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/widgets/Clock.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
+import 'package:profile_demo/ui/widgets/RibbonButton.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 
 class StudentUpToDateInfoPanel extends StatelessWidget {
@@ -87,13 +88,9 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
                 ],)
               ),
               Container(height: 1, color: Colors.black26,),
-              Container(padding:EdgeInsets.fromLTRB(10, 20, 10, 20), child:
-                Text("Assignments Due Next", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),)
-              ),
+              RibbonButton(title: 'Assignments Due Next',),
               Container(height: 1, color: Colors.black26,),
-              Container(padding:EdgeInsets.fromLTRB(10, 20, 10, 20), child:
-                Text("Today's Schedule", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),)
-              ),
+              RibbonButton(title: "Today's Schedule",),
               SearchBar()
             ])
         );
