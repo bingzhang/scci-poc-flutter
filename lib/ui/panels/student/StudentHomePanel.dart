@@ -8,7 +8,6 @@ import 'package:profile_demo/ui/navigation/NavigationRouter.dart';
 import 'StudentCampusPanel.dart';
 import 'StudentSchedulePanel.dart';
 import 'StudentEventsPanel.dart';
-import 'package:profile_demo/ui/panels/ProfileEditPanel.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
@@ -23,58 +22,55 @@ class StudentHomePanel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              child: Stack(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.center,
-                    child: Opacity(
-                      opacity: 0.2,
-                      child: SwipeDetector(
-                        child: Image.asset(
-                          'images/header_about.jpg',
-                          fit: BoxFit.cover,
-                          height: 380,
+              child: SwipeDetector(
+                onSwipeLeft:
+                NavigationRouter.openPanel(context, StudentCampusPanel()),
+                onSwipeRight:
+                NavigationRouter.openPanel(context, StudentSchedulePanel()),
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  decoration: new BoxDecoration(
+                    image: new DecorationImage(
+                        image: new AssetImage(
+                          "images/header_about.jpg",
                         ),
-                        onSwipeLeft: NavigationRouter.openPanel(
-                            context, StudentCampusPanel()),
-                        onSwipeRight: NavigationRouter.openPanel(
-                            context, StudentSchedulePanel()),
-                      ),
-                    ),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.2), BlendMode.dstATop)),
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10.0, top: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
+                    children: <Widget>[
+                      Row(
                         children: <Widget>[
-                          Text(
-                            'Tuestday, January 29th',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                          Text('8:10 am', style: TextStyle(fontSize: 32.0))
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Tuesday, January 29th",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: Colors.black87),
+                                ),
+                                Text("8:10 am",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 26,
+                                        color: Colors.black87)),
+                              ]),
+                          Expanded(child: Column()),
+                          Column(children: <Widget>[
+                            Image.asset('images/icon-weather.png',
+                                width: 42, height: 42, fit: BoxFit.cover),
+                            Text(
+                              "30°F",
+                              style: TextStyle(color: Colors.black45),
+                            ),
+                          ]),
                         ],
                       ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10.0, right: 10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Image.asset('images/icon-weather.png', height: 50.0),
-                          Text('30˚ F')
-                        ],
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
-                      child: Column(
+                      Expanded(child: Row(),),
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -96,7 +92,7 @@ class StudentHomePanel extends StatelessWidget {
                                   Text(
                                     'Next Event 9:30am',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text('TE 401: Intro to Design Thinking'),
                                   Text('Noble Hall, Room 211')
@@ -105,21 +101,21 @@ class StudentHomePanel extends StatelessWidget {
                             ],
                           )
                         ],
-                      ),
-                    ),
-                  )
-                ],
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
             HorizontalDivider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                Expanded(
                   child: Image.asset(
                     'images/icon-time.png',
-                    height: 50,
+                    height: 62,
+                    width: 62,
                   ),
                 ),
                 Padding(
@@ -167,7 +163,7 @@ class StudentHomePanel extends StatelessWidget {
               child: Container(
                 height: 50,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   child: Text(
                     'Life on Campus',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
@@ -181,7 +177,7 @@ class StudentHomePanel extends StatelessWidget {
               child: Container(
                 height: 50,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   child: Text(
                     'News + Events',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
@@ -200,7 +196,7 @@ class StudentHomePanel extends StatelessWidget {
               child: Container(
                 height: 50,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   child: Text(
                     'Athletics + Campus Venues',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
