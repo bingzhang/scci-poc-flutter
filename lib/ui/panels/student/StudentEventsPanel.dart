@@ -49,23 +49,42 @@ class StudentEventsPanel extends StatelessWidget {
             Container(height: 1, color: Colors.black26,),
             Container(height: 84, padding:EdgeInsets.fromLTRB(10, 10, 10, 10), child:
               ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-                Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("https://www.washingtonpost.com/resizer/yUycUqygEvxLzyR2zwgzkpKzyEw=/480x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/2OAGYJTUJY2H5I6I7HCD6O7S2Q.jpg")
+                ))),
                 Container(width: 10),
-                Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("https://comps.canstockphoto.com/two-great-tits-stock-photography_csp34174302.jpg")
+                ))),
                 Container(width: 10),
-                Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("https://upload.wikimedia.org/wikipedia/commons/1/16/Yellow-billed_oxpeckers_%28Buphagus_africanus_africanus%29_on_zebra.jpg")
+                ))),
                 Container(width: 10),
-                Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("https://previews.123rf.com/images/ondrejprosicky/ondrejprosicky1801/ondrejprosicky180100950/93506859-three-songbird-garden-bird-great-tit-parus-major-black-and-yellow-songbird-sitting-on-the-nice-liche.jpg")
+                ))),
                 Container(width: 10),
-                Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("https://static01.nyt.com/images/2018/02/17/science/17TB-COFFEE6/17TB-COFFEE6-articleLarge.jpg?quality=75&auto=webp&disable=upscale")
+                ))),
                 Container(width: 10),
-                Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRFW3WuP0j5Mx1wc8rdT9whUht5ei0bmGnNDeeAj8_KKkfJVv2")
+                ))),
                 Container(width: 10),
-                Image.asset('images/icon-option-placeholder.png', width: 64, height: 64, fit: BoxFit.cover),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("https://comps.canstockphoto.com/two-beautiful-great-tits-stock-photography_csp43424306.jpg")
+                ))),
+                Container(width: 10),
+                Container(width: 64.0, height: 64.0, decoration: new BoxDecoration(shape: BoxShape.circle, image: DecorationImage(fit: BoxFit.cover, image:
+                    NetworkImage("http://nm.audubon.org/sites/g/files/amh686/f/styles/engagement_card/public/swfl_singing_kelly_colgan_azar.jpg?itok=CDYHanhb")
+                ))),
               ],)
             ),
-
             SearchBar()
           ]));
   }
 }
+
+
