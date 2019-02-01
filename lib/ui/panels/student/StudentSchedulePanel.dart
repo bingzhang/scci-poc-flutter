@@ -56,37 +56,39 @@ class StudentSchedulePanel extends StatelessWidget {
             HorizontalDivider(),
             NextEventDetails(),
             HorizontalDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  'images/icon-clock.png',
-                  height: 62,
-                  width: 62,
-                ),
-                Image.asset(
-                  'images/icon-walk.png',
-                  height: 62,
-                  width: 62,
-                ),
-                Image.asset(
-                  'images/icon-bycicle.png',
-                  height: 62,
-                  width: 62,
-                ),
-                Image.asset(
-                  'images/icon-bus.png',
-                  height: 62,
-                  width: 62,
-                ),
-                Image.asset(
-                  'images/icon-car.png',
-                  height: 62,
-                  width: 62,
-                ),
-              ],
-            ),
+            Container(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'images/icon-clock.png',
+                      height: 62,
+                      width: 62,
+                    ),
+                    Image.asset(
+                      'images/icon-walk.png',
+                      height: 62,
+                      width: 62,
+                    ),
+                    Image.asset(
+                      'images/icon-bycicle.png',
+                      height: 62,
+                      width: 62,
+                    ),
+                    Image.asset(
+                      'images/icon-bus.png',
+                      height: 62,
+                      width: 62,
+                    ),
+                    Image.asset(
+                      'images/icon-car.png',
+                      height: 62,
+                      width: 62,
+                    ),
+                  ],
+                )),
             HorizontalDivider(),
             RibbonButton(
               title: 'Life on Campus',
