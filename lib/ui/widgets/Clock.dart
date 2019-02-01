@@ -72,8 +72,11 @@ class _ClockState extends State<Clock> {
   String _formatDaySuffix(int day) {
     switch (day) {
       case 1:
+      case 21:
+      case 31:
         return 'st';
       case 2:
+      case 22:
         return 'nd';
       case 3:
         return 'rd';
