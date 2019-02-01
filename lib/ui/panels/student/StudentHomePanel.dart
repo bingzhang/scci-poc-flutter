@@ -11,6 +11,7 @@ import 'StudentLifeInCampusPanel.dart';
 import 'StudentSchedulePanel.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
+import 'package:profile_demo/ui/widgets/NextEventDetails.dart';
 import 'package:profile_demo/ui/widgets/RibbonButton.dart';
 import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
@@ -60,55 +61,7 @@ class StudentHomePanel extends StatelessWidget {
               ),
             ),
             HorizontalDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: Image.asset(
-                    'images/icon-time.png',
-                    height: 62,
-                    width: 62,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Time Until',
-                        style: TextStyle(fontFamily: 'Avenir', fontSize: 18),
-                      ),
-                      Text('1 hr 20 min', style: TextStyle(fontFamily: 'Avenir', fontSize: 30))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset(
-                        'images/icon-clock.png',
-                        height: 50,
-                      ),
-                      Text('15 min', style: TextStyle(fontFamily: 'Avenir'))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset(
-                        'images/icon-bycicle.png',
-                        height: 50,
-                      ),
-                      Text('7 min', style: TextStyle(fontFamily: 'Avenir'))
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            NextEventDetails(),
             HorizontalDivider(),
             RibbonButton(
               title: 'Life on Campus',
