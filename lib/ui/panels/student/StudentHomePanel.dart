@@ -5,9 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:profile_demo/ui/navigation/NavigationRouter.dart';
-import 'StudentCampusPanel.dart';
-import 'StudentSchedulePanel.dart';
+import 'StudentUpToDateInfoPanel.dart';
 import 'StudentEventsPanel.dart';
+import 'StudentLifeInCampusPanel.dart';
+import 'StudentSchedulePanel.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
@@ -25,7 +26,7 @@ class StudentHomePanel extends StatelessWidget {
             Expanded(
               child: SwipeDetector(
                 onSwipeLeft:
-                NavigationRouter.openPanel(context, StudentCampusPanel()),
+                NavigationRouter.openPanel(context, StudentUpToDateInfoPanel()),
                 onSwipeRight:
                 NavigationRouter.openPanel(context, StudentSchedulePanel()),
                 child: Container(
@@ -145,7 +146,7 @@ class StudentHomePanel extends StatelessWidget {
             ),
             HorizontalDivider(),
             GestureDetector(
-              onTap: NavigationRouter.openPanel(context, StudentCampusPanel()),
+              onTap: NavigationRouter.openPanel(context, StudentLifeOnCampusPanel()),
               child: Container(
                 height: 50,
                 child: Padding(

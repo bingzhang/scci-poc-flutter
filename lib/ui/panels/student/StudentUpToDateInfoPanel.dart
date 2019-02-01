@@ -7,7 +7,7 @@ import 'package:profile_demo/ui/widgets/Clock.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 
-class StudentCampusPanel extends StatelessWidget {
+class StudentUpToDateInfoPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
