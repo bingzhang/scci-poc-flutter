@@ -10,10 +10,11 @@ import 'StudentEventsPanel.dart';
 import 'StudentLifeInCampusPanel.dart';
 import 'StudentSchedulePanel.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
-import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
-import 'package:profile_demo/ui/widgets/SearchBar.dart';
-import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
 import 'package:profile_demo/ui/widgets/Clock.dart';
+import 'package:profile_demo/ui/widgets/RibbonButton.dart';
+import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
+import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
+import 'package:profile_demo/ui/widgets/SearchBar.dart';
 
 class StudentHomePanel extends StatelessWidget {
   @override
@@ -25,10 +26,10 @@ class StudentHomePanel extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: SwipeDetector(
-                onSwipeLeft:
-                NavigationRouter.openPanel(context, StudentUpToDateInfoPanel()),
+                onSwipeLeft: NavigationRouter.openPanel(
+                    context, StudentUpToDateInfoPanel()),
                 onSwipeRight:
-                NavigationRouter.openPanel(context, StudentSchedulePanel()),
+                    NavigationRouter.openPanel(context, StudentSchedulePanel()),
                 child: Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   decoration: new BoxDecoration(
@@ -56,7 +57,9 @@ class StudentHomePanel extends StatelessWidget {
                           ]),
                         ],
                       ),
-                      Expanded(child: Row(),),
+                      Expanded(
+                        child: Row(),
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +82,7 @@ class StudentHomePanel extends StatelessWidget {
                                   Text(
                                     'Next Event 9:30am',
                                     style:
-                                    TextStyle(fontWeight: FontWeight.bold),
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text('TE 401: Intro to Design Thinking'),
                                   Text('Noble Hall, Room 211')
@@ -145,51 +148,26 @@ class StudentHomePanel extends StatelessWidget {
               ],
             ),
             HorizontalDivider(),
-            GestureDetector(
-              onTap: NavigationRouter.openPanel(context, StudentLifeOnCampusPanel()),
-              child: Container(
-                height: 50,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                  child: Text(
-                    'Life on Campus',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
-                ),
-              ),
+            RibbonButton(
+              title: 'Life on Campus',
+              gestureTapCallback: NavigationRouter.openPanel(
+                  context, StudentLifeOnCampusPanel()),
             ),
             HorizontalDivider(),
-            GestureDetector(
-              onTap: NavigationRouter.openPanel(context, StudentEventsPanel()),
-              child: Container(
-                height: 50,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                  child: Text(
-                    'News + Events',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
-                ),
-              ),
+            RibbonButton(
+              title: 'News + Events',
+              gestureTapCallback:
+                  NavigationRouter.openPanel(context, StudentEventsPanel()),
             ),
             HorizontalDivider(),
-            GestureDetector(
-              onTap: NavigationRouter.openPanel(
+            RibbonButton(
+              title: 'Athletics + Campus Venues',
+              gestureTapCallback: NavigationRouter.openPanel(
                   context,
                   WebContentPanel(
                     url: 'https://fightingillini.com/',
                     title: 'Athletics',
                   )),
-              child: Container(
-                height: 50,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                  child: Text(
-                    'Athletics + Campus Venues',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
-                ),
-              ),
             ),
             HorizontalDivider(),
             SearchBar()
