@@ -32,9 +32,9 @@ class StudentHomePanel extends StatelessWidget {
                     NavigationRouter.openPanel(context, StudentSchedulePanel()),
                 child: Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  decoration: new BoxDecoration(
-                    image: new DecorationImage(
-                        image: new AssetImage(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
                           "images/header_about.jpg",
                         ),
                         fit: BoxFit.cover,
