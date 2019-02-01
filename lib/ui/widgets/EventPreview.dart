@@ -24,7 +24,7 @@ class EventPreview extends StatelessWidget {
       children: <Widget>[
         Text(
           headerText,
-          style: TextStyle(fontSize: 40),
+          style: TextStyle(fontFamily: 'Avenir', fontSize: 40),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -38,10 +38,10 @@ class EventPreview extends StatelessWidget {
               children: <Widget>[
                 Text(
                   eventTime,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold),
                 ),
-                Text(eventDescription),
-                Text(eventLocation)
+                Text(eventDescription, style: TextStyle(fontFamily: 'Avenir',)),
+                Text(eventLocation, style: TextStyle(fontFamily: 'Avenir',))
               ],
             )
           ],

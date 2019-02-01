@@ -18,7 +18,7 @@ class TimeAndWhetherHeader extends StatelessWidget {
               width: 42, height: 42, fit: BoxFit.cover),
           Text(
             "43°F",
-            style: TextStyle(color: Colors.black45),
+            style: TextStyle(fontFamily: 'Avenir', fontSize: 12, color: Colors.black45),
           ),
         ]),
       ],

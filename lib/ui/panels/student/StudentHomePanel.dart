@@ -77,9 +77,9 @@ class StudentHomePanel extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         'Time Until',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontFamily: 'Avenir', fontSize: 18),
                       ),
-                      Text('1 hr 20 min', style: TextStyle(fontSize: 32))
+                      Text('1 hr 20 min', style: TextStyle(fontFamily: 'Avenir', fontSize: 30))
                     ],
                   ),
                 ),
@@ -91,7 +91,7 @@ class StudentHomePanel extends StatelessWidget {
                         'images/icon-clock.png',
                         height: 50,
                       ),
-                      Text('15 min')
+                      Text('15 min', style: TextStyle(fontFamily: 'Avenir'))
                     ],
                   ),
                 ),
@@ -103,7 +103,7 @@ class StudentHomePanel extends StatelessWidget {
                         'images/icon-bycicle.png',
                         height: 50,
                       ),
-                      Text('7 min')
+                      Text('7 min', style: TextStyle(fontFamily: 'Avenir'))
                     ],
                   ),
                 ),

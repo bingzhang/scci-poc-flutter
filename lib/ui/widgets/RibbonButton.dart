@@ -22,7 +22,7 @@ class RibbonButton extends StatelessWidget {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w700, fontSize: 16),
               ),
               Expanded(
                 child: Column(),

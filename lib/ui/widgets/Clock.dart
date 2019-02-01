@@ -31,12 +31,14 @@ class _ClockState extends State<Clock> {
           Text(
             _dayString,
             style: TextStyle(
-                fontWeight: FontWeight.w600,
+                fontFamily: 'Avenir',
+                fontWeight: FontWeight.w700,
                 fontSize: 12,
                 color: Colors.black87),
           ),
           Text(_timeString,
               style: TextStyle(
+                  fontFamily: 'Avenir',
                   fontWeight: FontWeight.w300,
                   fontSize: 26,
                   color: Colors.black87)),
