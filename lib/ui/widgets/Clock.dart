@@ -50,13 +50,15 @@ class _ClockState extends State<Clock> {
   }
 
   void _updateTime() {
-    final DateTime now = DateTime.now();
-    final String formattedTime = _formatTime(now);
-    final String formattedDate = _formatDate(now);
-    setState(() {
-      _timeString = formattedTime;
-      _dayString = formattedDate;
-    });
+    if (this.mounted) {
+      final DateTime now = DateTime.now();
+      final String formattedTime = _formatTime(now);
+      final String formattedDate = _formatDate(now);
+      setState(() {
+        _timeString = formattedTime;
+        _dayString = formattedDate;
+      });
+    }
   }
 
   String _formatTime(DateTime dateTime) {
