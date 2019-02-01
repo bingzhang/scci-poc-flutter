@@ -7,6 +7,7 @@ import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/RibbonButton.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
+import 'package:profile_demo/ui/widgets/ReadMore.dart';
 import 'package:profile_demo/ui/navigation/NavigationRouter.dart';
 import 'StudentSchedulePanel.dart';
 
@@ -28,7 +29,7 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
                 Expanded(child:Row()),
                 Container(
                   margin: EdgeInsets.only(top:10),
-                  padding:EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  padding:EdgeInsets.fromLTRB(10, 10, 10, 5),
                   decoration: new BoxDecoration(
                     color: Colors.white, //new Color.fromRGBO(255, 0, 0, 0.0),
                     borderRadius: new BorderRadius.only(
@@ -53,6 +54,7 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
                     Text('Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.',
                       style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 14, color: Colors.black87),
                     ),
+                    ReadMore(),
                   ],),
                 ),
               ])

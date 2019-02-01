@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
+import 'package:profile_demo/ui/widgets/ReadMore.dart';
 
 class StudentEventsPanel extends StatelessWidget {
   @override
@@ -24,10 +25,10 @@ class StudentEventsPanel extends StatelessWidget {
                 Expanded(child:Row()),
                 Container(
                   margin: EdgeInsets.only(top:10),
-                  padding:EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  decoration: new BoxDecoration(
+                  padding:EdgeInsets.fromLTRB(10, 10, 10, 5),
+                  decoration: BoxDecoration(
                     color: Colors.white, //new Color.fromRGBO(255, 0, 0, 0.0),
-                    borderRadius: new BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                       topLeft:  const  Radius.circular(10.0),
                       topRight: const  Radius.circular(10.0))
                   ),
@@ -36,6 +37,7 @@ class StudentEventsPanel extends StatelessWidget {
                     Text('The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!',
                       style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 14, color: Colors.black87),
                     ),
+                    ReadMore(),
                   ],),
                 ),
               ])
