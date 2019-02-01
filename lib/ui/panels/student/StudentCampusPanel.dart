@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
+import 'package:profile_demo/ui/widgets/SearchBar.dart';
 
 class StudentCampusPanel extends StatelessWidget {
   @override
@@ -95,13 +96,7 @@ class StudentCampusPanel extends StatelessWidget {
               Container(padding:EdgeInsets.fromLTRB(10, 20, 10, 20), child:
                 Text("Today's Schedule", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),)
               ),
-              Container(padding:EdgeInsets.fromLTRB(10, 10, 10, 15), color: Colors.black26 , child:
-                Row(children: <Widget>[
-                  Image.asset('images/icon-settings.png', width: 42, height: 42, fit: BoxFit.cover),
-                  Expanded(child:Column()),
-                  Image.asset('images/icon-search.png', width: 42, height: 42, fit: BoxFit.cover),
-                ])
-              )
+              SearchBar()
             ])
         );
   }

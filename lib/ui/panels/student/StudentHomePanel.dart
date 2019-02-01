@@ -4,12 +4,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:profile_demo/ui/navigation/NavigationRouter.dart';
 import 'StudentCampusPanel.dart';
 import 'StudentSchedulePanel.dart';
 import 'StudentEventsPanel.dart';
 import 'package:profile_demo/ui/panels/ProfileEditPanel.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
+import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
 
 class StudentHomePanel extends StatelessWidget {
@@ -33,9 +35,10 @@ class StudentHomePanel extends StatelessWidget {
                           fit: BoxFit.cover,
                           height: 380,
                         ),
-                        onSwipeLeft: _openPanel(context, StudentCampusPanel()),
-                        onSwipeRight:
-                            _openPanel(context, StudentSchedulePanel()),
+                        onSwipeLeft: NavigationRouter.openPanel(
+                            context, StudentCampusPanel()),
+                        onSwipeRight: NavigationRouter.openPanel(
+                            context, StudentSchedulePanel()),
                       ),
                     ),
                   ),
@@ -160,35 +163,35 @@ class StudentHomePanel extends StatelessWidget {
             ),
             HorizontalDivider(),
             GestureDetector(
-              onTap: _openPanel(context, StudentCampusPanel()),
+              onTap: NavigationRouter.openPanel(context, StudentCampusPanel()),
               child: Container(
                 height: 50,
                 child: Padding(
                   padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
                   child: Text(
                     'Life on Campus',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),
               ),
             ),
             HorizontalDivider(),
             GestureDetector(
-              onTap: _openPanel(context, StudentEventsPanel()),
+              onTap: NavigationRouter.openPanel(context, StudentEventsPanel()),
               child: Container(
                 height: 50,
                 child: Padding(
                   padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
                   child: Text(
                     'News + Events',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),
               ),
             ),
             HorizontalDivider(),
             GestureDetector(
-              onTap: _openPanel(
+              onTap: NavigationRouter.openPanel(
                   context,
                   WebContentPanel(
                     url: 'https://fightingillini.com/',
@@ -200,34 +203,14 @@ class StudentHomePanel extends StatelessWidget {
                   padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
                   child: Text(
                     'Athletics + Campus Venues',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),
               ),
             ),
             HorizontalDivider(),
-            Container(
-                color: Colors.grey,
-                child: Row(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: _openPanel(context, ProfileEditPanel()),
-                      child: Image.asset(
-                        'images/icon-settings.png',
-                        height: 50,
-                      ),
-                    ),
-                    Expanded(child: TextFormField()),
-                    Image.asset('images/icon-search.png', height: 50)
-                  ],
-                ))
+            SearchBar()
           ],
         ));
-  }
-
-  Function _openPanel(BuildContext context, Widget panel) {
-    return () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => panel));
-    };
   }
 }
