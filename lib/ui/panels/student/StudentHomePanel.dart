@@ -10,8 +10,9 @@ import 'StudentEventsPanel.dart';
 import 'StudentLifeInCampusPanel.dart';
 import 'StudentSchedulePanel.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
-import 'package:profile_demo/ui/widgets/Clock.dart';
+import 'package:profile_demo/ui/widgets/EventPreview.dart';
 import 'package:profile_demo/ui/widgets/RibbonButton.dart';
+import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
@@ -43,54 +44,15 @@ class StudentHomePanel extends StatelessWidget {
                   ),
                   child: Column(
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Clock(),
-                          Expanded(child: Column()),
-                          Column(children: <Widget>[
-                            Image.asset('images/icon-weather.png',
-                                width: 42, height: 42, fit: BoxFit.cover),
-                            Text(
-                              "30°F",
-                              style: TextStyle(color: Colors.black45),
-                            ),
-                          ]),
-                        ],
-                      ),
+                      TimeAndWhetherHeader(),
                       Expanded(
                         child: Row(),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Good Morning, Alex!',
-                            style: TextStyle(fontSize: 40),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(right: 10.0),
-                                child: Image.asset('images/icon-schedule.png',
-                                    height: 50.0),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Next Event 9:30am',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text('TE 401: Intro to Design Thinking'),
-                                  Text('Noble Hall, Room 211')
-                                ],
-                              )
-                            ],
-                          )
-                        ],
+                      EventPreview(
+                        headerText: 'Good Morning, Alex!',
+                        eventTime: 'Next Event 9:30am',
+                        eventDescription: 'TE 401: Intro to Design Thinking',
+                        eventLocation: 'Noble Hall, Room 211',
                       )
                     ],
                   ),

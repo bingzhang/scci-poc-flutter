@@ -3,10 +3,10 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:profile_demo/ui/widgets/Clock.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/RibbonButton.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
+import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 
 class StudentUpToDateInfoPanel extends StatelessWidget {
   @override
@@ -29,14 +29,7 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
                   colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop)
                 ),),
                 child: Column(children: <Widget>[
-                  Row(children: <Widget>[
-                    Clock(),
-                    Expanded(child:Column()),
-                    Column(children:<Widget>[
-                      Image.asset('images/icon-weather.png', width: 42, height: 42, fit: BoxFit.cover),
-                      Text("43°F", style: TextStyle(color: Colors.black45),),
-                    ]),
-                  ],),
+                  TimeAndWhetherHeader(),
                   Expanded(child:Row()),
                   Container(
                     margin: EdgeInsets.only(top:10),
