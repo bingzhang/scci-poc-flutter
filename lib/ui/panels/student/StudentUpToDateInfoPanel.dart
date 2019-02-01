@@ -60,7 +60,7 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
               ])
             )),
             
-            Container(padding:EdgeInsets.fromLTRB(10, 10, 10, 10), child:
+            Container(padding:EdgeInsets.fromLTRB(10, 8, 10, 8), child:
               Text("Driving Options Nearby", style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w700, fontSize: 16),)
             ),
             
