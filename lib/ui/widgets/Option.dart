@@ -24,7 +24,10 @@ class Option extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextStyle(fontFamily: 'Avenir'),
+            style: TextStyle(
+                fontFamily: 'Avenir',
+                fontWeight: FontWeight.w700,
+                fontSize: 16),
           )
         ],
       ),
