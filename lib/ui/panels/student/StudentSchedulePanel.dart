@@ -10,6 +10,7 @@ import 'package:profile_demo/ui/panels/student/StudentEventsPanel.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
+import 'package:profile_demo/ui/widgets/NextEventDetails.dart';
 import 'package:profile_demo/ui/widgets/RibbonButton.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
@@ -51,6 +52,40 @@ class StudentSchedulePanel extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            HorizontalDivider(),
+            NextEventDetails(),
+            HorizontalDivider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'images/icon-clock.png',
+                  height: 62,
+                  width: 62,
+                ),
+                Image.asset(
+                  'images/icon-walk.png',
+                  height: 62,
+                  width: 62,
+                ),
+                Image.asset(
+                  'images/icon-bycicle.png',
+                  height: 62,
+                  width: 62,
+                ),
+                Image.asset(
+                  'images/icon-bus.png',
+                  height: 62,
+                  width: 62,
+                ),
+                Image.asset(
+                  'images/icon-car.png',
+                  height: 62,
+                  width: 62,
+                ),
+              ],
             ),
             HorizontalDivider(),
             RibbonButton(
