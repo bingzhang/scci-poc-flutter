@@ -189,9 +189,13 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
     bool isRoleValid = _validateSelectedUserRole();
     if (!isRoleValid) {
       Alert.showDialogResult(context, 'Please, select role.');
+      setLoading(false);
       return;
     }
-    final String userUuid = await AppUtils.getUserUuid();
+    String userUuid = ProfileLogic().getUserUuid();
+    if (AppUtils.isStringEmpty(userUuid)) {
+      userUuid = AppUtils.generateUserUuid();
+    }
     final User updatedUser = User(
         uuid: userUuid,
         name: _userName,
@@ -216,12 +220,13 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
   }
 
   void _performDelete() async {
-    final String userUuid = await AppUtils.getUserUuid();
-    if (userUuid == null) {
+    User user = ProfileLogic().getUser();
+    if (user == null) {
       Alert.showDialogResult(context, 'There is no saved profile to delete.');
+      setLoading(false);
       return;
     }
-    ProfileLogic().deleteUser(userUuid).then((deleteSucceeded) {
+    ProfileLogic().deleteUser().then((deleteSucceeded) {
       setLoading(false);
       String deleteResultMsg = (deleteSucceeded ? 'Succeeded' : 'Failed') +
           ' to delete user profile';

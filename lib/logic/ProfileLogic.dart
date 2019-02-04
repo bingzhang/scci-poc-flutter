@@ -18,23 +18,34 @@ class ProfileLogic {
     return _user;
   }
 
+  String getUserUuid() {
+    if (_user == null) {
+      return null;
+    }
+    return _user.uuid;
+  }
+
   Future<void> loadUser() async {
-    final String userUuid = await AppUtils.getUserUuid();
-    _user = await ServerRequest.fetchUser(userUuid);
+    _user = await AppUtils.getUser();
   }
 
   Future<bool> saveUser(User user) async {
     bool success = await ServerRequest.saveUser(user);
     if (success) {
       _user = user;
+      await AppUtils.saveUser(user);
     }
     return success;
   }
 
-  Future<bool> deleteUser(String userUuid) async {
-    bool success = await ServerRequest.deleteUser(userUuid);
+  Future<bool> deleteUser() async {
+    if (_user == null) {
+      return true;
+    }
+    bool success = await ServerRequest.deleteUser(_user.uuid);
     if (success) {
       _user = null;
+      AppUtils.removeUser();
     }
     return success;
   }

@@ -14,7 +14,6 @@ void main() async {
 }
 
 Future<void> init() async {
-  await AppUtils.generateUserUuidIfNeeded();
   await ProfileLogic().loadUser();
   await UiLogic().loadUiConfig();
 }

@@ -2,28 +2,45 @@
  * Copyright (c) 2019 UIUC. All rights reserved.
  */
 
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_demo/model/Role.dart';
+import 'package:profile_demo/model/User.dart';
 
 class AppUtils {
-  static const String _userUuidKey = "user_uuid";
+  static const String _userKey = "user";
 
-  static Future<void> generateUserUuidIfNeeded() async {
-    String userUuid = await getUserUuid();
-    if (userUuid == null) {
-      var uuid = new Uuid();
-      final String generatedUuid = uuid.v4();
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_userUuidKey, generatedUuid);
-    }
+  static String generateUserUuid() {
+    var uuid = new Uuid();
+    String generatedUuid = uuid.v4();
+    return generatedUuid;
   }
 
-  static Future<String> getUserUuid() async {
+  static Future<User> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String userUuid = prefs.getString(_userUuidKey);
-    return userUuid;
+    final String userToString = prefs.getString(_userKey);
+    User user;
+    if (!isStringEmpty(userToString)) {
+      user = User.fromJson(json.decode(userToString));
+    }
+    return user;
+  }
+
+  static Future<void> saveUser(User user) async {
+    if (user == null) {
+      return;
+    }
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userToString = json.encode(user);
+    await prefs.setString(_userKey, userToString);
+  }
+
+  static Future<void> removeUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_userKey);
   }
 
   static bool isStringEmpty(String stringToCheck) {
