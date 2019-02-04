@@ -86,6 +86,18 @@ class WidgetHelper {
     return (rolesList.contains(userRoleToString));
   }
 
+  static GestureTapCallback parseWidgetGesture(BuildContext context, Map<String, dynamic> widgetDestination){
+    String destinationType;
+    String destinationValue;
+    String destinationTitle;
+    if (widgetDestination != null) {
+      destinationType = widgetDestination['type'];
+      destinationValue = widgetDestination['value'];
+      destinationTitle = widgetDestination['title'];
+    }
+    return _getTapGesture(context, destinationType, destinationValue, destinationTitle);
+  }
+
   static GestureTapCallback _getTapGesture(
       BuildContext context, String destinationType, String destinationValue, String destinationTitle) {
     if (AppUtils.isStringEmpty(destinationType)) {

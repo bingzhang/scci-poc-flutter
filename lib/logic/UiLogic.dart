@@ -78,4 +78,19 @@ class UiLogic {
     }
     return _homePanelJson['margin'];
   }
+
+  Map<String, dynamic> get _studentLifeInCampusJson{
+    if (_panelsJson == null) {
+      return null;
+    }
+    return _panelsJson['studentLifeInCampus'];
+  }
+
+  List<dynamic> getStudentLifeInCampusGrid() {
+    if (_studentLifeInCampusJson==null) {
+      return null;
+    }
+    return _studentLifeInCampusJson['grid'];
+  }
+
 }

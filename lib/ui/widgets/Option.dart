@@ -3,34 +3,46 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/ui/WidgetHelper.dart';
 
 class Option extends StatelessWidget {
-  final String title;
-  final GestureTapCallback tapCallback;
+  final dynamic data;
 
-  Option({this.title, this.tapCallback});
+  Option(this.data);
 
   @override
   Widget build(BuildContext context) {
+      GestureTapCallback tapGesture = data!=null ? WidgetHelper.parseWidgetGesture(context, data["destination"]) : GestureTapCallback;
+
     return GestureDetector(
-      onTap: tapCallback,
+      onTap: tapGesture,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          _Title(data["title"]),
           Image.asset(
             'images/icon-option-placeholder.png',
             height: 62,
             width: 62,
           ),
-          Text(
-            title,
-            style: TextStyle(
-                fontFamily: 'Avenir',
-                fontWeight: FontWeight.w700,
-                fontSize: 16),
-          )
+
         ],
       ),
+    );
+  }
+
+  Text _Title(Map<String,dynamic> titleData){
+    String text;
+
+    if(titleData!=null){
+      text = titleData["text"];
+    }
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: 'Avenir',
+          fontWeight: FontWeight.w700,
+          fontSize: 16),
     );
   }
 }

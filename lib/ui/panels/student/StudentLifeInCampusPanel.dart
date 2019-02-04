@@ -3,6 +3,8 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/logic/UiLogic.dart';
+import 'package:profile_demo/ui/WidgetHelper.dart';
 
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
@@ -47,42 +49,57 @@ class StudentLifeOnCampusPanel extends StatelessWidget {
               child: GridView.count(
                 crossAxisCount: 3,
                 scrollDirection: Axis.vertical,
-                children: <Widget>[
-                  Option(
-                    title: 'To Do List',
-                  ),
-                  Option(
-                    title: 'Dining',
-                  ),
-                  Option(
-                    title: 'Events',
-                  ),
-                  Option(
-                    title: 'Navigation',
-                  ),
-                  Option(
-                    title: 'Social',
-                  ),
-                  Option(
-                    title: 'Athletics',
-                  ),
-                  Option(
-                    title: 'Navigation',
-                  ),
-                  Option(
-                    title: 'News',
-                  ),
-                  Option(
-                    title: 'Schedule',
-                  ),
-                  Option(
-                    title: 'Grades',
-                  )
-                ],
+                children: _buildGridContent(context),
               ),
             ),
             SearchBar()
           ],
         ));
+  }
+
+  List<Widget> _buildGridContent(BuildContext context){
+//    return <Widget>[
+//      Option(
+//        title: 'To Do List',
+//      ),
+//      Option(
+//        title: 'Dining',
+//      ),
+//      Option(
+//        title: 'Events',
+//      ),
+//      Option(
+//        title: 'Navigation',
+//      ),
+//      Option(
+//        title: 'Social',
+//      ),
+//      Option(
+//        title: 'Athletics',
+//      ),
+//      Option(
+//        title: 'Navigation',
+//      ),
+//      Option(
+//        title: 'News',
+//      ),
+//      Option(
+//        title: 'Schedule',
+//      ),
+//      Option(
+//        title: 'Grades',
+//      )
+//    ];
+
+    List<Widget> widgetsList = List();
+    List<dynamic> widgets = UiLogic().getStudentLifeInCampusGrid();
+    if(widgets!=null){
+      widgets.forEach((widgetEntry) {
+        widgetsList.add(Option(widgetEntry));
+      });
+    } else {
+      widgetsList.add(new Text(""));
+    }
+    return widgetsList;
   }
 }
