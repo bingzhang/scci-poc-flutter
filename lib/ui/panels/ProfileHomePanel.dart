@@ -42,7 +42,7 @@ class _ProfileHomePanelState extends State<ProfileHomePanel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Image.asset(
+        title: Image.asset(
           'images/illinois_vertical.png',
           fit: BoxFit.scaleDown,
           alignment: Alignment.center,
