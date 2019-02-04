@@ -58,39 +58,6 @@ class StudentLifeOnCampusPanel extends StatelessWidget {
   }
 
   List<Widget> _buildGridContent(BuildContext context){
-//    return <Widget>[
-//      Option(
-//        title: 'To Do List',
-//      ),
-//      Option(
-//        title: 'Dining',
-//      ),
-//      Option(
-//        title: 'Events',
-//      ),
-//      Option(
-//        title: 'Navigation',
-//      ),
-//      Option(
-//        title: 'Social',
-//      ),
-//      Option(
-//        title: 'Athletics',
-//      ),
-//      Option(
-//        title: 'Navigation',
-//      ),
-//      Option(
-//        title: 'News',
-//      ),
-//      Option(
-//        title: 'Schedule',
-//      ),
-//      Option(
-//        title: 'Grades',
-//      )
-//    ];
-
     List<Widget> widgetsList = List();
     List<dynamic> widgets = UiLogic().getStudentLifeInCampusGrid();
     if(widgets!=null){

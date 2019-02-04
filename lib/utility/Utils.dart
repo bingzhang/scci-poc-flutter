@@ -127,4 +127,14 @@ class UiConstants {
 
   static const BorderSide _roundedButtonBorderSide = BorderSide(
       color: buttonDefaultBackColor, width: 2.0, style: BorderStyle.solid);
+
+  static const Border emptyBorder = Border(
+      top: _emptyBorderSide,
+      right: _emptyBorderSide,
+      bottom: _emptyBorderSide,
+      left: _emptyBorderSide);
+
+  static const BorderSide _emptyBorderSide = BorderSide(
+      color: Colors.transparent, width: 0, style: BorderStyle.none);
+
 }

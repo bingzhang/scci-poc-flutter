@@ -99,80 +99,80 @@ class WidgetHelper {
   }
 
   static GestureTapCallback _getTapGesture(
-      BuildContext context, String destinationType, String destinationValue, String destinationTitle) {
-    if (AppUtils.isStringEmpty(destinationType)) {
-      return null;
+        BuildContext context, String destinationType, String destinationValue, String destinationTitle) {
+      if (AppUtils.isStringEmpty(destinationType)) {
+        return null;
+      }
+      GestureTapCallback tapGesture;
+      if (destinationType == 'panel') {
+        Widget panel = _getPanelById(destinationValue);
+        tapGesture = () {
+          _openPanel(context, panel);
+        };
+      } else if (destinationType == 'web') {
+        tapGesture = () {
+          _openWebPanel(context, destinationTitle, destinationValue);
+        };
+      }
+      return tapGesture;
     }
-    GestureTapCallback tapGesture;
-    if (destinationType == 'panel') {
-      Widget panel = _getPanelById(destinationValue);
-      tapGesture = () {
-        _openPanel(context, panel);
-      };
-    } else if (destinationType == 'web') {
-      tapGesture = () {
-        _openWebPanel(context, destinationTitle, destinationValue);
-      };
-    }
-    return tapGesture;
-  }
 
   static void _openPanel(BuildContext context, Widget panel) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => panel));
-  }
+      Navigator.push(context, MaterialPageRoute(builder: (context) => panel));
+    }
 
   static void _openWebPanel(BuildContext context, String title, String url) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => new WebContentPanel(url: url, title: title)));
-  }
+      Navigator.push(context, MaterialPageRoute(builder: (context) => new WebContentPanel(url: url, title: title)));
+    }
 
   static Widget _getPanelById(String panelId) {
-    if (AppUtils.isStringEmpty(panelId)) {
-      return null;
-    }
-    switch (panelId) {
-      case 'form_panel_1':
-        return StaticFormPanel1();
-      case 'form_panel_2':
-        return StaticFormPanel2();
-      case 'form_panel_3':
-        return StaticFormPanel3();
-      case 'form_panel_4':
-        return StaticFormPanel4();
-      case 'form_panel_5':
-        return StaticFormPanel5();
-      case 'form_panel_6':
-        return StaticFormPanel6();
-      case 'form_panel_7':
-        return StaticFormPanel7();
-      case 'form_panel_8':
-        return StaticFormPanel8();
-      case 'form_panel_9':
-        return StaticFormPanel9();
-      case 'form_panel_10':
-        return StaticFormPanel10();
-
-      case 'web_panel_1':
-        return StaticWebListPanel1();
-      case 'web_panel_2':
-        return StaticWebListPanel2();
-      case 'web_panel_3':
-        return StaticWebListPanel3();
-      case 'web_panel_4':
-        return StaticWebListPanel4();
-      case 'web_panel_5':
-        return StaticWebListPanel5();
-      case 'web_panel_6':
-        return StaticWebListPanel6();
-      case 'web_panel_7':
-        return StaticWebListPanel7();
-      case 'web_panel_8':
-        return StaticWebListPanel8();
-      case 'web_panel_9':
-        return StaticWebListPanel9();
-      case 'web_panel_10':
-        return StaticWebListPanel10();
-      default:
+      if (AppUtils.isStringEmpty(panelId)) {
         return null;
+      }
+      switch (panelId) {
+        case 'form_panel_1':
+          return StaticFormPanel1();
+        case 'form_panel_2':
+          return StaticFormPanel2();
+        case 'form_panel_3':
+          return StaticFormPanel3();
+        case 'form_panel_4':
+          return StaticFormPanel4();
+        case 'form_panel_5':
+          return StaticFormPanel5();
+        case 'form_panel_6':
+          return StaticFormPanel6();
+        case 'form_panel_7':
+          return StaticFormPanel7();
+        case 'form_panel_8':
+          return StaticFormPanel8();
+        case 'form_panel_9':
+          return StaticFormPanel9();
+        case 'form_panel_10':
+          return StaticFormPanel10();
+
+        case 'web_panel_1':
+          return StaticWebListPanel1();
+        case 'web_panel_2':
+          return StaticWebListPanel2();
+        case 'web_panel_3':
+          return StaticWebListPanel3();
+        case 'web_panel_4':
+          return StaticWebListPanel4();
+        case 'web_panel_5':
+          return StaticWebListPanel5();
+        case 'web_panel_6':
+          return StaticWebListPanel6();
+        case 'web_panel_7':
+          return StaticWebListPanel7();
+        case 'web_panel_8':
+          return StaticWebListPanel8();
+        case 'web_panel_9':
+          return StaticWebListPanel9();
+        case 'web_panel_10':
+          return StaticWebListPanel10();
+        default:
+          return null;
+      }
     }
-  }
 }

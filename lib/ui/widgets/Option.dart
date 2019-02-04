@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:profile_demo/ui/WidgetHelper.dart';
+import 'package:profile_demo/utility/Utils.dart';
 
 class Option extends StatelessWidget {
   final dynamic data;
@@ -20,17 +21,13 @@ class Option extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _Title(data["title"]),
-          Image.asset(
-            'images/icon-option-placeholder.png',
-            height: 62,
-            width: 62,
-          ),
-
+          _Image(data["image"]),
         ],
       ),
     );
   }
 
+  //TODO move in Utils
   Text _Title(Map<String,dynamic> titleData){
     String text;
 
@@ -44,5 +41,43 @@ class Option extends StatelessWidget {
           fontWeight: FontWeight.w700,
           fontSize: 16),
     );
+  }
+
+  Widget _Image(Map<String,dynamic> imageData){
+    Widget defaultImage = Image.asset(
+      'images/icon-option-placeholder.png',
+      height: 62,
+      width: 62,
+    );
+//    return defaultImage;
+    if(imageData!=null)
+      return parseImage(imageData,62.0,62.0);
+    else
+      return Text("");
+  }
+
+  static Widget parseImage(Map<String, dynamic> imageData,double defaultWidth, defaultHeight){
+    String imageType;
+    String imagePath;
+    double width;
+    double height;
+    if (imageData != null) {
+      imageType = imageData['type'];
+      imagePath = imageData['path'];
+      width  = imageData['width']!=null ?  AppUtils.parseDoubleFrom(imageData["width"]) : defaultWidth;
+      height = imageData['height']!=null ?  AppUtils.parseDoubleFrom(imageData["height"]) : defaultHeight;
+    }
+    return Ink(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+            image: UiUtils.buildDecorationImage(imageType, imagePath),
+            border: UiConstants.emptyBorder,
+            color: Colors.transparent,
+            shape: UiConstants.roundedButtonBoxShape,
+            borderRadius: BorderRadius.zero
+        )
+    );
+
   }
 }
