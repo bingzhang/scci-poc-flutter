@@ -18,5 +18,5 @@ class HeaderAppBar extends AppBar {
                     builder: (context) => WebContentPanel(
                         url: 'https://illinois.edu', title: 'UIUC'))),
           )
-        ], centerTitle: true, title: Text('SAVVI'));
+        ], centerTitle: true, title: Text('UIUC'));
 }
