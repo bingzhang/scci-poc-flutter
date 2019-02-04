@@ -8,8 +8,6 @@ import 'package:profile_demo/ui/widgets/RibbonButton.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 import 'package:profile_demo/ui/widgets/ReadMore.dart';
-import 'package:profile_demo/ui/navigation/NavigationRouter.dart';
-import 'StudentSchedulePanel.dart';
 
 class StudentUpToDateInfoPanel extends StatelessWidget {
   @override
@@ -86,7 +84,7 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
             Container(height: 1, color: Colors.black26,),
             RibbonButton(title: 'Assignments Due Next',),
             Container(height: 1, color: Colors.black26,),
-            RibbonButton(title: "Today's Schedule", gestureTapCallback: NavigationRouter.openPanel(context, StudentSchedulePanel()),),
+            RibbonButton(title: "Today's Schedule", gestureTapCallback: () => Navigator.pushNamed(context, '/student/schedule'),),
             SearchBar()
           ])
         );

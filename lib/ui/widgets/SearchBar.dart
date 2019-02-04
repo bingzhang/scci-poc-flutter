@@ -3,8 +3,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:profile_demo/ui/navigation/NavigationRouter.dart';
-import 'package:profile_demo/ui/panels/ProfileEditPanel.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class SearchBar extends StatelessWidget {
@@ -16,7 +14,7 @@ class SearchBar extends StatelessWidget {
 //        color: Color.fromARGB(0, 188, 192, 195),
         child: Row(children: <Widget>[
           GestureDetector(
-            onTap: NavigationRouter.openPanel(context, ProfileEditPanel()),
+            onTap: () => Navigator.pushNamed(context, '/edit'),
             child: Image.asset(
               'images/icon-settings.png',
               width: 42,

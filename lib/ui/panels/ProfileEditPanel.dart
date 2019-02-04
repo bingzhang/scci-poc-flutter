@@ -10,7 +10,6 @@ import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/Alert.dart';
-import 'student/StudentHomePanel.dart';
 
 class ProfileEditPanel extends StatefulWidget {
   ProfileEditPanel({Key key}) : super(key: key);
@@ -62,7 +61,8 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('My Profile' /*, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold)*/),
+          title: Text(
+              'My Profile' /*, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold)*/),
         ),
         body: ModalProgressHUD(
             child: _buildEditProfileContainer(context), inAsyncCall: _loading));
@@ -208,12 +208,7 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
           (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
       Alert.showDialogResult(context, saveResultMsg).then((alertDismissed) {
         if (saveSucceeded && (true == alertDismissed)) {
-          if (_userRole == Role.student) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => StudentHomePanel()));
-          } else {
-            Navigator.pop(context);
-          }
+          Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
         }
       });
     });
