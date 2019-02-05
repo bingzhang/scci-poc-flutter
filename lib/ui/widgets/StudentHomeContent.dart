@@ -90,7 +90,7 @@ class StudentHomeContent extends StatelessWidget {
     return () => Navigator.push(
         context,
         SlidePanelRoute(
-            widget: StudentUpToDateInfoPanel(), startFromLeft: true));
+            widget: StudentUpToDateInfoPanel(), animateLeft: true));
   }
 
   Function _onSwipeRight(BuildContext context) {
