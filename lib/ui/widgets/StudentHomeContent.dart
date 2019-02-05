@@ -4,7 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:profile_demo/ui/page_routers/SlidePanelRoute.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
+import 'package:profile_demo/ui/panels/student/StudentSchedulePanel.dart';
+import 'package:profile_demo/ui/panels/student/StudentUpToDateInfoPanel.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
 import 'package:profile_demo/ui/widgets/NextEventDetails.dart';
 import 'package:profile_demo/ui/widgets/RibbonButton.dart';
@@ -23,10 +26,8 @@ class StudentHomeContent extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: SwipeDetector(
-                onSwipeLeft: () =>
-                    Navigator.pushNamed(context, '/student/info'),
-                onSwipeRight: () =>
-                    Navigator.pushNamed(context, '/student/schedule'),
+                onSwipeLeft: _onSwipeLeft(context),
+                onSwipeRight: _onSwipeRight(context),
                 child: Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   decoration: BoxDecoration(
@@ -83,5 +84,17 @@ class StudentHomeContent extends StatelessWidget {
             SearchBar()
           ],
         ));
+  }
+
+  Function _onSwipeLeft(BuildContext context) {
+    return () => Navigator.push(
+        context,
+        SlidePanelRoute(
+            widget: StudentUpToDateInfoPanel(), startFromLeft: true));
+  }
+
+  Function _onSwipeRight(BuildContext context) {
+    return () => Navigator.push(
+        context, SlidePanelRoute(widget: StudentSchedulePanel()));
   }
 }
