@@ -13,7 +13,7 @@ class Option extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      GestureTapCallback tapGesture = data!=null ? WidgetHelper.parseWidgetGesture(context, data["destination"]) : GestureTapCallback;
+    GestureTapCallback tapGesture = data!=null ? WidgetHelper.parseWidgetGesture(context, data["destination"]) : GestureTapCallback;
 
     return GestureDetector(
       onTap: tapGesture,
@@ -27,33 +27,45 @@ class Option extends StatelessWidget {
     );
   }
 
-  //TODO move in Utils
   Text _Title(Map<String,dynamic> titleData){
     String text;
+    int textColor = 0xff000000; //default
+    String fontFamily = 'Avenir';
+    double fontSize = 16.0;
+    String fontWeight = "normal"; //bolt
+    String fontStyle = "normal"; //bolt
 
     if(titleData!=null){
       text = titleData["text"];
+      String textColorString = titleData["text-color"];
+      if(textColorString!=null){
+        textColor = int.parse(textColorString);
+      }
+      Map<String, dynamic> fontData = titleData["font"];
+      if(fontData!=null){
+        fontFamily = fontData.containsKey("family")? fontData["family"] : fontFamily;
+        fontSize = fontData.containsKey("size")? AppUtils.parseDoubleFrom(fontData["size"]) : fontSize;
+        fontWeight = fontData.containsKey("weight")? fontData["weight"] : fontWeight;
+        fontStyle = fontData.containsKey("style")? fontData["style"] : fontStyle;
+      }
+
     }
     return Text(
       text,
       style: TextStyle(
-          fontFamily: 'Avenir',
-          fontWeight: FontWeight.w700,
-          fontSize: 16),
+          color: Color(textColor),
+          fontFamily: fontFamily,
+          fontStyle: AppUtils.fontStyleFromString(fontStyle),
+          fontWeight: AppUtils.fontWeightFromString(fontWeight),
+          fontSize: fontSize),
     );
   }
 
   Widget _Image(Map<String,dynamic> imageData){
-    Widget defaultImage = Image.asset(
-      'images/icon-option-placeholder.png',
-      height: 62,
-      width: 62,
-    );
-//    return defaultImage;
     if(imageData!=null)
       return parseImage(imageData,62.0,62.0);
     else
-      return Text("");
+      return Container();
   }
 
   static Widget parseImage(Map<String, dynamic> imageData,double defaultWidth, defaultHeight){
@@ -67,7 +79,7 @@ class Option extends StatelessWidget {
       width  = imageData['width']!=null ?  AppUtils.parseDoubleFrom(imageData["width"]) : defaultWidth;
       height = imageData['height']!=null ?  AppUtils.parseDoubleFrom(imageData["height"]) : defaultHeight;
     }
-    return Ink(
+    return Container(
         width: width,
         height: height,
         decoration: BoxDecoration(

@@ -77,6 +77,21 @@ class AppUtils {
     return Role.values
         .firstWhere((role) => userRoleToString(role) == roleString);
   }
+
+  static FontWeight fontWeightFromString(String key){
+    switch (key){
+      case "bold"  : return FontWeight.bold;
+      case "thin"  : return FontWeight.w100;
+      case "light" : return FontWeight.w300;
+      default      : return FontWeight.normal;
+    }
+  }
+  static FontStyle fontStyleFromString(String key){
+    switch (key){
+      case "italic" : return FontStyle.italic;
+      default       : return FontStyle.normal;
+    }
+  }
 }
 
 class AppConstants {
