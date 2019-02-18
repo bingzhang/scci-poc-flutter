@@ -3,7 +3,9 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:profile_demo/model/Role.dart';
+import 'package:profile_demo/ui/panels/MapsPanel.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
@@ -124,6 +126,15 @@ class WidgetHelper {
   static void _openWebPanel(BuildContext context, String title, String url) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => new WebContentPanel(url: url, title: title)));
     }
+
+  static void _openMapsPanel(BuildContext context, String title, String destination) {
+    List<String> latlong =  destination.split(",");
+    double latitude = double.tryParse(latlong[0]);
+    double longitude = double.tryParse(latlong[1]);
+    LatLng location = new LatLng(latitude, longitude);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => new MapsPanel(pos:location,title: title)));
+  }
 
   static Widget _getPanelById(String panelId) {
       if (AppUtils.isStringEmpty(panelId)) {
