@@ -115,6 +115,10 @@ class WidgetHelper {
         tapGesture = () {
           _openWebPanel(context, destinationTitle, destinationValue);
         };
+      } else if (destinationType == 'map'){
+        tapGesture = () {
+          _openMapsPanel(context, destinationTitle, destinationValue);
+        };
       }
       return tapGesture;
     }
