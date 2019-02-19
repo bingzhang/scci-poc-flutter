@@ -20,7 +20,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyANRj63JfSA26q79WCEo_ktE30L9_TrrKk"/>
+            android:value="AIzaSyBOyWpp0LBhbaYiQUGUbc_YLcW8pRoA5Sc"/>
 
         <activity
             android:name=".MainActivity"
