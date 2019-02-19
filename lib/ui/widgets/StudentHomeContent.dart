@@ -105,7 +105,7 @@ class StudentHomeContent extends StatelessWidget {
         context, SlidePanelRoute(widget: StudentSchedulePanel()));
   }
 
-   static const platform = const MethodChannel("com.inabyte.profile_demo/navive_call");
+   static const platform = const MethodChannel("com.uiuc.profile/native_call");
   _launchIndoorMaps() async {
     try {
       await platform.invokeMethod('indoorMaps');
