@@ -5,23 +5,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapsPanel extends  StatefulWidget {
-  LatLng pos;
-  String title;
+class MapsPanel extends StatefulWidget {
+  final LatLng pos;
+  final String title;
 
-  MapsPanel({Key key, this.pos,this.title}) : super(key: key);
+  MapsPanel({Key key, this.pos, this.title}) : super(key: key);
 
   @override
-  MapsState createState()  => new MapsState(pos,title);
+  MapsState createState() => new MapsState(pos, title);
 }
 
 class MapsState extends State<MapsPanel> {
-
-  GoogleMapController  mapController;
+  GoogleMapController mapController;
   LatLng _startPoint;
   String infoText;
 
-  MapsState( this._startPoint,this.infoText) : super();
+  MapsState(this._startPoint, this.infoText) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +35,21 @@ class MapsState extends State<MapsPanel> {
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
-        options: GoogleMapOptions(
-          cameraPosition: CameraPosition(
-            target: _startPoint,
-            zoom: 11.0,
-          ),
-        ),
+        initialCameraPosition:
+            CameraPosition(target: this._startPoint, zoom: 11.0),
       ),
     );
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() { mapController = controller; });
+    setState(() {
+      mapController = controller;
+    });
     _addMarker(this._startPoint);
   }
 
-  _addMarker(LatLng pos){
-    Future<Marker> initialMarker = mapController.addMarker(new MarkerOptions(position: pos, infoWindowText: new InfoWindowText(this.infoText,"")));
+  _addMarker(LatLng pos) {
+    Future<Marker> initialMarker = mapController.addMarker(new MarkerOptions(
+        position: pos, infoWindowText: new InfoWindowText(this.infoText, "")));
   }
 }
