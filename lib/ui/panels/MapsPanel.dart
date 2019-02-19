@@ -52,6 +52,6 @@ class MapsState extends State<MapsPanel> {
   }
 
   _addMarker(LatLng pos){
-    mapController.addMarker(new MarkerOptions(position: pos, infoWindowText: new InfoWindowText(this.infoText, "snippet ??")));
+    Future<Marker> initialMarker = mapController.addMarker(new MarkerOptions(position: pos, infoWindowText: new InfoWindowText(this.infoText,"")));
   }
 }

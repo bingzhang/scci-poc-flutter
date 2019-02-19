@@ -3,11 +3,13 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/ui/WidgetHelper.dart';
+import 'package:profile_demo/ui/panels/MapsPanel.dart';
 
 class ProfileHomeContent extends StatefulWidget {
   @override
@@ -39,10 +41,15 @@ class _ProfileHomeContentState extends State<ProfileHomeContent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(
-          'images/illinois_vertical.png',
-          fit: BoxFit.scaleDown,
-          alignment: Alignment.center,
+          title:   GestureDetector(
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(
+                  builder: (context) => new MapsPanel(pos: new LatLng(40.1019523,-88.5073129), title:"University of Illinois at Urbana-Champaign"))),
+          child: Image.asset(
+            'images/illinois_vertical.png',
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.center,
+          )
         ),
         centerTitle: true,
       ),
