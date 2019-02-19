@@ -2,6 +2,9 @@
 /.idea
 /android/local.properties
 /android/.gradle
+/android/.idea
+/android/android.iml
+/android/app/app.iml
 .packages
 .flutter-plugins
 
