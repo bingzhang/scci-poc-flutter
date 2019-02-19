@@ -18,6 +18,13 @@
 
 @implementation MapsIndoorsViewController
 
+- (id)init {
+	if (self = [super init]) {
+		self.navigationItem.title = @"Indoor Maps";
+	}
+	return self;
+}
+
 - (void)loadView {
   // Create a GMSCameraPosition that tells the map to display the
   // coordinate -33.86,151.20 at zoom level 6.
@@ -47,19 +54,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-+ (void)push {
-	MapsIndoorsViewController *mapsController = [[self alloc] init];
-	
-	UIViewController *parentController = UIApplication.sharedApplication.keyWindow.rootViewController;
-	if ([parentController isKindOfClass:[UINavigationController class]]) {
-		[((UINavigationController*)parentController) pushViewController:mapsController animated:YES];
-	}
-	else {
-		[parentController presentViewController:mapsController animated:YES completion:nil];
-	}
-
 }
 
 @end

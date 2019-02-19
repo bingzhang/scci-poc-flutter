@@ -1,5 +1,5 @@
 //
-//  MapsIndoorsViewController.h
+//  AppDelegate.h
 //  Runner
 //
 //  Created by Mihail Varbanov on 2/19/19.
@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Flutter/Flutter.h>
 
-@interface MapsIndoorsViewController : UIViewController
+@interface AppDelegate : FlutterAppDelegate
 @end
+
