@@ -40,7 +40,7 @@
 		[self.window makeKeyAndVisible];
 	}
 	
-	FlutterMethodChannel* nativeCallChannel = [FlutterMethodChannel methodChannelWithName:@"com.inabyte.profile_demo/navive_call" binaryMessenger:flutterViewController];
+	FlutterMethodChannel* nativeCallChannel = [FlutterMethodChannel methodChannelWithName:@"com.uiuc.profile/native_call" binaryMessenger:flutterViewController];
 	[nativeCallChannel setMethodCallHandler:^(FlutterMethodCall* call, FlutterResult result) {
 	
         if ([@"indoorMaps" isEqualToString:call.method]) {
