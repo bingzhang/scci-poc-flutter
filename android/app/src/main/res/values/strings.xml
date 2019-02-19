@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019 UIUC. All rights reserved.
+  -->
+
+<resources>
+    <string name="google_maps_api_key" translatable="false">AIzaSyBOyWpp0LBhbaYiQUGUbc_YLcW8pRoA5Sc</string>
+    <string name="mapsindoors_api_key" translatable="false">57e4e4992e74800ef8b69718</string>
+    <!-- <string name="mapsindoors_api_key" translatable="false">56616c7bf5934092acfe0660</string> -->
+</resources>
