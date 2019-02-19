@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:profile_demo/ui/page_routers/SlidePanelRoute.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
@@ -81,6 +82,12 @@ class StudentHomeContent extends StatelessWidget {
                           title: 'Athletics'))),
             ),
             HorizontalDivider(),
+            RibbonButton(
+              title: 'Indoor Maps',
+              gestureTapCallback: () =>
+                  _launchIndoorMaps(),
+            ),
+            HorizontalDivider(),
             SearchBar()
           ],
         ));
@@ -97,4 +104,14 @@ class StudentHomeContent extends StatelessWidget {
     return () => Navigator.push(
         context, SlidePanelRoute(widget: StudentSchedulePanel()));
   }
+
+   static const platform = const MethodChannel("maps_channel");
+  _launchIndoorMaps() async {
+    try {
+      await platform.invokeMethod('launchIndoorMaps');
+    } on PlatformException catch (e) {
+      print(e.message);
+    } 
+}
+
 }
