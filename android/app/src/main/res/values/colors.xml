@@ -3,4 +3,5 @@
     <color name="step_header_color">#DCDCDC</color>
     <color name="step_button_back_color">#606060</color>
     <color name="step_button_text_color">#FFFFFF</color>
+    <color name="steps_label_text_color">#000000</color>
 </resources>
