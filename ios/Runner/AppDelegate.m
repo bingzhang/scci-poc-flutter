@@ -24,7 +24,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 	NSString *googleAPIkey = @"AIzaSyBOyWpp0LBhbaYiQUGUbc_YLcW8pRoA5Sc";
-	NSString *mapsIndoorsKey = @"56616c7bf5934092acfe0660"; // "57e4e4992e74800ef8b69718"
+	NSString *mapsIndoorsKey = @"73dec0092e784856a2c69b8a"; // @"56616c7bf5934092acfe0660"; // @"57e4e4992e74800ef8b69718"
 	[GMSServices provideAPIKey:googleAPIkey];
 	[MapsIndoors provideAPIKey:mapsIndoorsKey googleAPIKey:googleAPIkey];
 	

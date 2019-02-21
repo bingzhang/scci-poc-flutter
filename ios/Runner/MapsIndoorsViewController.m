@@ -28,9 +28,7 @@
 - (void)loadView {
   // Create a GMSCameraPosition that tells the map to display the
   // coordinate -33.86,151.20 at zoom level 6.
-  GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:57.08585
-                                                          longitude:9.95751
-                                                               zoom:17];
+  GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:57.08585 longitude:9.95751 zoom:17];
   mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
   mapView.myLocationEnabled = YES;
   self.view = mapView;
