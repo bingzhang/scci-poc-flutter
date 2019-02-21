@@ -2,13 +2,14 @@ package com.uiuc.profile;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mapsindoors.mapssdk.Location;
 import com.mapsindoors.mapssdk.MPDirectionsRenderer;
 import com.mapsindoors.mapssdk.MPRoutingProvider;
@@ -25,12 +26,19 @@ public class MapsIndoorsActivity extends FragmentActivity {
     public static final String TAG = MapsIndoorsActivity.class.getSimpleName();
 
     private SupportMapFragment mapFragment;
+
     private GoogleMap googleMap;
     private MapControl mapControl;
     private RoutingProvider routingProvider;
     private MPDirectionsRenderer routingRenderer;
 
+    private String userName;
+    private Marker userMarker;
+
+
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
+    private static final LatLng INITIAL_USER_LOCATION = new LatLng(57.087210, 9.958428);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void init() {
+        userName = getIntent().getExtras().getString("user_name");
         MapsIndoors.initialize(
                 getApplicationContext(),
                 getString(R.string.mapsindoors_api_key)
@@ -68,6 +77,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             mapFragment.getMapAsync(map -> {
                 googleMap = map;
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 13.0f));
+                setupUserMarker();
                 setupMapsIndoors();
             });
         }
@@ -81,6 +91,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
         mapControl.setOnMarkerClickListener(marker -> {
             final Location loc = mapControl.getLocation(marker);
             if (loc != null) {
+                marker.showInfoWindow();
+            } else if (marker.equals(userMarker)){
                 marker.showInfoWindow();
             }
             return true;
@@ -110,4 +122,17 @@ public class MapsIndoorsActivity extends FragmentActivity {
         Point destination = new Point(57.08603248579481, 9.958068568122826);
         routingProvider.query(origin, destination);
     }
+
+    private void setupUserMarker(){
+        userMarker = googleMap.addMarker(constructInitialMarker());
+        userMarker.showInfoWindow();
+    }
+
+    private MarkerOptions constructInitialMarker(){
+        MarkerOptions options = new MarkerOptions()
+                .position(INITIAL_USER_LOCATION)
+                .title(userName);
+        return options;
+    }
+
 }

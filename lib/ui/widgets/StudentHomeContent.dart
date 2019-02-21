@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:profile_demo/ui/page_routers/SlidePanelRoute.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
@@ -108,7 +109,8 @@ class StudentHomeContent extends StatelessWidget {
    static const platform = const MethodChannel("com.uiuc.profile/native_call");
   _launchIndoorMaps() async {
     try {
-      await platform.invokeMethod('indoorMaps');
+      String userName = ProfileLogic()?.getUser()?.name;
+      await platform.invokeMethod('indoorMaps',{"user_name":userName});
     } on PlatformException catch (e) {
       print(e.message);
     } 
