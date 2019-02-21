@@ -20,7 +20,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private GoogleMap mGoogleMap;
     private MapControl myMapControl;
 
-    private static final LatLng MAPSPEOPLE_CORPORATE_HQ_LOCATION = new LatLng(57.05813067, 9.95058065);
+    private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
         if (mapFragment != null) {
             mapFragment.getMapAsync(googleMap -> {
                 mGoogleMap = googleMap;
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MAPSPEOPLE_CORPORATE_HQ_LOCATION, 13.0f));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 13.0f));
                 setupMapsIndoors();
             });
         }
@@ -61,7 +61,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             if (error == null) {
                 runOnUiThread(() -> {
                     myMapControl.selectFloor(0);
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MAPSPEOPLE_CORPORATE_HQ_LOCATION, 19f));
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 17f));
                 });
             }
         });
