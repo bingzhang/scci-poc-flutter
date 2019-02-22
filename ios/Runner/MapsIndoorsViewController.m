@@ -221,6 +221,56 @@
 
 #pragma mark GMSMapViewDelegate
 
+- (void)mapView:(GMSMapView *)mapView didTapMarker:(nonnull GMSMarker *)marker {
+	NSMutableString *markerDescription = [[NSMutableString alloc] init];
+	[markerDescription appendString:@"GMSMarker Fields\n"];
+	[markerDescription appendFormat:@"Title: %@\n", marker.title];
+	[markerDescription appendFormat:@"Position: lat = %.6f, lng = %.6f\n", marker.position.latitude, marker.position.longitude];
+	[markerDescription appendFormat:@"Snippet: %@\n", marker.snippet];
+	[markerDescription appendFormat:@"Icon: %@\n", (marker.icon != nil) ? [NSString stringWithFormat:@"%.0f x %.0f", marker.icon.size.width, marker.icon.size.height] : @"(null)"];
+	[markerDescription appendFormat:@"Tappable: %@\n", marker.tappable ? @"YES" : @"NO"];
+	[markerDescription appendFormat:@"Tracks Views Changes: %@\n", marker.tracksViewChanges ? @"YES" : @"NO"];
+	[markerDescription appendFormat:@"Tracks Info Changes: %@\n", marker.tracksInfoWindowChanges ? @"YES" : @"NO"];
+	[markerDescription appendFormat:@"Draggable: %@\n", marker.draggable ? @"YES" : @"NO"];
+	[markerDescription appendFormat:@"Flat: %@\n", marker.flat ? @"YES" : @"NO"];
+	[markerDescription appendFormat:@"Rotation: %.2f\n", marker.rotation];
+	[markerDescription appendFormat:@"Opacity: %.2f\n", marker.opacity];
+	[markerDescription appendFormat:@"zIndex: %d\n", marker.zIndex];
+	[markerDescription appendFormat:@"Ground Anchor: x = %.2f, y = %.2f\n", marker.groundAnchor.x, marker.groundAnchor.y];
+	[markerDescription appendFormat:@"Info Window Anchor: x = %.2f, y = %.2f\n", marker.infoWindowAnchor.x, marker.infoWindowAnchor.y];
+
+    MPLocation *location = [mapControl getLocation:marker];
+    if (location != nil) {
+		[markerDescription appendString:@"\n"];
+		[markerDescription appendString:@"MPLocation Fields\n"];
+		[markerDescription appendFormat:@"Name: %@\n", location.name];
+		[markerDescription appendFormat:@"Location Id: %@\n", location.locationId];
+		[markerDescription appendFormat:@"Type: %@\n", location.type];
+		[markerDescription appendFormat:@"Floor: %@\n", location.floor];
+		[markerDescription appendFormat:@"Active From: %@\n", location.activeFrom];
+		[markerDescription appendFormat:@"Active To: %@\n", location.activeTo];
+		[markerDescription appendFormat:@"Venue: %@\n", location.venue];
+		[markerDescription appendFormat:@"Building: %@\n", location.building];
+		[markerDescription appendFormat:@"Room Id: %@\n", location.roomId];
+		[markerDescription appendFormat:@"Description: %@\n", location.descr];
+		[markerDescription appendFormat:@"Image: %@\n", (location.image != nil) ? [NSString stringWithFormat:@"%.0f x %.0f", location.image.size.width, marker.icon.size.height] : @"(null)"];
+		[markerDescription appendFormat:@"Image URL: %@\n", location.imageURL];
+		
+		if (0 < location.categories.count) {
+			[markerDescription appendString:@"Categories:"];
+			for (id entry in location.categories) {
+				[markerDescription appendFormat:@" %@:(%@)", entry, location.categories[entry]];
+			}
+			[markerDescription appendString:@"\n"];
+		}
+	}
+
+	
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:marker.title message:markerDescription preferredStyle:UIAlertControllerStyleAlert];
+	[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+	[self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
 }
 
