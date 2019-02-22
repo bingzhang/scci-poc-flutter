@@ -2,6 +2,7 @@ package com.uiuc.profile;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -87,6 +88,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
                     mapControl.selectFloor(0);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 17f));
                 });
+            } else {
+                String errorMsg = String.format("MapsIndoors map control 'com.mapsindoors.mapssdk.MapControl' failed to initialize with error:\n%s", error.message);
+                Log.d(TAG, errorMsg);
+                showAlertDialog(getString(R.string.alert_dialog_default_title), errorMsg);
             }
         });
     }
@@ -104,10 +109,14 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void showMarkerAlertDialog(Marker marker) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.alert_dialog_title);
         String markerDetailsMsg = String.format("Id: %s\nTitle: %s\nPosition: lat %.7f, long %.7f\nAlpha: %.5f\nRotation: %.5f\nSnippet: %s\nZIndex: %.5f\nTag: %s", marker.getId(), marker.getTitle(), marker.getPosition().latitude, marker.getPosition().longitude, marker.getAlpha(), marker.getRotation(), marker.getSnippet(), marker.getZIndex(), (marker.getTag() != null ? marker.getTag().toString() : "null"));
-        dialogBuilder.setMessage(markerDetailsMsg);
+        showAlertDialog(getString(R.string.poi_details_alert_dialog_title), markerDetailsMsg);
+    }
+
+    private void showAlertDialog(String title, String message) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle(title);
+        dialogBuilder.setMessage(message);
         dialogBuilder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
