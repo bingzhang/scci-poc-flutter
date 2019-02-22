@@ -1,5 +1,6 @@
 package com.uiuc.profile;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,7 +10,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mapsindoors.mapssdk.Location;
 import com.mapsindoors.mapssdk.MapControl;
 import com.mapsindoors.mapssdk.MapsIndoors;
 import com.mapsindoors.mapssdk.dbglog;
@@ -78,12 +78,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
         mapControl = new MapControl(this);
         mapControl.setGoogleMap(googleMap, mapFragment.getView());
         mapControl.setOnMarkerClickListener(marker -> {
-            final Location loc = mapControl.getLocation(marker);
-            if (loc != null) {
-                marker.showInfoWindow();
-            } else if (marker.equals(userMarker)){
-                marker.showInfoWindow();
-            }
+            showMarkerAlertDialog(marker);
             return true;
         });
         mapControl.init(error -> {
@@ -106,6 +101,16 @@ public class MapsIndoorsActivity extends FragmentActivity {
                 .position(INITIAL_USER_LOCATION)
                 .title(userName);
         return options;
+    }
+
+    private void showMarkerAlertDialog(Marker marker) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle(R.string.alert_dialog_title);
+        String markerDetailsMsg = String.format("Id: %s\nTitle: %s\nPosition: lat %.7f, long %.7f\nAlpha: %.5f\nRotation: %.5f\nSnippet: %s\nZIndex: %.5f\nTag: %s", marker.getId(), marker.getTitle(), marker.getPosition().latitude, marker.getPosition().longitude, marker.getAlpha(), marker.getRotation(), marker.getSnippet(), marker.getZIndex(), (marker.getTag() != null ? marker.getTag().toString() : "null"));
+        dialogBuilder.setMessage(markerDetailsMsg);
+        dialogBuilder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 
 }
