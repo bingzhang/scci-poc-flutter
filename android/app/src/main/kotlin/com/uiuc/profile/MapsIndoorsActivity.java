@@ -206,6 +206,9 @@ public class MapsIndoorsActivity extends FragmentActivity {
         int stepsSize = (routeSteps != null) ? routeSteps.size() : 0;
         RouteStep currentStep = ((routeSteps != null) && (currentStepIndex >= 0) && (currentStepIndex < stepsSize)) ?
                 routeSteps.get(currentStepIndex) : null;
+        double stepFloorDoubleIndex = (currentStep != null && currentStep.getStartLocation() != null) ?
+                currentStep.getStartLocation().getzIndex() : 0.0;
+        int stepFloorIndex = (int) stepFloorDoubleIndex;
         boolean isNextEnabled = (currentRoute != null) &&
                 ((currentLegIndex < (legsSize - 1)) || currentStepIndex < (stepsSize - 1));
         int nextBackgroundColorResource = isNextEnabled ? R.color.step_button_enabled_back_color : R.color.step_button_disabled_back_color;
@@ -230,6 +233,9 @@ public class MapsIndoorsActivity extends FragmentActivity {
         }
         if (stepsTextView != null) {
             stepsTextView.setText((htmlText != null) ? htmlText : stepsText);
+        }
+        if ((mapControl != null) && (mapControl.getCurrentFloorIndex() != stepFloorIndex)) {
+            mapControl.selectFloor(stepFloorIndex);
         }
     }
 
