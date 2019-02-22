@@ -1,10 +1,14 @@
 package com.uiuc.profile;
 
 import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,6 +38,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private SupportMapFragment mapFragment;
     private Button nextButton;
     private Button prevButton;
+    private TextView stepsTextView;
 
     private GoogleMap googleMap;
     private MapControl mapControl;
@@ -42,7 +47,6 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private Route currentRoute;
 
     private String userName;
-    private Marker userMarker;
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
     private static final LatLng INITIAL_USER_LOCATION = new LatLng(57.087210, 9.958428);
@@ -116,6 +120,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
         }
         nextButton = findViewById(R.id.nextButton);
         prevButton = findViewById(R.id.prevButton);
+        stepsTextView = findViewById(R.id.stepsTextView);
         updateUi();
     }
 
@@ -168,7 +173,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void setupUserMarker() {
-        userMarker = googleMap.addMarker(constructInitialMarker());
+        Marker userMarker = googleMap.addMarker(constructInitialMarker());
         userMarker.showInfoWindow();
     }
 
@@ -199,6 +204,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
         RouteLeg currentLeg = (routeLegs != null) ? routeLegs.get(currentLegIndex) : null;
         List<RouteStep> routeSteps = (currentLeg != null) ? currentLeg.getSteps() : null;
         int stepsSize = (routeSteps != null) ? routeSteps.size() : 0;
+        RouteStep currentStep = ((routeSteps != null) && (currentStepIndex >= 0) && (currentStepIndex < stepsSize)) ?
+                routeSteps.get(currentStepIndex) : null;
         boolean isNextEnabled = (currentRoute != null) &&
                 ((currentLegIndex < (legsSize - 1)) || currentStepIndex < (stepsSize - 1));
         int nextBackgroundColorResource = isNextEnabled ? R.color.step_button_enabled_back_color : R.color.step_button_disabled_back_color;
@@ -207,6 +214,22 @@ public class MapsIndoorsActivity extends FragmentActivity {
             nextButton.setEnabled(isNextEnabled);
             nextButton.setBackgroundResource(nextBackgroundColorResource);
             nextButton.setTextColor(getResources().getColor(nextTextColorResource));
+        }
+        String stepsText = null;
+        Spanned htmlText = null;
+        if (currentStep != null) {
+            if (currentStep.getHtmlInstructions() != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    htmlText = Html.fromHtml(currentStep.getHtmlInstructions(), Html.FROM_HTML_MODE_COMPACT);
+                } else {
+                    htmlText = Html.fromHtml(currentStep.getHtmlInstructions());
+                }
+            } else if ((currentStep.getManeuver() != null)) {
+                stepsText = String.format("Floor %s | %s | %s", currentStep.getStartFloorname(), currentStep.getHighway(), currentStep.getManeuver());
+            }
+        }
+        if (stepsTextView != null) {
+            stepsTextView.setText((htmlText != null) ? htmlText : stepsText);
         }
     }
 
