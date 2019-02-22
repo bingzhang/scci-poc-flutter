@@ -17,6 +17,7 @@
 	MPMapControl *mapControl;
 	MPDirectionsRenderer *directionsRenderer;
 	GMSMarker *orgMarker, *destMarker;
+	MPLocation *orgLocation, *destLocation;
 	UIActivityIndicatorView *activityView;
 	UIButton *prevButton, *nextButton;
 	UILabel *stepLabel;
@@ -90,20 +91,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addMarkers];
+    //[self addLocations];
 	[self searchRoute];
 }
 
 - (void)addMarkers {
 
 	if (orgMarker == nil) {
-		NSString *userString = [[NSUserDefaults standardUserDefaults] stringForKey:@"flutter.user"];
-		NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-		NSString *userName = [userData isKindOfClass:[NSDictionary class]] ? [userData inaStringForKey:@"name"] : @"User Name";
 
 		orgMarker = [[GMSMarker alloc] init];
 		orgMarker.position = CLLocationCoordinate2DMake(57.087210, 9.958428);
 		orgMarker.icon = [UIImage imageNamed:@"maps-icon-male-toilet"];
-		orgMarker.title = userName;
+		orgMarker.title = self.userName;
 		orgMarker.snippet = @"Origin Location";
 		orgMarker.groundAnchor = CGPointMake(0.5, 0.5);
 		orgMarker.map = mapView;
@@ -119,6 +118,37 @@
 		destMarker.map = mapView;
 	}
 
+}
+
+- (void)addLocations {
+	if (orgLocation == nil) {
+	
+		MPPoint *orgPoint = [[MPPoint alloc] initWithLat:57.087210 lon:9.958428];
+		orgLocation = [[MPLocation alloc] initWithPoint:orgPoint andName:self.userName];
+		orgLocation.image = [UIImage imageNamed:@"maps-icon-male-toilet"];
+		orgLocation.name = self.userName;
+		orgLocation.descr = @"Origin Location";
+		[orgLocation addToMap:mapView];
+		[orgLocation showDynamically];
+	}
+
+	if (destLocation == nil) {
+	
+		MPPoint *destPoint = [[MPPoint alloc] initWithLat:57.0861893 lon:9.9578803 zValue:1];
+		destLocation = [[MPLocation alloc] initWithPoint:destPoint andName:@"Study Room"];
+		destLocation.image = [UIImage imageNamed:@"maps-icon-study-zone"];
+		destLocation.name = @"Study Room";
+		destLocation.descr = @"Destination Location";
+		[destLocation addToMap:mapView];
+		[destLocation showDynamically];
+		
+	}
+}
+
+- (NSString*)userName {
+	NSString *userString = [[NSUserDefaults standardUserDefaults] stringForKey:@"flutter.user"];
+	NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
+	return [userData isKindOfClass:[NSDictionary class]] ? [userData inaStringForKey:@"name"] : @"User Name";
 }
 
 - (void)searchRoute {
