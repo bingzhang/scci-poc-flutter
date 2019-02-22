@@ -16,6 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mapsindoors.mapssdk.Location;
 import com.mapsindoors.mapssdk.MPDirectionsRenderer;
 import com.mapsindoors.mapssdk.MPRoutingProvider;
 import com.mapsindoors.mapssdk.MapControl;
@@ -240,8 +241,47 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void showMarkerAlertDialog(Marker marker) {
-        String markerDetailsMsg = String.format("Id: %s\nTitle: %s\nPosition: lat %.7f, long %.7f\nAlpha: %.5f\nRotation: %.5f\nSnippet: %s\nZIndex: %.5f\nTag: %s", marker.getId(), marker.getTitle(), marker.getPosition().latitude, marker.getPosition().longitude, marker.getAlpha(), marker.getRotation(), marker.getSnippet(), marker.getZIndex(), (marker.getTag() != null ? marker.getTag().toString() : "null"));
-        showAlertDialog(getString(R.string.poi_details_alert_dialog_title), markerDetailsMsg);
+        StringBuilder builder = new StringBuilder();
+        builder.append("Marker fields: \n\n");
+        builder.append(String.format("Id: %s\n", marker.getId()));
+        builder.append(String.format("Title: %s\n", marker.getTitle()));
+        builder.append(String.format("IsVisible: %b\n", marker.isVisible()));
+        builder.append(String.format("IsDraggable: %b\n", marker.isDraggable()));
+        builder.append(String.format("IsFlat: %b\n", marker.isFlat()));
+        builder.append(String.format("IsInfoWindowShown: %b\n", marker.isInfoWindowShown()));
+        builder.append(String.format("Position: lat %.7f, long %.7f, \n", marker.getPosition().latitude, marker.getPosition().longitude));
+        builder.append(String.format("Alpha: %.5f\n", marker.getAlpha()));
+        builder.append(String.format("Rotation: %.5f\n", marker.getRotation()));
+        builder.append(String.format("Snippet: %s\n", marker.getSnippet()));
+        builder.append(String.format("ZIndex: %.5f\n", marker.getZIndex()));
+        builder.append(String.format("Tag: %s\n\n", (marker.getTag() != null ? marker.getTag().toString() : "null")));
+
+        Location markerLocation = mapControl.getLocation(marker);
+        if (markerLocation != null) {
+            builder.append("\nLocation fields:\n\n");
+            builder.append(String.format("Id: %s\n", markerLocation.getId()));
+            builder.append(String.format("Name: %s\n", markerLocation.getName()));
+            builder.append(String.format("FloorIndex: %d\n", markerLocation.getFloorIndex()));
+            builder.append(String.format("LatLang: lat%.7f long %.7f\n", markerLocation.getLatLng().longitude, markerLocation.getLatLng().longitude));
+            builder.append(String.format("RoomId: %s\n", markerLocation.getRoomId()));
+            builder.append(String.format("Type: %s\n", markerLocation.getType()));
+            builder.append(String.format("IsVisible: %b\n", markerLocation.isVisible()));
+            builder.append(String.format("IsMarkerSetup: %b\n", markerLocation.isMarkerSetup()));
+            builder.append(String.format("Geometry: type %s, iType %d\n", markerLocation.getGeometry().getType(), markerLocation.getGeometry().getIType()));
+            String[] categories = markerLocation.getCategories();
+            StringBuilder categoriesBuilder = new StringBuilder();
+            if (categories != null && categories.length > 0) {
+                for (int i = 0; i < categories.length; i++) {
+                    categoriesBuilder.append(categories[i]);
+                    if (i < (categories.length - 1)) {
+                        categoriesBuilder.append(", ");
+                    }
+                }
+            }
+            builder.append(String.format("Categories: %s\n", categoriesBuilder.toString()));
+        }
+
+        showAlertDialog(getString(R.string.poi_details_alert_dialog_title), builder.toString());
     }
 
     private void showAlertDialog(String title, String message) {
