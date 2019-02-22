@@ -43,10 +43,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
     private static final LatLng INITIAL_USER_LOCATION = new LatLng(57.087210, 9.958428);
-    private static final LatLng DESTINATION_LOCATION = new LatLng(57.08603248579481, 9.958068568122826);
+    private static final LatLng DESTINATION_LOCATION = new LatLng(57.0861893, 9.9578803);
 
     private int currentLegIndex = 0;
-    private int currentStepIndex = 0;
+    private int currentStepIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +72,34 @@ public class MapsIndoorsActivity extends FragmentActivity {
         List<RouteStep> routeSteps = currentLeg.getSteps();
         int stepsSize = routeSteps.size();
         if ((currentStepIndex + 1) < stepsSize) {
-            directionsRenderer.setRouteLegIndex(currentLegIndex, currentStepIndex++);
+            makeNextStep(currentLegIndex, ++currentStepIndex);
         } else if ((currentLegIndex + 1) < legsSize) {
             currentStepIndex = 0;
             currentLegIndex++;
-            directionsRenderer.setRouteLegIndex(currentLegIndex, currentStepIndex++);
+            makeNextStep(currentLegIndex, currentStepIndex);
         }
     }
 
     public void onPreviousClicked(View view) {
-        //TODO:
+        if (currentRoute == null) {
+            return;
+        }
+        if(currentStepIndex > 0) {
+            makeNextStep(currentLegIndex, --currentStepIndex);
+        } else if(currentLegIndex > 0) {
+            currentLegIndex--;
+            List<RouteLeg> routeLegs = currentRoute.getLegs();
+            RouteLeg currentLeg = routeLegs.get(currentLegIndex);
+            List<RouteStep> routeSteps = currentLeg.getSteps();
+            int stepsSize = routeSteps.size();
+            currentStepIndex = stepsSize - 1;
+            makeNextStep(currentLegIndex, currentStepIndex);
+        }
+    }
+
+    private void makeNextStep(int legIndex, int stepIndex) {
+        directionsRenderer.setRouteLegIndex(legIndex, stepIndex);
+        directionsRenderer.animate(0, true);
     }
 
     private void init() {
@@ -143,7 +161,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             }
         });
         Point origin = new Point(INITIAL_USER_LOCATION);
-        Point destination = new Point(DESTINATION_LOCATION);
+        Point destination = new Point(DESTINATION_LOCATION.latitude, DESTINATION_LOCATION.longitude, 1);
         routingProvider.query(origin, destination);
     }
 
