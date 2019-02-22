@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,6 +32,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private static final String TAG = MapsIndoorsActivity.class.getSimpleName();
 
     private SupportMapFragment mapFragment;
+    private Button nextButton;
+    private Button prevButton;
 
     private GoogleMap googleMap;
     private MapControl mapControl;
@@ -84,9 +87,9 @@ public class MapsIndoorsActivity extends FragmentActivity {
         if (currentRoute == null) {
             return;
         }
-        if(currentStepIndex > 0) {
+        if (currentStepIndex > 0) {
             makeNextStep(currentLegIndex, --currentStepIndex);
-        } else if(currentLegIndex > 0) {
+        } else if (currentLegIndex > 0) {
             currentLegIndex--;
             List<RouteLeg> routeLegs = currentRoute.getLegs();
             RouteLeg currentLeg = routeLegs.get(currentLegIndex);
@@ -95,11 +98,6 @@ public class MapsIndoorsActivity extends FragmentActivity {
             currentStepIndex = stepsSize - 1;
             makeNextStep(currentLegIndex, currentStepIndex);
         }
-    }
-
-    private void makeNextStep(int legIndex, int stepIndex) {
-        directionsRenderer.setRouteLegIndex(legIndex, stepIndex);
-        directionsRenderer.animate(0, true);
     }
 
     private void init() {
@@ -116,6 +114,9 @@ public class MapsIndoorsActivity extends FragmentActivity {
         if (mapFragment != null) {
             mapFragment.getMapAsync(this::didGetMapAsync);
         }
+        nextButton = findViewById(R.id.nextButton);
+        prevButton = findViewById(R.id.prevButton);
+        updateUi();
     }
 
     private void didGetMapAsync(GoogleMap map) {
@@ -159,6 +160,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             } else {
                 showAlertDialog(getString(R.string.alert_dialog_default_title), "Failed to retrieve route");
             }
+            runOnUiThread(() -> updateUi());
         });
         Point origin = new Point(INITIAL_USER_LOCATION);
         Point destination = new Point(DESTINATION_LOCATION.latitude, DESTINATION_LOCATION.longitude, 1);
@@ -175,6 +177,37 @@ public class MapsIndoorsActivity extends FragmentActivity {
                 .position(INITIAL_USER_LOCATION)
                 .title(userName);
         return options;
+    }
+
+    private void makeNextStep(int legIndex, int stepIndex) {
+        directionsRenderer.setRouteLegIndex(legIndex, stepIndex);
+        directionsRenderer.animate(0, true);
+        updateUi();
+    }
+
+    private void updateUi() {
+        boolean isPrevEnabled = (currentLegIndex > 0) || (currentStepIndex > 0);
+        int prevBackgroundColorResource = isPrevEnabled ? R.color.step_button_enabled_back_color : R.color.step_button_disabled_back_color;
+        int prevTextColorResource = isPrevEnabled ? R.color.step_button_enabled_text_color : R.color.step_button_disabled_text_color;
+        if (prevButton != null) {
+            prevButton.setEnabled(isPrevEnabled);
+            prevButton.setBackgroundResource(prevBackgroundColorResource);
+            prevButton.setTextColor(getResources().getColor(prevTextColorResource));
+        }
+        List<RouteLeg> routeLegs = (currentRoute != null) ? currentRoute.getLegs() : null;
+        int legsSize = (routeLegs != null) ? routeLegs.size() : 0;
+        RouteLeg currentLeg = (routeLegs != null) ? routeLegs.get(currentLegIndex) : null;
+        List<RouteStep> routeSteps = (currentLeg != null) ? currentLeg.getSteps() : null;
+        int stepsSize = (routeSteps != null) ? routeSteps.size() : 0;
+        boolean isNextEnabled = (currentRoute != null) &&
+                ((currentLegIndex < (legsSize - 1)) || currentStepIndex < (stepsSize - 1));
+        int nextBackgroundColorResource = isNextEnabled ? R.color.step_button_enabled_back_color : R.color.step_button_disabled_back_color;
+        int nextTextColorResource = isNextEnabled ? R.color.step_button_enabled_text_color : R.color.step_button_disabled_text_color;
+        if (nextButton != null) {
+            nextButton.setEnabled(isNextEnabled);
+            nextButton.setBackgroundResource(nextBackgroundColorResource);
+            nextButton.setTextColor(getResources().getColor(nextTextColorResource));
+        }
     }
 
     private void showMarkerAlertDialog(Marker marker) {
