@@ -49,6 +49,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private Route currentRoute;
 
     private String userName;
+    private Marker userMarkerOrigin;
+    private Marker userMarkerDestination;
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
     private static final LatLng ORIGIN_USER_LOCATION = new LatLng(57.087210, 9.958428);
@@ -69,6 +71,54 @@ public class MapsIndoorsActivity extends FragmentActivity {
         }
         init();
         initMapFragment();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mapControl != null) {
+            mapControl.onStart();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mapControl != null) {
+            mapControl.onStop();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mapControl != null) {
+            mapControl.onResume();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mapControl != null) {
+            mapControl.onPause();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mapControl != null) {
+            mapControl.onDestroy();
+        }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        if (mapControl != null) {
+            mapControl.onLowMemory();
+        }
     }
 
     public void onNextClicked(View view) {
@@ -175,10 +225,14 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void setupUserMarkers() {
-        Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_USER_LOCATION, R.drawable.maps_icon_male_toilet));
-        Marker userDestinationMarker = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_USER_LOCATION, R.drawable.maps_icon_study_zone));
+        if (userMarkerOrigin == null) {
+            userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_USER_LOCATION, R.drawable.maps_icon_male_toilet));
+        }
         userMarkerOrigin.showInfoWindow();
-        //userDestinationMarker.showInfoWindow(); //DD - only one info window at a time can be shown
+        if (userMarkerDestination == null) {
+            userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_USER_LOCATION, R.drawable.maps_icon_study_zone));
+        }
+        //userMarkerDestination.showInfoWindow(); //DD - only one info window at a time can be shown
     }
 
     private MarkerOptions constructUserMarkerOptions(LatLng markerLocation, int iconResource) {
