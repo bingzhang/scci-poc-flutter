@@ -179,7 +179,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private void didGetMapAsync(GoogleMap map) {
         googleMap = map;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 13.0f));
-        addPois();
+        addMarkers();
+//        showMpLocations(); //DD - not working
         setupMapsIndoors();
     }
 
@@ -222,12 +223,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
         routingProvider.query(ORIGIN_POINT, DESTINATION_POINT);
     }
 
-    private void addPois() {
+    private void addMarkers() {
         Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_POINT, R.drawable.maps_icon_male_toilet));
         userMarkerOrigin.showInfoWindow();
-        addMpLocation(userMarkerOrigin);
         Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_POINT, R.drawable.maps_icon_study_zone));
-        addMpLocation(userMarkerDestination);
         //userMarkerDestination.showInfoWindow(); //DD - only one info window at a time can be shown
 
     }
@@ -246,11 +245,15 @@ public class MapsIndoorsActivity extends FragmentActivity {
         return markerOptions;
     }
 
-    private void addMpLocation(Marker gmsMarker) {
-        MPLocation mpLocation = new MPLocation();
-        mpLocation.setMarker(gmsMarker);
-        mpLocation.setVisible(true);
-        mpLocation.show();
+    private void showMpLocations() {
+        MPLocation originLocation = new MPLocation(ORIGIN_POINT, userName);
+        originLocation.setVisible(true);
+        originLocation.show();
+        originLocation.updateView(googleMap, 0);
+        MPLocation destinationLocation = new MPLocation(DESTINATION_POINT, userName);
+        destinationLocation.setVisible(true);
+        destinationLocation.show();
+        destinationLocation.updateView(googleMap, 1);
     }
 
     private void makeNextStep(int legIndex, int stepIndex) {
