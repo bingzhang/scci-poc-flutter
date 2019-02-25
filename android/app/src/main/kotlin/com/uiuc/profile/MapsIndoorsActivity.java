@@ -50,8 +50,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private String userName;
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
-    private static final LatLng INITIAL_USER_LOCATION = new LatLng(57.087210, 9.958428);
-    private static final LatLng DESTINATION_LOCATION = new LatLng(57.0861893, 9.9578803);
+    private static final LatLng ORIGIN_USER_LOCATION = new LatLng(57.087210, 9.958428);
+    private static final LatLng DESTINATION_USER_LOCATION = new LatLng(57.0861893, 9.9578803);
 
     private int currentLegIndex = 0;
     private int currentStepIndex = -1;
@@ -128,7 +128,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private void didGetMapAsync(GoogleMap map) {
         googleMap = map;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 13.0f));
-        setupUserMarker();
+        setupUserMarkers();
         setupMapsIndoors();
     }
 
@@ -168,21 +168,22 @@ public class MapsIndoorsActivity extends FragmentActivity {
             }
             runOnUiThread(() -> updateUi());
         });
-        Point origin = new Point(INITIAL_USER_LOCATION);
-        Point destination = new Point(DESTINATION_LOCATION.latitude, DESTINATION_LOCATION.longitude, 1);
+        Point origin = new Point(ORIGIN_USER_LOCATION);
+        Point destination = new Point(DESTINATION_USER_LOCATION.latitude, DESTINATION_USER_LOCATION.longitude, 1);
         routingProvider.query(origin, destination);
     }
 
-    private void setupUserMarker() {
-        Marker userMarker = googleMap.addMarker(constructInitialMarker());
-        userMarker.showInfoWindow();
+    private void setupUserMarkers() {
+        Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_USER_LOCATION));
+        Marker userDestinationMarker = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_USER_LOCATION));
+        userMarkerOrigin.showInfoWindow();
+        //userDestinationMarker.showInfoWindow(); //DD - only one info window at a time can be shown
     }
 
-    private MarkerOptions constructInitialMarker() {
-        MarkerOptions options = new MarkerOptions()
-                .position(INITIAL_USER_LOCATION)
+    private MarkerOptions constructUserMarkerOptions(LatLng markerLoaction) {
+        return new MarkerOptions()
+                .position(markerLoaction)
                 .title(userName);
-        return options;
     }
 
     private void makeNextStep(int legIndex, int stepIndex) {
