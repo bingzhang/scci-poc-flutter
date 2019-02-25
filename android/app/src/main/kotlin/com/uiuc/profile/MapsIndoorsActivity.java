@@ -241,7 +241,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
         markerOptions.zIndex(markerZIndex);
         markerOptions.title(userName);
         markerOptions.icon(BitmapDescriptorFactory.fromResource(iconResource));
-        markerOptions.visible(false);
+        markerOptions.visible(true);
         return markerOptions;
     }
 
