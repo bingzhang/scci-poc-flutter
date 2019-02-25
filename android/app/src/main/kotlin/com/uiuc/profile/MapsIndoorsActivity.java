@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mapsindoors.mapssdk.Location;
 import com.mapsindoors.mapssdk.MPDirectionsRenderer;
+import com.mapsindoors.mapssdk.MPLocation;
 import com.mapsindoors.mapssdk.MPRoutingProvider;
 import com.mapsindoors.mapssdk.MapControl;
 import com.mapsindoors.mapssdk.MapsIndoors;
@@ -49,12 +50,11 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private Route currentRoute;
 
     private String userName;
-    private Marker userMarkerOrigin;
-    private Marker userMarkerDestination;
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
-    private static final LatLng ORIGIN_USER_LOCATION = new LatLng(57.087210, 9.958428);
-    private static final LatLng DESTINATION_USER_LOCATION = new LatLng(57.0861893, 9.9578803);
+
+    private static final Point ORIGIN_POINT = new Point(57.087210, 9.958428);
+    private static final Point DESTINATION_POINT = new Point(57.0861893, 9.9578803, 1);
 
     private int currentLegIndex = 0;
     private int currentStepIndex = -1;
@@ -179,7 +179,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private void didGetMapAsync(GoogleMap map) {
         googleMap = map;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 13.0f));
-        setupUserMarkers();
+        addPois();
         setupMapsIndoors();
     }
 
@@ -219,27 +219,38 @@ public class MapsIndoorsActivity extends FragmentActivity {
             }
             runOnUiThread(() -> updateUi());
         });
-        Point origin = new Point(ORIGIN_USER_LOCATION);
-        Point destination = new Point(DESTINATION_USER_LOCATION.latitude, DESTINATION_USER_LOCATION.longitude, 1);
-        routingProvider.query(origin, destination);
+        routingProvider.query(ORIGIN_POINT, DESTINATION_POINT);
     }
 
-    private void setupUserMarkers() {
-        if (userMarkerOrigin == null) {
-            userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_USER_LOCATION, R.drawable.maps_icon_male_toilet));
-        }
+    private void addPois() {
+        Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_POINT, R.drawable.maps_icon_male_toilet));
         userMarkerOrigin.showInfoWindow();
-        if (userMarkerDestination == null) {
-            userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_USER_LOCATION, R.drawable.maps_icon_study_zone));
-        }
+        addMpLocation(userMarkerOrigin);
+        Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_POINT, R.drawable.maps_icon_study_zone));
+        addMpLocation(userMarkerDestination);
         //userMarkerDestination.showInfoWindow(); //DD - only one info window at a time can be shown
+
     }
 
-    private MarkerOptions constructUserMarkerOptions(LatLng markerLocation, int iconResource) {
-        return new MarkerOptions()
-                .position(markerLocation)
-                .title(userName)
-                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+    private MarkerOptions constructUserMarkerOptions(Point markerPoint, int iconResource) {
+        LatLng markerLatLong = (markerPoint != null) ? markerPoint.getLatLng() : null;
+        float markerZIndex = (markerPoint != null) ? (float) markerPoint.getZ() : 0.0f;
+        MarkerOptions markerOptions = new MarkerOptions();
+        if (markerLatLong != null) {
+            markerOptions.position(markerLatLong);
+        }
+        markerOptions.zIndex(markerZIndex);
+        markerOptions.title(userName);
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(iconResource));
+        markerOptions.visible(false);
+        return markerOptions;
+    }
+
+    private void addMpLocation(Marker gmsMarker) {
+        MPLocation mpLocation = new MPLocation();
+        mpLocation.setMarker(gmsMarker);
+        mpLocation.setVisible(true);
+        mpLocation.show();
     }
 
     private void makeNextStep(int legIndex, int stepIndex) {
