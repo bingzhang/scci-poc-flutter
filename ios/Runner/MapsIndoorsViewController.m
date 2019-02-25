@@ -192,7 +192,22 @@
 	MPRouteStep *step = ((0 <= stepIndex) && (stepIndex < leg.steps.count)) ? [leg.steps objectAtIndex:stepIndex] : nil;
 
 	if (0 < step.html_instructions.length) {
-		stepLabel.text = step.html_instructions;
+		//stepLabel.text = step.html_instructions;
+		
+		NSString *html = [NSString stringWithFormat:@"<html>\
+			<head><style>body{ font-family: Helvetica; font-weight: regular; font-size: 18px; color:#000000 } </style></head>\
+			<body>%@</body>\
+		</html>", step.html_instructions];
+		
+		stepLabel.attributedText = [[NSAttributedString alloc]
+			initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
+			options:@{
+				NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+				NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
+			}
+			documentAttributes:nil
+			error:nil
+		];
 	}
 	else if ((0 < step.maneuver.length) || (0 < step.highway.length) || (0 < step.routeContext.length)) {
 		stepLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", step.routeContext, step.highway, step.maneuver];
@@ -204,7 +219,6 @@
 		stepLabel.text = [NSString stringWithFormat:@"Leg %d / Step %d", (int)legIndex + 1, (int)stepIndex + 1];
 	}
 	
-	stepLabel.text = step.html_instructions;
 	prevButton.enabled = (0 < stepIndex) || (0 < legIndex);
 	nextButton.enabled = ((stepIndex + 1) < leg.steps.count) || ((legIndex + 1) < directionsRenderer.route.legs.count);
 	
