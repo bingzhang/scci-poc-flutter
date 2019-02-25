@@ -12,6 +12,13 @@
 
 #import "NSDictionary+InaTypedValue.h"
 
+typedef NS_ENUM(NSInteger, NavStatus) {
+	NavStatus_Unknown,
+	NavStatus_Start,
+	NavStatus_Progress,
+	NavStatus_Finished,
+};
+
 @interface MapsIndoorsViewController () <GMSMapViewDelegate, MPDirectionsRendererDelegate> {
 	GMSMapView   *mapView;
 	MPMapControl *mapControl;
@@ -21,6 +28,7 @@
 	UIActivityIndicatorView *activityView;
 	UIButton *prevButton, *nextButton;
 	UILabel *stepLabel;
+	NavStatus navStatus;
 }
 @end
 
@@ -66,6 +74,7 @@
 	stepLabel.textColor = [UIColor blackColor];
 	stepLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.5];
 	stepLabel.shadowOffset = CGSizeMake(2, 2);
+	stepLabel.hidden = true;
 	[mapView addSubview:stepLabel];
 }
 
@@ -78,7 +87,7 @@
 	activityView.frame = CGRectMake((contentSize.width - activitySize.width) / 2, (contentSize.height - activitySize.height) / 2, activitySize.width, activitySize.height);
 	
 	CGFloat buttonSize = 42;
-	CGFloat x = 0, y = contentSize.height - 3 * buttonSize / 2, w = contentSize.width;
+	CGFloat x = 0, y = contentSize.height - 5 * buttonSize / 2, w = contentSize.width;
 	x += buttonSize / 2; w = MAX(w - buttonSize, 0);
 
 	prevButton.frame = CGRectMake(x, y, buttonSize, buttonSize);
@@ -170,7 +179,8 @@
 			directionsRenderer.map = mapView;
 			directionsRenderer.route = route;
 
-			prevButton.hidden = nextButton.hidden = false;
+			navStatus = NavStatus_Start;
+			prevButton.hidden = nextButton.hidden = stepLabel.hidden = false;
 			[self updateNav];
 		}
 		else {
@@ -185,61 +195,93 @@
 
 - (void)updateNav {
 
-	NSInteger legIndex = directionsRenderer.routeLegIndex;
-	MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < directionsRenderer.route.legs.count)) ? [directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
+	prevButton.hidden = nextButton.hidden = stepLabel.hidden = (navStatus == NavStatus_Unknown);
 	
-	NSInteger stepIndex = directionsRenderer.routeStepIndex;
-	MPRouteStep *step = ((0 <= stepIndex) && (stepIndex < leg.steps.count)) ? [leg.steps objectAtIndex:stepIndex] : nil;
+	if (navStatus == NavStatus_Start) {
+		stepLabel.text = @"START";
+		prevButton.enabled = false;
+		nextButton.enabled = true;
+	}
+	else if (navStatus == NavStatus_Progress) {
+		NSInteger legIndex = directionsRenderer.routeLegIndex;
+		MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < directionsRenderer.route.legs.count)) ? [directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
+		
+		NSInteger stepIndex = directionsRenderer.routeStepIndex;
+		MPRouteStep *step = ((0 <= stepIndex) && (stepIndex < leg.steps.count)) ? [leg.steps objectAtIndex:stepIndex] : nil;
 
-	if (0 < step.html_instructions.length) {
-		//stepLabel.text = step.html_instructions;
+		if (0 < step.html_instructions.length) {
+			//stepLabel.text = step.html_instructions;
+			
+			NSString *html = [NSString stringWithFormat:@"<html>\
+				<head><style>body{ font-family: Helvetica; font-weight: regular; font-size: 18px; color:#000000 } </style></head>\
+				<body><center>%@</center></body>\
+			</html>", step.html_instructions];
+			
+			stepLabel.attributedText = [[NSAttributedString alloc]
+				initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
+				options:@{
+					NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+					NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
+				}
+				documentAttributes:nil
+				error:nil
+			];
+		}
+		else if ((0 < step.maneuver.length) || (0 < step.highway.length) || (0 < step.routeContext.length)) {
+			stepLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", step.routeContext, step.highway, step.maneuver];
+		}
+		else if ((0 < step.distance.intValue) || (0 < step.duration.intValue)) {
+			stepLabel.text = [NSString stringWithFormat:@"%d m / %d sec", step.distance.intValue, step.duration.intValue];
+		}
+		else {
+			stepLabel.text = [NSString stringWithFormat:@"Leg %d / Step %d", (int)legIndex + 1, (int)stepIndex + 1];
+		}
+
+		prevButton.enabled = nextButton.enabled = true;
 		
-		NSString *html = [NSString stringWithFormat:@"<html>\
-			<head><style>body{ font-family: Helvetica; font-weight: regular; font-size: 18px; color:#000000 } </style></head>\
-			<body>%@</body>\
-		</html>", step.html_instructions];
-		
-		stepLabel.attributedText = [[NSAttributedString alloc]
-			initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
-			options:@{
-				NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-				NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
-			}
-			documentAttributes:nil
-			error:nil
-		];
+		[self updateCurerntFloor:step.start_location.zLevel];
 	}
-	else if ((0 < step.maneuver.length) || (0 < step.highway.length) || (0 < step.routeContext.length)) {
-		stepLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", step.routeContext, step.highway, step.maneuver];
+	else if (navStatus == NavStatus_Finished) {
+		stepLabel.text = @"FINISH";
+		prevButton.enabled = true;
+		nextButton.enabled = false;
 	}
-	else if ((0 < step.distance.intValue) || (0 < step.duration.intValue)) {
-		stepLabel.text = [NSString stringWithFormat:@"%d m / %d sec", step.distance.intValue, step.duration.intValue];
-	}
-	else {
-		stepLabel.text = [NSString stringWithFormat:@"Leg %d / Step %d", (int)legIndex + 1, (int)stepIndex + 1];
-	}
-	
-	prevButton.enabled = (0 < stepIndex) || (0 < legIndex);
-	nextButton.enabled = ((stepIndex + 1) < leg.steps.count) || ((legIndex + 1) < directionsRenderer.route.legs.count);
-	
-	NSNumber *stepFloor = step.start_location.zLevel;
-	if ((stepFloor != nil) && ([stepFloor integerValue] != [mapControl.currentFloor integerValue])) {
-		mapControl.currentFloor = stepFloor;
+}
+
+- (void)updateCurerntFloor:(NSNumber*)floor {
+	if ((floor != nil) && ([floor integerValue] != [mapControl.currentFloor integerValue])) {
+		mapControl.currentFloor = floor;
 	}
 }
 
 #pragma mark Handlers
 
 - (void)didPrev {
-	NSInteger legIndex = directionsRenderer.routeLegIndex;
-	NSInteger stepIndex = directionsRenderer.routeStepIndex;
-	
-	if (0 < stepIndex) {
-		directionsRenderer.routeStepIndex = --stepIndex;
+	if (navStatus == NavStatus_Start) {
 	}
-	else if (0 < legIndex) {
-		directionsRenderer.routeLegIndex = --legIndex;
-		MPRouteLeg *leg = [directionsRenderer.route.legs objectAtIndex:legIndex];
+	else if (navStatus == NavStatus_Progress) {
+		NSInteger legIndex = directionsRenderer.routeLegIndex;
+		NSInteger stepIndex = directionsRenderer.routeStepIndex;
+		
+		if (0 < stepIndex) {
+			directionsRenderer.routeStepIndex = --stepIndex;
+		}
+		else if (0 < legIndex) {
+			directionsRenderer.routeLegIndex = --legIndex;
+			MPRouteLeg *leg = [directionsRenderer.route.legs objectAtIndex:legIndex];
+			directionsRenderer.routeStepIndex = leg.steps.count - 1;
+		}
+		else {
+			navStatus = NavStatus_Start;
+			directionsRenderer.routeLegIndex = directionsRenderer.routeStepIndex = -1;
+		}
+	}
+	else if (navStatus == NavStatus_Finished) {
+		navStatus = NavStatus_Progress;
+		
+		directionsRenderer.routeLegIndex = directionsRenderer.route.legs.count - 1;
+
+		MPRouteLeg *leg = directionsRenderer.route.legs.lastObject;
 		directionsRenderer.routeStepIndex = leg.steps.count - 1;
 	}
 
@@ -247,17 +289,29 @@
 }
 
 - (void)didNext {
-	NSInteger legIndex = directionsRenderer.routeLegIndex;
-	MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < directionsRenderer.route.legs.count)) ? [directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
-	
-	NSInteger stepIndex = directionsRenderer.routeStepIndex;
-	
-	if ((stepIndex + 1) < leg.steps.count) {
-		directionsRenderer.routeStepIndex = ++stepIndex;
+	if (navStatus == NavStatus_Start) {
+		navStatus = NavStatus_Progress;
+		directionsRenderer.routeLegIndex = directionsRenderer.routeStepIndex = 0;
 	}
-	else if ((legIndex + 1) < directionsRenderer.route.legs.count) {
-		directionsRenderer.routeLegIndex = ++legIndex;
-		directionsRenderer.routeStepIndex = 0;
+	else if (navStatus == NavStatus_Progress) {
+		NSInteger legIndex = directionsRenderer.routeLegIndex;
+		NSInteger stepIndex = directionsRenderer.routeStepIndex;
+
+		MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < directionsRenderer.route.legs.count)) ? [directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
+		
+		if ((stepIndex + 1) < leg.steps.count) {
+			directionsRenderer.routeStepIndex = ++stepIndex;
+		}
+		else if ((legIndex + 1) < directionsRenderer.route.legs.count) {
+			directionsRenderer.routeLegIndex = ++legIndex;
+			directionsRenderer.routeStepIndex = 0;
+		}
+		else {
+			navStatus = NavStatus_Finished;
+			directionsRenderer.routeLegIndex = directionsRenderer.routeStepIndex = -1;
+		}
+	}
+	else if (navStatus == NavStatus_Finished) {
 	}
 
 	[self updateNav];
@@ -265,7 +319,7 @@
 
 #pragma mark GMSMapViewDelegate
 
-- (void)mapView:(GMSMapView *)mapView didTapMarker:(nonnull GMSMarker *)marker {
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(nonnull GMSMarker *)marker {
 	NSMutableString *markerDescription = [[NSMutableString alloc] init];
 	[markerDescription appendString:@"GMSMarker Fields\n"];
 	[markerDescription appendFormat:@"Title: %@\n", marker.title];
@@ -313,6 +367,7 @@
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:marker.title message:markerDescription preferredStyle:UIAlertControllerStyleAlert];
 	[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
 	[self presentViewController:alertController animated:YES completion:nil];
+	return FALSE;
 }
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
