@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -174,16 +175,17 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void setupUserMarkers() {
-        Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_USER_LOCATION));
-        Marker userDestinationMarker = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_USER_LOCATION));
+        Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_USER_LOCATION, R.drawable.maps_icon_male_toilet));
+        Marker userDestinationMarker = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_USER_LOCATION, R.drawable.maps_icon_study_zone));
         userMarkerOrigin.showInfoWindow();
         //userDestinationMarker.showInfoWindow(); //DD - only one info window at a time can be shown
     }
 
-    private MarkerOptions constructUserMarkerOptions(LatLng markerLoaction) {
+    private MarkerOptions constructUserMarkerOptions(LatLng markerLocation, int iconResource) {
         return new MarkerOptions()
-                .position(markerLoaction)
-                .title(userName);
+                .position(markerLocation)
+                .title(userName)
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
     }
 
     private void makeNextStep(int legIndex, int stepIndex) {
