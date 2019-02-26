@@ -14,11 +14,15 @@ class TimeAndWhetherHeader extends StatelessWidget {
         Clock(),
         Expanded(child: Column()),
         Column(children: <Widget>[
-          Image.asset('images/icon-weather.png',
-              width: 42, height: 42, fit: BoxFit.cover),
+          Semantics(
+            label: "Whether",
+            child: Image.asset('images/icon-weather.png',
+                width: 42, height: 42, fit: BoxFit.cover),
+          ),
           Text(
             "43°F",
-            style: TextStyle(fontFamily: 'Avenir', fontSize: 12, color: Colors.black45),
+            style: TextStyle(
+                fontFamily: 'Avenir', fontSize: 12, color: Colors.black45),
           ),
         ]),
       ],

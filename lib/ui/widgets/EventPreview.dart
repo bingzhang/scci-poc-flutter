@@ -31,7 +31,11 @@ class EventPreview extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(right: 10.0),
-              child: Image.asset('images/icon-schedule.png', height: 50.0),
+              child: Semantics(
+                excludeSemantics: true,
+                label: 'Calendar',
+                image: true,
+                child: Image.asset('images/icon-schedule.png', height: 50.0),),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
