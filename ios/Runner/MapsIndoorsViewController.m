@@ -19,12 +19,12 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	NavStatus_Finished,
 };
 
-@interface MapsIndoorsViewController () <GMSMapViewDelegate, MPDirectionsRendererDelegate> {
+@interface MapsIndoorsViewController () <GMSMapViewDelegate, MPMapControlDelegate, MPDirectionsRendererDelegate> {
 	GMSMapView   *mapView;
 	MPMapControl *mapControl;
 	MPDirectionsRenderer *directionsRenderer;
-	GMSMarker *orgMarker, *destMarker;
-	MPLocation *orgLocation, *destLocation;
+	NSMutableArray *markers;
+	CLLocationCoordinate2D orgLocationCoord, destLocationCoord;
 	UIActivityIndicatorView *activityView;
 	UIButton *prevButton, *nextButton;
 	UILabel *stepLabel;
@@ -37,6 +37,12 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 - (id)init {
 	if (self = [super init]) {
 		self.navigationItem.title = @"Indoor Maps";
+	
+		// Origin: Aalborg Kaserne (Gl. Høvej / Aalborg) 9400 Nørresundby, Denmark
+		orgLocationCoord = CLLocationCoordinate2DMake(57.087210, 9.958428);
+
+	    // Destination: B216, RTX / lat: 57.0861893, lng: 9.9578803, floor:1, location Id: b44d339f96a9497c8523d440
+		destLocationCoord = CLLocationCoordinate2DMake(57.0861893, 9.9578803); //(57.086189, 9.957973);
 	}
 	return self;
 }
@@ -50,6 +56,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	self.view = mapView;
 
 	mapControl = [[MPMapControl alloc] initWithMap:mapView];
+	mapControl.delegate = self;
 
 	activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 	activityView.color = [UIColor blackColor];
@@ -100,57 +107,50 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addMarkers];
-    //[self addLocations];
 	[self searchRoute];
 }
 
 - (void)addMarkers {
 
-	if (orgMarker == nil) {
+	if (markers == nil) {
+	
+		markers = [[NSMutableArray alloc] init];
 
-		orgMarker = [[GMSMarker alloc] init];
-		orgMarker.position = CLLocationCoordinate2DMake(57.087210, 9.958428);
+		GMSMarker *orgMarker = [[GMSMarker alloc] init];
+		orgMarker.position = orgLocationCoord;
 		orgMarker.icon = [UIImage imageNamed:@"maps-icon-male-toilet"];
 		orgMarker.title = self.userName;
 		orgMarker.snippet = @"Origin Location";
+		orgMarker.zIndex = 1;
 		orgMarker.groundAnchor = CGPointMake(0.5, 0.5);
-		orgMarker.map = mapView;
-	}
+		//orgMarker.map = mapView;
+		[markers addObject:orgMarker];
 
-	if (destMarker == nil) {
-		destMarker = [[GMSMarker alloc] init];
-		destMarker.position = CLLocationCoordinate2DMake(57.0861893, 9.9578803);
+		GMSMarker *destMarker = [[GMSMarker alloc] init];
+		destMarker.position = destLocationCoord;
 		destMarker.icon = [UIImage imageNamed:@"maps-icon-study-zone"];
 		destMarker.title = @"Study Room";
 		destMarker.snippet = @"Destination Location";
+		destMarker.zIndex = 1;
 		destMarker.groundAnchor = CGPointMake(0.5, 0.5);
-		destMarker.map = mapView;
-	}
+		destMarker.userData = @{@"floor":@(1)}; // Let's keep floor as user data property
+		//destMarker.map = mapView;
+		[markers addObject:destMarker];
 
+		[self updateMarkers];
+	}
 }
 
-- (void)addLocations {
-	if (orgLocation == nil) {
-	
-		MPPoint *orgPoint = [[MPPoint alloc] initWithLat:57.087210 lon:9.958428];
-		orgLocation = [[MPLocation alloc] initWithPoint:orgPoint andName:self.userName];
-		orgLocation.image = [UIImage imageNamed:@"maps-icon-male-toilet"];
-		orgLocation.name = self.userName;
-		orgLocation.descr = @"Origin Location";
-		[orgLocation addToMap:mapView];
-		[orgLocation showDynamically];
-	}
-
-	if (destLocation == nil) {
-	
-		MPPoint *destPoint = [[MPPoint alloc] initWithLat:57.0861893 lon:9.9578803 zValue:1];
-		destLocation = [[MPLocation alloc] initWithPoint:destPoint andName:@"Study Room"];
-		destLocation.image = [UIImage imageNamed:@"maps-icon-study-zone"];
-		destLocation.name = @"Study Room";
-		destLocation.descr = @"Destination Location";
-		[destLocation addToMap:mapView];
-		[destLocation showDynamically];
-		
+- (void)updateMarkers {
+	for (GMSMarker *marker in markers) {
+		NSNumber *floor = [marker.userData inaNumberForKey:@"floor"];
+		bool markerVisible = (floor == nil) || (floor.intValue == mapControl.currentFloor.intValue);
+		if (markerVisible && (marker.map == nil)) {
+			marker.map = mapView;
+		}
+		else if (!markerVisible && (marker.map != nil)) {
+			marker.map = nil;
+		}
 	}
 }
 
@@ -161,14 +161,11 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 }
 
 - (void)searchRoute {
-	// Origin: Aalborg Kaserne (Gl. Høvej / Aalborg) 9400 Nørresundby, Denmark
-    MPPoint *org = [[MPPoint alloc] initWithLat:57.087210 lon:9.958428];
-	
-    // Destination: B216, RTX / lat: 57.0861893, lng: 9.9578803, floor:1, location Id: b44d339f96a9497c8523d440
-    MPPoint *dest = [[MPPoint alloc] initWithLat:57.0861893 lon:9.9578803 zValue:1];
 	
     [activityView startAnimating];
 	
+    MPPoint *org = [[MPPoint alloc] initWithLat:orgLocationCoord.latitude lon:orgLocationCoord.longitude];
+    MPPoint *dest = [[MPPoint alloc] initWithLat:destLocationCoord.latitude lon:destLocationCoord.longitude zValue:1];
     MPDirectionsQuery *query = [[MPDirectionsQuery alloc] initWithOriginPoint:org destination:dest];
     MPDirectionsService *directions = [[MPDirectionsService alloc] init];
     [directions routingWithQuery:query completionHandler:^(MPRoute * _Nullable route, NSError * _Nullable error) {
@@ -251,6 +248,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 - (void)updateCurerntFloor:(NSNumber*)floor {
 	if ((floor != nil) && ([floor integerValue] != [mapControl.currentFloor integerValue])) {
 		mapControl.currentFloor = floor;
+		[self floorDidChange:floor];
 	}
 }
 
@@ -377,8 +375,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 #pragma mark MPDirectionsRendererDelegate
 
 - (void)floorDidChange: (nonnull NSNumber*)floor {
-//	This does not seem to work:
-//	mapControl.currentFloor = floor;
+	[self updateMarkers];
 }
 
 @end
