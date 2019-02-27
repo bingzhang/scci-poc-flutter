@@ -115,6 +115,17 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		263C5E822226BAF600D9A712 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2631FEA6221ED94D00AF4239 /* Images */,
+				97C146FA1CF9000F007C117D /* Main.storyboard */,
+				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
+				97C146FD1CF9000F007C117D /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,10 +170,7 @@
 				264A7864221C21A2002867B9 /* MapsIndoorsViewController.h */,
 				264A7865221C21A2002867B9 /* MapsIndoorsViewController.m */,
 				2631FEAF221EFC6000AF4239 /* Utils */,
-				2631FEA6221ED94D00AF4239 /* Images */,
-				97C146FA1CF9000F007C117D /* Main.storyboard */,
-				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
-				97C146FD1CF9000F007C117D /* Assets.xcassets */,
+				263C5E822226BAF600D9A712 /* Resources */,
 				97C147021CF9000F007C117D /* Info.plist */,
 				264A786A221C27F2002867B9 /* main.m */,
 				97C146F11CF9000F007C117D /* Supporting Files */,
