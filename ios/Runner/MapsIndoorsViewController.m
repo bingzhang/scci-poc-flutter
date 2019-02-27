@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 
 - (id)init {
 	if (self = [super init]) {
-		self.navigationItem.title = @"Indoor Maps";
+		self.navigationItem.title = NSLocalizedString(@"Indoor Maps", nil);
 	
 		// Origin: Aalborg Kaserne (Gl. Høvej / Aalborg) 9400 Nørresundby, Denmark
 		orgLocationCoord = CLLocationCoordinate2DMake(57.087210, 9.958428);
@@ -120,7 +120,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 		orgMarker.position = orgLocationCoord;
 		orgMarker.icon = [UIImage imageNamed:@"maps-icon-male-toilet"];
 		orgMarker.title = self.userName;
-		orgMarker.snippet = @"Origin Location";
+		orgMarker.snippet = NSLocalizedString(@"Origin Location", nil);
 		orgMarker.zIndex = 1;
 		orgMarker.groundAnchor = CGPointMake(0.5, 0.5);
 		//orgMarker.map = mapView;
@@ -129,8 +129,8 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 		GMSMarker *destMarker = [[GMSMarker alloc] init];
 		destMarker.position = destLocationCoord;
 		destMarker.icon = [UIImage imageNamed:@"maps-icon-study-zone"];
-		destMarker.title = @"Study Room";
-		destMarker.snippet = @"Destination Location";
+		destMarker.title = NSLocalizedString(@"Study Room", nil);
+		destMarker.snippet = NSLocalizedString(@"Destination Location", nil);
 		destMarker.zIndex = 1;
 		destMarker.groundAnchor = CGPointMake(0.5, 0.5);
 		destMarker.userData = @{@"floor":@(1)}; // Let's keep floor as user data property
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 - (NSString*)userName {
 	NSString *userString = [[NSUserDefaults standardUserDefaults] stringForKey:@"flutter.user"];
 	NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-	return [userData isKindOfClass:[NSDictionary class]] ? [userData inaStringForKey:@"name"] : @"User Name";
+	return [userData isKindOfClass:[NSDictionary class]] ? [userData inaStringForKey:@"name"] : NSLocalizedString(@"User Name", nil);
 }
 
 - (void)searchRoute {
@@ -182,9 +182,9 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 		}
 		else {
 	        NSString *title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
-			NSString *message = error.localizedDescription ?: @"Failed to find a route";
+			NSString *message = error.localizedDescription ?: NSLocalizedString(@"Failed to find a route", nil);
 			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-			[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+			[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
 			[self presentViewController:alertController animated:YES completion:nil];
 		}
 	}];
@@ -195,7 +195,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	prevButton.hidden = nextButton.hidden = stepLabel.hidden = (navStatus == NavStatus_Unknown);
 	
 	if (navStatus == NavStatus_Start) {
-		stepLabel.text = @"START";
+		stepLabel.text = NSLocalizedString(@"START", nil);
 		prevButton.enabled = false;
 		nextButton.enabled = true;
 	}
@@ -228,10 +228,10 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 			stepLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", step.routeContext, step.highway, step.maneuver];
 		}
 		else if ((0 < step.distance.intValue) || (0 < step.duration.intValue)) {
-			stepLabel.text = [NSString stringWithFormat:@"%d m / %d sec", step.distance.intValue, step.duration.intValue];
+			stepLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d m / %d sec", nil), step.distance.intValue, step.duration.intValue];
 		}
 		else {
-			stepLabel.text = [NSString stringWithFormat:@"Leg %d / Step %d", (int)legIndex + 1, (int)stepIndex + 1];
+			stepLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Leg %d / Step %d", nil), (int)legIndex + 1, (int)stepIndex + 1];
 		}
 
 		prevButton.enabled = nextButton.enabled = true;
@@ -239,7 +239,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 		[self updateCurerntFloor:step.start_location.zLevel];
 	}
 	else if (navStatus == NavStatus_Finished) {
-		stepLabel.text = @"FINISH";
+		stepLabel.text = NSLocalizedString(@"FINISH", nil);
 		prevButton.enabled = true;
 		nextButton.enabled = false;
 	}
@@ -363,7 +363,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 
 	
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:marker.title message:markerDescription preferredStyle:UIAlertControllerStyleAlert];
-	[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
 	[self presentViewController:alertController animated:YES completion:nil];
 	return FALSE;
 }

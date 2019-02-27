@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by Mihail Varbanov on 2/27/19.
+  Copyright © 2019 The Chromium Authors. All rights reserved.
+*/
+
+"Indoor Maps" = "Indoor Maps";
+"Origin Location" = "Origin Location";
+"Study Room" = "Study Room";
+"Destination Location" = "Destination Location";
+"User Name" = "User Name";
+"Failed to find a route" = "Failed to find a route";
+"OK" = "OK";
+"START" = "START";
+"FINISH" = "FINISH";
+"%d m / %d sec" = "%d m / %d sec";
+"Leg %d / Step %d" = "Leg %d / Step %d";
+
