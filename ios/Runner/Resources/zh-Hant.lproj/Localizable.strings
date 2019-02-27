@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by Mihail Varbanov on 2/27/19.
+  Copyright © 2019 The Chromium Authors. All rights reserved.
+*/
+
+"Indoor Maps" = "室內地圖";
+"Origin Location" = "起源地點";
+"Study Room" = "學習室";
+"Destination Location" = "目的地位置";
+"User Name" = "用戶名";
+"Failed to find a route" = "無法找到路線";
+"OK" = "好";
+"START" = "開始";
+"FINISH" = "完";
+"%d m / %d sec" = "%d 米 / %d 秒";
+"Leg %d / Step %d" = "腿 %d / 步 %d";
+
