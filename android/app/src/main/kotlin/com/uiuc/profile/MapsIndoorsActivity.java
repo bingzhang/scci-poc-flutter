@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mapsindoors.mapssdk.Location;
 import com.mapsindoors.mapssdk.MPDirectionsRenderer;
-import com.mapsindoors.mapssdk.MPLocation;
 import com.mapsindoors.mapssdk.MPRoutingProvider;
 import com.mapsindoors.mapssdk.MapControl;
 import com.mapsindoors.mapssdk.MapsIndoors;
@@ -31,6 +30,7 @@ import com.mapsindoors.mapssdk.RoutingProvider;
 import com.mapsindoors.mapssdk.dbglog;
 import com.mapsindoors.mapssdk.errors.MIError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.FragmentActivity;
@@ -48,13 +48,13 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private RoutingProvider routingProvider;
     private MPDirectionsRenderer directionsRenderer;
     private Route currentRoute;
+    private List<Marker> markerList;
 
     private String userName;
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
-
-    private static final Point ORIGIN_POINT = new Point(57.087210, 9.958428);
-    private static final Point DESTINATION_POINT = new Point(57.0861893, 9.9578803, 1);
+    private static final LatLng ORIGIN_LOCATION = new LatLng(57.087210, 9.958428);
+    private static final LatLng DESTINATION_LOCATION = new LatLng(57.0861893, 9.9578803);
 
     private int currentLegIndex = 0;
     private int currentStepIndex = -1;
@@ -180,7 +180,6 @@ public class MapsIndoorsActivity extends FragmentActivity {
         googleMap = map;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 13.0f));
         addMarkers();
-//        showMpLocations(); //DD - not working
         setupMapsIndoors();
     }
 
@@ -192,6 +191,9 @@ public class MapsIndoorsActivity extends FragmentActivity {
         mapControl.setOnMarkerClickListener(marker -> {
             showMarkerAlertDialog(marker);
             return true;
+        });
+        mapControl.setOnFloorUpdateListener((building, i) -> {
+            didFloorUpdate();
         });
         mapControl.init(this::mapControlDidInit);
     }
@@ -210,6 +212,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
         }
     }
 
+    private void didFloorUpdate() {
+        updateMarkers();
+    }
+
     private void buildRouting() {
         routingProvider.setOnRouteResultListener((route, error) -> {
             if (route != null) {
@@ -220,40 +226,50 @@ public class MapsIndoorsActivity extends FragmentActivity {
             }
             runOnUiThread(() -> updateUi());
         });
-        routingProvider.query(ORIGIN_POINT, DESTINATION_POINT);
+        Point originPoint = new Point(ORIGIN_LOCATION);
+        Point destinationPoint = new Point(DESTINATION_LOCATION.latitude, DESTINATION_LOCATION.longitude, 1);
+        routingProvider.query(originPoint, destinationPoint);
     }
 
     private void addMarkers() {
-        Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_POINT, R.drawable.maps_icon_male_toilet));
-        userMarkerOrigin.showInfoWindow();
-        Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_POINT, R.drawable.maps_icon_study_zone));
-        //userMarkerDestination.showInfoWindow(); //DD - only one info window at a time can be shown
+        if (markerList == null) {
+            markerList = new ArrayList<>();
+            Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, userName, R.drawable.maps_icon_male_toilet));
+            userMarkerOrigin.setTag(0); //Store floor in tag property
+            markerList.add(userMarkerOrigin);
+            Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_LOCATION, "Study room", R.drawable.maps_icon_study_zone));
+            userMarkerDestination.setTag(1); //Store floor in tag property
+            markerList.add(userMarkerDestination);
 
-    }
-
-    private MarkerOptions constructUserMarkerOptions(Point markerPoint, int iconResource) {
-        LatLng markerLatLong = (markerPoint != null) ? markerPoint.getLatLng() : null;
-        float markerZIndex = (markerPoint != null) ? (float) markerPoint.getZ() : 0.0f;
-        MarkerOptions markerOptions = new MarkerOptions();
-        if (markerLatLong != null) {
-            markerOptions.position(markerLatLong);
+            updateMarkers();
         }
-        markerOptions.zIndex(markerZIndex);
-        markerOptions.title(userName);
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(iconResource));
-        markerOptions.visible(true);
-        return markerOptions;
     }
 
-    private void showMpLocations() {
-        MPLocation originLocation = new MPLocation(ORIGIN_POINT, userName);
-        originLocation.setVisible(true);
-        originLocation.show();
-        originLocation.updateView(googleMap, 0);
-        MPLocation destinationLocation = new MPLocation(DESTINATION_POINT, userName);
-        destinationLocation.setVisible(true);
-        destinationLocation.show();
-        destinationLocation.updateView(googleMap, 1);
+    private void updateMarkers() {
+        if (markerList == null || markerList.isEmpty()) {
+            return;
+        }
+        for (Marker marker : markerList) {
+            int markerFloorIndex = (marker.getTag() != null) ? (int) marker.getTag() : 0;
+            int currentFloorIndex = (mapControl != null) ? mapControl.getCurrentFloorIndex() : 0;
+            boolean markerVisible = (markerFloorIndex == currentFloorIndex);
+            marker.setVisible(markerVisible);
+            if (markerVisible) {
+                marker.showInfoWindow();
+            } else {
+                marker.hideInfoWindow();
+            }
+        }
+    }
+
+    private MarkerOptions constructUserMarkerOptions(LatLng markerLocation, String title, int iconResource) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(markerLocation);
+        markerOptions.zIndex(1);
+        markerOptions.title(title);
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(iconResource));
+        markerOptions.visible(false);
+        return markerOptions;
     }
 
     private void makeNextStep(int legIndex, int stepIndex) {
