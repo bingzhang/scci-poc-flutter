@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019 UIUC. All rights reserved.
+  -->
+
+<resources>
+    <string name="google_maps_api_key" translatable="false">AIzaSyBOyWpp0LBhbaYiQUGUbc_YLcW8pRoA5Sc</string>
+    <string name="mapsindoors_api_key" translatable="false">73dec0092e784856a2c69b8a</string>
+
+
+    <string name="alert_dialog_default_title">UIUC</string>
+    <string name="poi_details_alert_dialog_title">POI detalles</string>
+
+    <string name="next_step">Siguiente</string>
+    <string name="previous_step">Anterior</string>
+    <string name="floor">Piso</string>
+    <string name="fields">campos</string>
+    <string name="ok">De acuerdo</string>
+    <string name="study_room">Sala de estudio</string>
+    <string name="route_failed_msg">Error al recuperar la ruta</string>
+    <string name="map_control_failed">MapsIndoors control de mapa %1$s error al inicializar con error:\n\n%2$s</string>
+</resources>
