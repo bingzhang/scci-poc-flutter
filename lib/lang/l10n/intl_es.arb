@@ -1,0 +1,8 @@
+{
+  "@@last_modified": "2019-02-27T15:58:38.057334",
+  "studentHomeGoodMorningText": "Buenos días, Alex!",
+  "@studentHomeGoodMorningText": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
