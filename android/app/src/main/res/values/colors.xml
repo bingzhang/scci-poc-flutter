@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019 UIUC. All rights reserved.
+  -->
 <resources>
     <color name="step_header_color">#DCDCDC</color>
     <color name="step_button_enabled_back_color">#606060</color>

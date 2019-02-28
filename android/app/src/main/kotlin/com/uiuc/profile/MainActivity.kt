@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 UIUC. All rights reserved.
+ */
+
 package com.uiuc.profile
 
 import android.content.Intent
