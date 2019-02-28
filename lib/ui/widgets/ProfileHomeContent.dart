@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 import 'package:profile_demo/model/Role.dart';
@@ -44,7 +45,7 @@ class _ProfileHomeContentState extends State<ProfileHomeContent> {
           title:   GestureDetector(
           onTap: () => Navigator.push(context,
               MaterialPageRoute(
-                  builder: (context) => new MapsPanel(pos: new LatLng(40.1019523,-88.5073129), title:"University of Illinois at Urbana-Champaign"))),
+                  builder: (context) => new MapsPanel(pos: new LatLng(40.1019523,-88.5073129), title:AppLocalizations.of(context).profileHomeHeaderActionTitle))),
           child: Image.asset(
             'images/illinois_vertical.png',
             fit: BoxFit.scaleDown,
@@ -61,7 +62,7 @@ class _ProfileHomeContentState extends State<ProfileHomeContent> {
 
   Widget _buildBodyContent() {
     if (!UiLogic().hasHomePanelDefinition()) {
-      return Text('Sorry, unable to load UI. Please try again later');
+      return Text(AppLocalizations.of(context).profileHomeErrorMessage);
     }
     List<dynamic> widgets = UiLogic().getHomeWidgets();
     double widgetsInnerGutter = UiLogic().getHomeInnerGutter();

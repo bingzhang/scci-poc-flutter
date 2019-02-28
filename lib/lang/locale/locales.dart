@@ -268,9 +268,34 @@ class AppLocalizations {
   }
 
   String get studentUpToDateButtonTodaySchedule {
-    return Intl.message('Today\'s Schedule',
+    return Intl.message('Please Wait...',
+        name: 'studentUpToDateButtonTodaySchedulestudentUpToDateButtonTodaySchedule');
+  }
+
+  //ProfileHome
+  String get profileHomeHeaderActionTitle {
+    return Intl.message("University of Illinois at Urbana-Champaign",
+        name: 'profileHomeHeaderActionTitle');
+  }
+  String get profileHomeErrorMessage {
+    return Intl.message('Sorry, unable to load UI. Please try again later',
+        name: 'profileHomeHeaderActionTitle');
+  }
+
+  //WebContentPanel
+  String get webPleaseWaith {
+    return Intl.message('',
         name: 'studentUpToDateButtonTodaySchedule');
   }
+
+  String get webCheckInternetConnection {
+    return Intl.message('You need to be online in order to perform this operation. Please check your Internet connection.',
+        name: 'webCheckInternetConnection');
+  }
+
+  //HTTP fail messages
+
+
   //common
 
   String get min {
@@ -284,6 +309,10 @@ class AppLocalizations {
   }
   String get stateFailed {
     return Intl.message("Succeeded",
+        name: 'stateFailed');
+  }
+  String get ok {
+    return Intl.message("Ok",
         name: 'stateFailed');
   }
 

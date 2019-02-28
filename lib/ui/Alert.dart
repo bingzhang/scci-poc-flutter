@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 
 class Alert {
   static Future<bool> showDialogResult(
@@ -14,7 +15,7 @@ class Alert {
           content: Text(message),
           actions: <Widget>[
             FlatButton(
-                child: Text('Ok'),
+                child: Text(AppLocalizations.of(context).ok),
                 onPressed: () =>
                     Navigator.pop(context, true)) //return dismissed 'true'
           ],
