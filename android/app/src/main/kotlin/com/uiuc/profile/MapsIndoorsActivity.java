@@ -206,7 +206,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
                 buildRouting();
             });
         } else {
-            String errorMsg = String.format("MapsIndoors map control 'com.mapsindoors.mapssdk.MapControl' failed to initialize with error:\n%s", error.message);
+            String errorMsg = getString(R.string.map_control_failed, "'com.mapsindoors.mapssdk.MapControl'", error.message);
             showAlertDialog(getString(R.string.alert_dialog_default_title), errorMsg);
             Log.d(TAG, errorMsg);
         }
@@ -222,7 +222,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
                 directionsRenderer.setRoute(route);
                 currentRoute = route;
             } else {
-                showAlertDialog(getString(R.string.alert_dialog_default_title), "Failed to retrieve route");
+                showAlertDialog(getString(R.string.alert_dialog_default_title), getString(R.string.route_failed_msg));
             }
             runOnUiThread(() -> updateUi());
         });
@@ -237,7 +237,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, userName, R.drawable.maps_icon_male_toilet));
             userMarkerOrigin.setTag(0); //Store floor in tag property
             markerList.add(userMarkerOrigin);
-            Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_LOCATION, "Study room", R.drawable.maps_icon_study_zone));
+            Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_LOCATION, getString(R.string.study_room), R.drawable.maps_icon_study_zone));
             userMarkerDestination.setTag(1); //Store floor in tag property
             markerList.add(userMarkerDestination);
 
@@ -316,7 +316,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
                     htmlText = Html.fromHtml(currentStep.getHtmlInstructions());
                 }
             } else if ((currentStep.getManeuver() != null)) {
-                stepsText = String.format("Floor %s | %s | %s", currentStep.getStartFloorname(), currentStep.getHighway(), currentStep.getManeuver());
+                stepsText = String.format("%s %s | %s | %s", getString(R.string.floor), currentStep.getStartFloorname(), currentStep.getHighway(), currentStep.getManeuver());
             }
         }
         if (stepsTextView != null) {
@@ -329,7 +329,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
 
     private void showMarkerAlertDialog(Marker marker) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Marker fields: \n\n");
+        builder.append(String.format("Marker %s: \n\n", getString(R.string.fields)));
         builder.append(String.format("Id: %s\n", marker.getId()));
         builder.append(String.format("Title: %s\n", marker.getTitle()));
         builder.append(String.format("IsVisible: %b\n", marker.isVisible()));
@@ -345,7 +345,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
 
         Location markerLocation = mapControl.getLocation(marker);
         if (markerLocation != null) {
-            builder.append("\nLocation fields:\n\n");
+            builder.append(String.format("\nLocation %s:\n\n", getString(R.string.fields)));
             builder.append(String.format("Id: %s\n", markerLocation.getId()));
             builder.append(String.format("Name: %s\n", markerLocation.getName()));
             builder.append(String.format("FloorIndex: %d\n", markerLocation.getFloorIndex()));
@@ -376,7 +376,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(title);
             dialogBuilder.setMessage(message);
-            dialogBuilder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+            dialogBuilder.setPositiveButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss());
             AlertDialog alertDialog = dialogBuilder.create();
             alertDialog.show();
         });
