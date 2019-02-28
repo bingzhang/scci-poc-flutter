@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:profile_demo/ui/page_routers/SlidePanelRoute.dart';
@@ -17,22 +18,11 @@ import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
-import 'package:profile_demo/lang/locale/locales.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl/intl.dart';
 
 class StudentHomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //Try to wrap in locale (just trying to hook the delegate)
-    return Localizations(
-        delegates: [
-          new AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
-        locale: Locale(Intl.getCurrentLocale()),
-        child: Scaffold(
+    return Scaffold(
         appBar: HeaderAppBar(context: context),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +49,6 @@ class StudentHomeContent extends StatelessWidget {
                         child: Row(),
                       ),
                       EventPreview(
-//                        headerText: "test",
                         headerText: AppLocalizations.of(context).studentHomeGoodMorningText,
                         eventTime: 'Next Event 9:30am',
                         eventDescription: 'TE 401: Intro to Design Thinking',
@@ -103,7 +92,7 @@ class StudentHomeContent extends StatelessWidget {
             HorizontalDivider(),
             SearchBar()
           ],
-        )));
+        ));
   }
 
   Function _onSwipeLeft(BuildContext context) {

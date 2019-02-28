@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 import 'package:profile_demo/model/Role.dart';
@@ -62,8 +61,7 @@ class _ProfileHomeContentState extends State<ProfileHomeContent> {
 
   Widget _buildBodyContent() {
     if (!UiLogic().hasHomePanelDefinition()) {
-      //TMP just to try does it work here
-      return Text(AppLocalizations.of(context).studentHomeGoodMorningText);
+      return Text('Sorry, unable to load UI. Please try again later');
     }
     List<dynamic> widgets = UiLogic().getHomeWidgets();
     double widgetsInnerGutter = UiLogic().getHomeInnerGutter();
