@@ -96,12 +96,126 @@ class AppLocalizations {
         name: 'nextEventBycycleHint');
   }
 
+  //ProfileEditPanel
+  String get profileEditTitle {
+    return Intl.message("My Profile",
+        name: 'profileEditTitle');
+  }
+
+  String get profileEditNameHint {
+    return Intl.message('Please, type your name',
+        name: 'profileEditNameHint');
+  }
+
+  String get profileEditNameLabel {
+    return Intl.message('Name:',
+        name: 'profileEditNameLabel');
+  }
+
+  String get profileEditNameValidation {
+    return Intl.message('Please, type name and family.',
+        name: 'profileEditNameValidation');
+  }
+
+  String get profileEditPhoneHint {
+    return Intl.message('Please, type your phone number',
+        name: 'profileEditPhoneHint');
+  }
+
+  String get profileEditPhoneLabel {
+    return Intl.message('Phone:',
+        name: 'profileEditPhoneLabel');
+  }
+
+  String get profileEditPhoneValidation {
+    return Intl.message('Please, type valid phone number. Ex: (111) 111-1111',
+        name: 'profileEditPhoneValidation');
+  }
+
+  String get profileEditBirthDateHint {
+    return Intl.message('Please, type your date of birth',
+        name: 'profileEditBirthDateHint');
+  }
+
+  String get profileEditBirthDateLabel {
+    return Intl.message('Date of Birth:',
+        name: 'profileEditBirthDateLabel');
+  }
+
+  String get profileEditBirthDateValidation {
+    return Intl.message('Please, type valid date in format: yyyy/MM/dd',
+        name: 'profileEditBirthDateValidation');
+  }
+
+  String get profileEditRoleStudent {
+    return Intl.message('Student',
+        name: 'profileEditRoleStudent');
+  }
+
+  String get profileEditRoleStaff {
+    return Intl.message('Staff',
+        name: 'profileEditRoleStaff');
+  }
+
+  String get profileEditRoleOther {
+    return Intl.message('Other',
+        name: 'profileEditRoleOther');
+  }
+
+  String get profileEditRoleLabel {
+    return Intl.message('Role:',
+        name: 'profileEditRoleLabel');
+  }
+
+  String get profileEditRoleValidation {
+    return Intl.message('Please, select role.',
+        name: 'profileEditRoleValidation');
+  }
+
+  String get profileEditButtonSave {
+    return Intl.message('Save',
+        name: 'profileEditButtonSave');
+  }
+
+  String get profileEditStateSaveMessage {
+    return Intl.message(' to save user profile',
+        name: 'profileEditStateSaveMessage');
+  }
+
+  String get profileEditButtonDelete {
+    return Intl.message('Delete',
+        name: 'profileEditButtonDelete');
+  }
+
+  String get profileEditStateDeleteMessage {
+    return Intl.message(' to delete user profile',
+        name: 'profileEditStateDeleteMessage');
+  }
+
+  String get profileEditStateDeleteError {
+    return Intl.message('There is no saved profile to delete.',
+        name: 'profileEditStateDeleteError');
+  }
+
+
+
   //common
 
   String get min {
     return Intl.message("min",
         name: 'min');
   }
+
+  String get stateSucceeded {
+    return Intl.message("Succeeded",
+        name: 'stateSucceeded');
+  }
+  String get stateFailed {
+    return Intl.message("Succeeded",
+        name: 'stateSucceeded');
+  }
+
+
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

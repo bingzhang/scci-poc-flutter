@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
@@ -58,11 +59,12 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations str = AppLocalizations.of(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-              'My Profile' /*, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold)*/),
+              str.profileEditTitle /*, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold)*/),
         ),
         body: ModalProgressHUD(
             child: _buildEditProfileContainer(context), inAsyncCall: _loading));
@@ -82,6 +84,7 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
   }
 
   Widget _buildProfileInfoForm() {
+    final AppLocalizations str = AppLocalizations.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -93,8 +96,8 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
               validator: _validateName,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Please, type your name',
-                  labelText: 'Name:')),
+                  hintText: str.profileEditNameHint,
+                  labelText: str.profileEditNameLabel)),
         ),
         Padding(
           padding: EdgeInsets.all(8.0),
@@ -104,8 +107,8 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
               validator: _validateMobile,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Please, type your phone number',
-                  labelText: 'Phone:')),
+                  hintText: str.profileEditPhoneHint,
+                  labelText: str.profileEditPhoneLabel)),
         ),
         Padding(
           padding: EdgeInsets.all(8.0),
@@ -115,8 +118,8 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
               validator: _validateBirthDate,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Please, type your date of birth',
-                  labelText: 'Date of Birth:')),
+                  hintText: str.profileEditBirthDateHint,
+                  labelText: str.profileEditBirthDateLabel)),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -125,19 +128,19 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[Text('Role:')])),
+                    children: <Widget>[Text(str.profileEditRoleLabel)])),
             RadioListTile(
-                title: Text('Student'),
+                title: Text(str.profileEditRoleStudent),
                 value: Role.student,
                 groupValue: _userRole,
                 onChanged: _onRoleChanged),
             RadioListTile(
-                title: Text('Staff'),
+                title: Text(str.profileEditRoleStaff),
                 value: Role.staff,
                 groupValue: _userRole,
                 onChanged: _onRoleChanged),
             RadioListTile(
-                title: Text('Other'),
+                title: Text(str.profileEditRoleOther),
                 value: Role.other,
                 groupValue: _userRole,
                 onChanged: _onRoleChanged)
@@ -149,7 +152,7 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
             RaisedButton(
               color: UiConstants.buttonDefaultBackColor,
               child: Text(
-                'Save',
+                str.profileEditButtonSave,
                 style: UiConstants.buttonDefaultTextStyle,
               ),
               onPressed: () {
@@ -171,7 +174,7 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
             RaisedButton(
               color: UiConstants.buttonDefaultBackColor,
               child: Text(
-                'Delete',
+                str.profileEditButtonDelete,
                 style: UiConstants.buttonDefaultTextStyle,
               ),
               onPressed: () {
@@ -188,7 +191,7 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
   void _performSave() async {
     bool isRoleValid = _validateSelectedUserRole();
     if (!isRoleValid) {
-      Alert.showDialogResult(context, 'Please, select role.');
+      Alert.showDialogResult(context, AppLocalizations.of(context).profileEditRoleValidation);
       setLoading(false);
       return;
     }
@@ -203,9 +206,10 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
         birthDate: _userBirthDate,
         role: _userRole);
     ProfileLogic().saveUser(updatedUser).then((saveSucceeded) {
+      AppLocalizations str = AppLocalizations.of(context);
       setLoading(false);
       String saveResultMsg =
-          (saveSucceeded ? "Succeeded" : "Failed") + " to save user profile";
+          (saveSucceeded ? str.stateSucceeded : str.stateFailed) +str.profileEditStateSaveMessage;
       Alert.showDialogResult(context, saveResultMsg).then((alertDismissed) {
         if (saveSucceeded && (true == alertDismissed)) {
           Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
@@ -215,16 +219,17 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
   }
 
   void _performDelete() async {
+    AppLocalizations str = AppLocalizations.of(context);
     User user = ProfileLogic().getUser();
     if (user == null) {
-      Alert.showDialogResult(context, 'There is no saved profile to delete.');
+      Alert.showDialogResult(context, str.profileEditStateDeleteError);
       setLoading(false);
       return;
     }
     ProfileLogic().deleteUser().then((deleteSucceeded) {
       setLoading(false);
-      String deleteResultMsg = (deleteSucceeded ? 'Succeeded' : 'Failed') +
-          ' to delete user profile';
+      String deleteResultMsg = (deleteSucceeded ? str.stateSucceeded : str.stateFailed) +
+          str.profileEditStateDeleteMessage;
       Alert.showDialogResult(context, deleteResultMsg).then((alertDismissed) {
         if (deleteSucceeded) {
           _restoreUserValues();
@@ -253,7 +258,7 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
     RegExp regExp = new RegExp(
         r"^(\+?1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$");
     if (!regExp.hasMatch(mobile))
-      return 'Please, type valid phone number. Ex: (111) 111-1111';
+      return AppLocalizations.of(context).profileEditPhoneValidation;
     else
       return null;
   }
@@ -261,14 +266,14 @@ class _ProfileEditPanelState extends State<ProfileEditPanel> {
   String _validateName(String name) {
     RegExp regExp = new RegExp("[a-zA-Z]+ [a-zA-Z]+");
     if (!regExp.hasMatch(name))
-      return 'Please, type name and family.';
+      return AppLocalizations.of(context).profileEditNameValidation;
     else
       return null;
   }
 
   String _validateBirthDate(String date) {
-    const String validationErr =
-        'Please, type valid date in format: yyyy/MM/dd';
+    String validationErr =
+        AppLocalizations.of(context).profileEditBirthDateValidation;
     RegExp dateRegEx =
         new RegExp(r"([12]\d{3}/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01]))$");
     if (!dateRegEx.hasMatch(date)) {
