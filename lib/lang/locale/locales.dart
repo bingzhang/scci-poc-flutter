@@ -238,7 +238,7 @@ class AppLocalizations {
   }
 
   String get studentScheduleEventLocation {
-    return Intl.message('Ready for Lunch?',
+    return Intl.message('Art + Design, Room 25',
         name: 'studentScheduleEventLocation');
   }
 
@@ -308,7 +308,7 @@ class AppLocalizations {
         name: 'stateSucceeded');
   }
   String get stateFailed {
-    return Intl.message("Succeeded",
+    return Intl.message("Failed",
         name: 'stateFailed');
   }
   String get ok {

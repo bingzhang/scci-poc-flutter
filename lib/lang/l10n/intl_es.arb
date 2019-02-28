@@ -200,7 +200,7 @@
         "type": "text",
         "placeholders": {}
       },
-      "studentScheduleEventLocation": "Ready for Lunch?",
+      "studentScheduleEventLocation": "Art + Design, Room 25",
       "@studentScheduleEventLocation": {
         "type": "text",
         "placeholders": {}
@@ -265,7 +265,7 @@
         "type": "text",
         "placeholders": {}
       },
-      "stateFailed": "Succeeded",
+      "stateFailed": "Failed",
       "@stateFailed": {
         "type": "text",
         "placeholders": {}

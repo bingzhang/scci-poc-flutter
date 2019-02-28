@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-02-28T19:01:27.091864",
+  "@@last_modified": "2019-02-28T19:19:49.409179",
   "studentHomeGoodMorningText": "Good Morning, Alex!",
   "@studentHomeGoodMorningText": {
     "type": "text",
@@ -200,7 +200,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "studentScheduleEventLocation": "Ready for Lunch?",
+  "studentScheduleEventLocation": "Art + Design, Room 25",
   "@studentScheduleEventLocation": {
     "type": "text",
     "placeholders": {}
@@ -265,7 +265,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "stateFailed": "Succeeded",
+  "stateFailed": "Failed",
   "@stateFailed": {
     "type": "text",
     "placeholders": {}
