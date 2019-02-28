@@ -57,7 +57,7 @@ class AppLocalizations {
 
   String get studentHomeButtonNewsEvent {
     return Intl.message('News + Events',
-        name: 'studentHomeButtonNextEvent');
+        name: 'studentHomeButtonNewsEvent');
   }
 
   String get studentHomeButtonAthletics {
@@ -268,8 +268,8 @@ class AppLocalizations {
   }
 
   String get studentUpToDateButtonTodaySchedule {
-    return Intl.message('Please Wait...',
-        name: 'studentUpToDateButtonTodaySchedulestudentUpToDateButtonTodaySchedule');
+    return Intl.message('Today\'s Schedule',
+        name: 'studentUpToDateButtonTodaySchedule');
   }
 
   //ProfileHome
@@ -279,13 +279,13 @@ class AppLocalizations {
   }
   String get profileHomeErrorMessage {
     return Intl.message('Sorry, unable to load UI. Please try again later',
-        name: 'profileHomeHeaderActionTitle');
+        name: 'profileHomeErrorMessage');
   }
 
   //WebContentPanel
   String get webPleaseWaith {
-    return Intl.message('',
-        name: 'studentUpToDateButtonTodaySchedule');
+    return Intl.message('Please Wait...',
+        name: 'webPleaseWaith');
   }
 
   String get webCheckInternetConnection {
@@ -313,7 +313,7 @@ class AppLocalizations {
   }
   String get ok {
     return Intl.message("Ok",
-        name: 'stateFailed');
+        name: 'ok');
   }
 
 

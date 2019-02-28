@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-02-28T17:11:52.579976",
+  "@@last_modified": "2019-02-28T19:01:27.091864",
   "studentHomeGoodMorningText": "Good Morning, Alex!",
   "@studentHomeGoodMorningText": {
     "type": "text",
@@ -25,8 +25,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "studentHomeButtonNextEvent": "News + Events",
-  "@studentHomeButtonNextEvent": {
+  "studentHomeButtonNewsEvent": "News + Events",
+  "@studentHomeButtonNewsEvent": {
     "type": "text",
     "placeholders": {}
   },
@@ -165,6 +165,96 @@
     "type": "text",
     "placeholders": {}
   },
+  "studentLifeCampusTitle": "Life on Campus",
+  "@studentLifeCampusTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentEventTitle": "ILLINI Women's Basketball",
+  "@studentEventTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentEventReadMore": "read more",
+  "@studentEventReadMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentEventContentMessage": "The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!",
+  "@studentEventContentMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventHeader": "Ready for Lunch?",
+  "@studentScheduleEventHeader": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventTime": "Next Event 1:00pm",
+  "@studentScheduleEventTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventDescription": "ARTD 202: ID Studio II",
+  "@studentScheduleEventDescription": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventLocation": "Ready for Lunch?",
+  "@studentScheduleEventLocation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateWalkDistance": "5min from you",
+  "@studentUpToDateWalkDistance": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateEventHeader": "Beckman Institute Cafe",
+  "@studentUpToDateEventHeader": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateEventContent": "Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.",
+  "@studentUpToDateEventContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateDrivingOptions": "Driving Options Nearby",
+  "@studentUpToDateDrivingOptions": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateAssignedNext": "Assignments Due Next",
+  "@studentUpToDateAssignedNext": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateButtonTodaySchedule": "Today's Schedule",
+  "@studentUpToDateButtonTodaySchedule": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileHomeHeaderActionTitle": "University of Illinois at Urbana-Champaign",
+  "@profileHomeHeaderActionTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileHomeErrorMessage": "Sorry, unable to load UI. Please try again later",
+  "@profileHomeErrorMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "webPleaseWaith": "Please Wait...",
+  "@webPleaseWaith": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "webCheckInternetConnection": "You need to be online in order to perform this operation. Please check your Internet connection.",
+  "@webCheckInternetConnection": {
+    "type": "text",
+    "placeholders": {}
+  },
   "min": "min",
   "@min": {
     "type": "text",
@@ -177,6 +267,11 @@
   },
   "stateFailed": "Succeeded",
   "@stateFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "Ok",
+  "@ok": {
     "type": "text",
     "placeholders": {}
   }
