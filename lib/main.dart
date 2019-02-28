@@ -3,6 +3,8 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:profile_demo/ui/panels/HomePanel.dart';
 import 'package:profile_demo/ui/panels/ProfileEditPanel.dart';
 import 'package:profile_demo/ui/panels/student/StudentEventsPanel.dart';
@@ -27,6 +29,12 @@ class ProfileDemoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        localizationsDelegates: [
+          AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: [Locale("en"), Locale("es"), Locale("zh")],
         title: 'UIUC',
         theme: ThemeData(
           primaryColor: UiConstants.appBrandColor,
