@@ -140,7 +140,7 @@
         "type": "text",
         "placeholders": {}
       },
-      "profileEditButtonSave": "Save",
+      "profileEditButtonSave": "Salvar",
       "@profileEditButtonSave": {
         "type": "text",
         "placeholders": {}
