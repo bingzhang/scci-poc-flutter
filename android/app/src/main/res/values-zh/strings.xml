@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019 UIUC. All rights reserved.
+  -->
+
+<resources>
+    <string name="google_maps_api_key" translatable="false">AIzaSyBOyWpp0LBhbaYiQUGUbc_YLcW8pRoA5Sc</string>
+    <string name="mapsindoors_api_key" translatable="false">73dec0092e784856a2c69b8a</string>
+
+
+    <string name="alert_dialog_default_title">UIUC</string>
+    <string name="poi_details_alert_dialog_title">POI 细节</string>
+
+    <string name="next_step">下一个</string>
+    <string name="previous_step">以前</string>
+    <string name="floor">地板</string>
+    <string name="fields">领域</string>
+    <string name="ok">好</string>
+    <string name="study_room">学习室</string>
+    <string name="route_failed_msg">无法检索路线</string>
+    <string name="map_control_failed">MapsIndoors 地图控制 %1$s 无法初始化错误:\n\n%2$s</string>
+</resources>
