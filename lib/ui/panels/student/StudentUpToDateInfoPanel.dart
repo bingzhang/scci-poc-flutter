@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/RibbonButton.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
@@ -12,6 +13,7 @@ import 'package:profile_demo/ui/widgets/ReadMore.dart';
 class StudentUpToDateInfoPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations str = AppLocalizations.of(context);
     return Scaffold(
         appBar: HeaderAppBar(context: context),
 
@@ -39,17 +41,17 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
                       Expanded(child: Column(),),
                       Column(children: <Widget>[
                         Image.asset('images/icon-walk.png', width: 42, height: 42, fit: BoxFit.cover),
-                        Text('5min from you', style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 12, color: Colors.black87, ),)
+                        Text(str.studentUpToDateWalkDistance, style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 12, color: Colors.black87, ),)
                       ],),
                       Container(width: 20),
                       Column(children: <Widget>[
                         Image.asset('images/icon-time.png', width: 42, height: 42, fit: BoxFit.cover),
-                        Text('10 min', style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 12, color: Colors.black87, ),)
+                        Text('10 '+str.min, style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 12, color: Colors.black87, ),)
                       ],),
                     ],),
                     Container(height: 20),
-                    Text('Beckman Institute Cafe', style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w700, fontSize: 16, color: Colors.black87),),
-                    Text('Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.',
+                    Text(str.studentUpToDateEventHeader, style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w700, fontSize: 16, color: Colors.black87),),
+                    Text(str.studentUpToDateEventContent,
                       style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 14, color: Colors.black87),
                     ),
                     ReadMore(),
@@ -59,7 +61,7 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
             )),
             
             Container(padding:EdgeInsets.fromLTRB(10, 8, 10, 8), child:
-              Text("Driving Options Nearby", style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w700, fontSize: 16),)
+              Text(str.studentUpToDateDrivingOptions, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w700, fontSize: 16),)
             ),
             
             Container(height: 1, color: Colors.black26,),
@@ -82,9 +84,9 @@ class StudentUpToDateInfoPanel extends StatelessWidget {
             ),
 
             Container(height: 1, color: Colors.black26,),
-            RibbonButton(title: 'Assignments Due Next',),
+            RibbonButton(title: str.studentUpToDateAssignedNext,),
             Container(height: 1, color: Colors.black26,),
-            RibbonButton(title: "Today's Schedule", gestureTapCallback: () => Navigator.pushNamed(context, '/student/schedule'),),
+            RibbonButton(title: str.studentUpToDateButtonTodaySchedule, gestureTapCallback: () => Navigator.pushNamed(context, '/student/schedule'),),
             SearchBar()
           ])
         );

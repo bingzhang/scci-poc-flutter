@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
@@ -11,6 +12,7 @@ import 'package:profile_demo/ui/widgets/ReadMore.dart';
 class StudentEventsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations str = AppLocalizations.of(context);
     return Scaffold(
         appBar: HeaderAppBar(context: context),
         body: Column(crossAxisAlignment:CrossAxisAlignment.start, children:<Widget>[
@@ -33,9 +35,8 @@ class StudentEventsPanel extends StatelessWidget {
                       topRight: const  Radius.circular(10.0))
                   ),
                   child: Column(crossAxisAlignment:CrossAxisAlignment.start, children: <Widget>[
-                    Text('ILLINI Women\'s Basketball', style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w700, fontSize: 16, color: Colors.black87),),
-                    Text('The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!',
-                      style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 14, color: Colors.black87),
+                    Text(str.studentEventTitle, style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w700, fontSize: 16, color: Colors.black87),),
+                    Text(str.studentEventContentMessage, style: TextStyle(fontFamily: 'Avenir', fontWeight:FontWeight.w300, fontSize: 14, color: Colors.black87),
                     ),
                     ReadMore(),
                   ],),
@@ -45,7 +46,7 @@ class StudentEventsPanel extends StatelessWidget {
             
             Container(height: 1, color: Colors.black26,),
             Container(padding:EdgeInsets.fromLTRB(10, 10, 10, 10), child:
-              Text("News + Events", style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w700, fontSize: 16),)
+              Text(str.studentHomeButtonNewsEvent, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w700, fontSize: 16),)
             ),
             
             Container(height: 1, color: Colors.black26,),

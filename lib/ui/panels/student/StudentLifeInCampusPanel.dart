@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 import 'package:profile_demo/ui/WidgetHelper.dart';
 
@@ -41,7 +42,7 @@ class StudentLifeOnCampusPanel extends StatelessWidget {
             ),
             HorizontalDivider(),
             RibbonButton(
-              title: 'Life on Campus',
+              title: AppLocalizations.of(context).studentLifeCampusTitle,
             ),
             HorizontalDivider(),
             Expanded(

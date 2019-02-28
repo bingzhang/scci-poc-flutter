@@ -70,7 +70,7 @@ class StudentHomeContent extends StatelessWidget {
             ),
             HorizontalDivider(),
             RibbonButton(
-              title: localizations.studentHomeButtonNextEvent,
+              title: localizations.studentHomeButtonNewsEvent,
               gestureTapCallback: () =>
                   Navigator.pushNamed(context, '/student/events'),
             ),

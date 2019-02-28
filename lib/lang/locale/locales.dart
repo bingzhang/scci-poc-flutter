@@ -55,7 +55,7 @@ class AppLocalizations {
         name: 'studentHomeButtonLifeCampus');
   }
 
-  String get studentHomeButtonNextEvent {
+  String get studentHomeButtonNewsEvent {
     return Intl.message('News + Events',
         name: 'studentHomeButtonNextEvent');
   }
@@ -197,8 +197,80 @@ class AppLocalizations {
         name: 'profileEditStateDeleteError');
   }
 
+  //StudentLifeInCampus
 
+  String get studentLifeCampusTitle {
+    return Intl.message('Life on Campus',
+        name: 'studentLifeCampusTitle');
+  }
 
+  //StudentEventsPanel
+
+  String get studentEventTitle {
+    return Intl.message('ILLINI Women\'s Basketball',
+        name: 'studentEventTitle');
+  }
+
+  String get studentEventReadMore {
+    return Intl.message('read more',
+        name: 'studentEventReadMore');
+  }
+
+  String get studentEventContentMessage {
+    return Intl.message('The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!',
+        name: 'studentEventContentMessage');
+  }
+
+  //StudentSchedulePanel
+  String get studentScheduleEventHeader {
+    return Intl.message('Ready for Lunch?',
+        name: 'studentScheduleEventHeader');
+  }
+
+  String get studentScheduleEventTime {
+    return Intl.message('Next Event 1:00pm',
+        name: 'studentScheduleEventTime');
+  }
+
+  String get studentScheduleEventDescription {
+    return Intl.message('ARTD 202: ID Studio II',
+        name: 'studentScheduleEventDescription');
+  }
+
+  String get studentScheduleEventLocation {
+    return Intl.message('Ready for Lunch?',
+        name: 'studentScheduleEventLocation');
+  }
+
+  //StudentUpToDate
+  String get studentUpToDateWalkDistance {
+    return Intl.message('5min from you',
+        name: 'studentUpToDateWalkDistance');
+  }
+
+  String get studentUpToDateEventHeader {
+    return Intl.message('Beckman Institute Cafe',
+        name: 'studentUpToDateEventHeader');
+  }
+  String get studentUpToDateEventContent {
+    return Intl.message('Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.',
+        name: 'studentUpToDateEventContent');
+  }
+
+  String get studentUpToDateDrivingOptions {
+    return Intl.message("Driving Options Nearby",
+        name: 'studentUpToDateDrivingOptions');
+  }
+
+  String get studentUpToDateAssignedNext {
+    return Intl.message('Assignments Due Next',
+        name: 'studentUpToDateAssignedNext');
+  }
+
+  String get studentUpToDateButtonTodaySchedule {
+    return Intl.message('Today\'s Schedule',
+        name: 'studentUpToDateButtonTodaySchedule');
+  }
   //common
 
   String get min {
@@ -212,7 +284,7 @@ class AppLocalizations {
   }
   String get stateFailed {
     return Intl.message("Succeeded",
-        name: 'stateSucceeded');
+        name: 'stateFailed');
   }
 
 

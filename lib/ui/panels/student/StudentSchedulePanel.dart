@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
@@ -15,6 +16,7 @@ import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 class StudentSchedulePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations str = AppLocalizations.of(context);
     return Scaffold(
         appBar: HeaderAppBar(context: context),
         body: Column(
@@ -40,10 +42,10 @@ class StudentSchedulePanel extends StatelessWidget {
                         child: Row(),
                       ),
                       EventPreview(
-                        headerText: 'Ready for Lunch?',
-                        eventTime: 'Next Event 1:00pm',
-                        eventDescription: 'ARTD 202: ID Studio II',
-                        eventLocation: 'Art + Design, Room 25',
+                        headerText: str.studentScheduleEventHeader,
+                        eventTime: str.studentScheduleEventTime,
+                        eventDescription: str.studentScheduleEventDescription,
+                        eventLocation: str.studentScheduleEventLocation,
                       )
                     ],
                   ),
@@ -88,12 +90,12 @@ class StudentSchedulePanel extends StatelessWidget {
                 )),
             HorizontalDivider(),
             RibbonButton(
-              title: 'Life on Campus',
+              title: str.studentHomeButtonLifeCampus,
               gestureTapCallback: () => Navigator.pushNamed(context, '/student/campus'),
             ),
             HorizontalDivider(),
             RibbonButton(
-              title: 'News + Events',
+              title:str.studentHomeButtonNewsEvent,
               gestureTapCallback:
                   () => Navigator.pushNamed(context, '/student/events'),
             ),
