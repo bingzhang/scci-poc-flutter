@@ -65,77 +65,77 @@
       "type": "text",
       "placeholders": {}
     },
-      "profileEditTitle": "My Profile",
+      "profileEditTitle": "Mi perfil",
       "@profileEditTitle": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditNameHint": "Please, type your name",
+      "profileEditNameHint": "Por favor, escriba su nombre",
       "@profileEditNameHint": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditNameLabel": "Name:",
+      "profileEditNameLabel": "Nombre:",
       "@profileEditNameLabel": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditNameValidation": "Please, type name and family.",
+      "profileEditNameValidation": "Por favor, escriba nombre y familia.",
       "@profileEditNameValidation": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditPhoneHint": "Please, type your phone number",
+      "profileEditPhoneHint": "Por favor, escriba su número de teléfono",
       "@profileEditPhoneHint": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditPhoneLabel": "Phone:",
+      "profileEditPhoneLabel": "Teléfono:",
       "@profileEditPhoneLabel": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditPhoneValidation": "Please, type valid phone number. Ex: (111) 111-1111",
+      "profileEditPhoneValidation": "Por favor, escriba un número de teléfono válido. Ej: (111) 111-1111",
       "@profileEditPhoneValidation": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditBirthDateHint": "Please, type your date of birth",
+      "profileEditBirthDateHint": "Por favor, escriba su fecha de nacimiento",
       "@profileEditBirthDateHint": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditBirthDateLabel": "Date of Birth:",
+      "profileEditBirthDateLabel": "Fecha de nacimiento:",
       "@profileEditBirthDateLabel": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditBirthDateValidation": "Please, type valid date in format: yyyy/MM/dd",
+      "profileEditBirthDateValidation": "Por favor, escriba fecha válida en formato: yyyy/MM/dd",
       "@profileEditBirthDateValidation": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditRoleStudent": "Student",
+      "profileEditRoleStudent": "Estudiante",
       "@profileEditRoleStudent": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditRoleStaff": "Staff",
+      "profileEditRoleStaff": "Personal",
       "@profileEditRoleStaff": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditRoleOther": "Other",
+      "profileEditRoleOther": "Otro",
       "@profileEditRoleOther": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditRoleLabel": "Role:",
+      "profileEditRoleLabel": "Papel:",
       "@profileEditRoleLabel": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditRoleValidation": "Please, select role.",
+      "profileEditRoleValidation": "Por favor, seleccione rol.",
       "@profileEditRoleValidation": {
         "type": "text",
         "placeholders": {}
@@ -145,52 +145,52 @@
         "type": "text",
         "placeholders": {}
       },
-      "profileEditStateSaveMessage": " to save user profile",
+      "profileEditStateSaveMessage": " para guardar el perfil de usuario",
       "@profileEditStateSaveMessage": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditButtonDelete": "Delete",
+      "profileEditButtonDelete": "Borrar",
       "@profileEditButtonDelete": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditStateDeleteMessage": " to delete user profile",
+      "profileEditStateDeleteMessage": " para borrar el perfil de usuario",
       "@profileEditStateDeleteMessage": {
         "type": "text",
         "placeholders": {}
       },
-      "profileEditStateDeleteError": "There is no saved profile to delete.",
+      "profileEditStateDeleteError": "No hay ningún perfil guardado para eliminar.",
       "@profileEditStateDeleteError": {
         "type": "text",
         "placeholders": {}
       },
-      "studentLifeCampusTitle": "Life on Campus",
+      "studentLifeCampusTitle": "La vida en el campus",
       "@studentLifeCampusTitle": {
         "type": "text",
         "placeholders": {}
       },
-      "studentEventTitle": "ILLINI Women's Basketball",
+      "studentEventTitle": "Baloncesto femenino ILLINI",
       "@studentEventTitle": {
         "type": "text",
         "placeholders": {}
       },
-      "studentEventReadMore": "read more",
+      "studentEventReadMore": "Lee mas",
       "@studentEventReadMore": {
         "type": "text",
         "placeholders": {}
       },
-      "studentEventContentMessage": "The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!",
+      "studentEventContentMessage": "¡Los combates del ILLINI han tenido un buen comienzo esta temporada! ¡Únete a nosotros para su juego de temporada de la temporada este viernes a las 9 pm!",
       "@studentEventContentMessage": {
         "type": "text",
         "placeholders": {}
       },
-      "studentScheduleEventHeader": "Ready for Lunch?",
+      "studentScheduleEventHeader": "Listo para el almuerzo?",
       "@studentScheduleEventHeader": {
         "type": "text",
         "placeholders": {}
       },
-      "studentScheduleEventTime": "Next Event 1:00pm",
+      "studentScheduleEventTime": "Próximo evento 1:00 pm",
       "@studentScheduleEventTime": {
         "type": "text",
         "placeholders": {}
@@ -200,12 +200,12 @@
         "type": "text",
         "placeholders": {}
       },
-      "studentScheduleEventLocation": "Art + Design, Room 25",
+      "studentScheduleEventLocation": "Arte + Diseño, Sala 25.",
       "@studentScheduleEventLocation": {
         "type": "text",
         "placeholders": {}
       },
-      "studentUpToDateWalkDistance": "5min from you",
+      "studentUpToDateWalkDistance": "5min de ti",
       "@studentUpToDateWalkDistance": {
         "type": "text",
         "placeholders": {}
@@ -215,62 +215,62 @@
         "type": "text",
         "placeholders": {}
       },
-      "studentUpToDateEventContent": "Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.",
+      "studentUpToDateEventContent": "Hoy el lanzamiento especial es Red Chicken Curry! El menú también ofrece un sándwich hecho a pedido, sopas calientes y salsas frescas.",
       "@studentUpToDateEventContent": {
         "type": "text",
         "placeholders": {}
       },
-      "studentUpToDateDrivingOptions": "Driving Options Nearby",
+      "studentUpToDateDrivingOptions": "Opciones de conducción cercanas",
       "@studentUpToDateDrivingOptions": {
         "type": "text",
         "placeholders": {}
       },
-      "studentUpToDateAssignedNext": "Assignments Due Next",
+      "studentUpToDateAssignedNext": "Asignaciones Vencidas Siguiente",
       "@studentUpToDateAssignedNext": {
         "type": "text",
         "placeholders": {}
       },
-      "studentUpToDateButtonTodaySchedule": "Today's Schedule",
+      "studentUpToDateButtonTodaySchedule": "Horario de hoy",
       "@studentUpToDateButtonTodaySchedule": {
         "type": "text",
         "placeholders": {}
       },
-      "profileHomeHeaderActionTitle": "University of Illinois at Urbana-Champaign",
+      "profileHomeHeaderActionTitle": "Universidad de Illinois en Urbana-Champaign",
       "@profileHomeHeaderActionTitle": {
         "type": "text",
         "placeholders": {}
       },
-      "profileHomeErrorMessage": "Sorry, unable to load UI. Please try again later",
+      "profileHomeErrorMessage": "Lo sentimos, no se puede cargar la interfaz de usuario. Por favor, inténtelo de nuevo más tarde",
       "@profileHomeErrorMessage": {
         "type": "text",
         "placeholders": {}
       },
-      "webPleaseWaith": "Please Wait...",
+      "webPleaseWaith": "Por favor espera...",
       "@webPleaseWaith": {
         "type": "text",
         "placeholders": {}
       },
-      "webCheckInternetConnection": "You need to be online in order to perform this operation. Please check your Internet connection.",
+      "webCheckInternetConnection": "Necesita estar en línea para realizar esta operación. Por favor revise su conexion a internet.",
       "@webCheckInternetConnection": {
         "type": "text",
         "placeholders": {}
       },
-      "min": "min",
+      "min": "minuto",
       "@min": {
         "type": "text",
         "placeholders": {}
       },
-      "stateSucceeded": "Succeeded",
+      "stateSucceeded": "Tenido éxito",
       "@stateSucceeded": {
         "type": "text",
         "placeholders": {}
       },
-      "stateFailed": "Failed",
+      "stateFailed": "Ha fallado",
       "@stateFailed": {
         "type": "text",
         "placeholders": {}
       },
-      "ok": "Ok",
+      "ok": "De acuerdo",
       "@ok": {
         "type": "text",
         "placeholders": {}
