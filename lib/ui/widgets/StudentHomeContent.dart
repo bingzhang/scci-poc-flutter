@@ -22,6 +22,7 @@ import 'package:profile_demo/ui/widgets/SearchBar.dart';
 class StudentHomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localizations = AppLocalizations.of(context);
     return Scaffold(
         appBar: HeaderAppBar(context: context),
         body: Column(
@@ -49,10 +50,10 @@ class StudentHomeContent extends StatelessWidget {
                         child: Row(),
                       ),
                       EventPreview(
-                        headerText: AppLocalizations.of(context).studentHomeGoodMorningText,
-                        eventTime: 'Next Event 9:30am',
-                        eventDescription: 'TE 401: Intro to Design Thinking',
-                        eventLocation: 'Noble Hall, Room 211',
+                        headerText: localizations.studentHomeGoodMorningText,
+                        eventTime: localizations.studentHomeEventTime,
+                        eventDescription: localizations.studentHomeEventDescription,
+                        eventLocation: localizations.studentHomeEventLocation,
                       )
                     ],
                   ),
@@ -63,19 +64,19 @@ class StudentHomeContent extends StatelessWidget {
             NextEventDetails(),
             HorizontalDivider(),
             RibbonButton(
-              title: 'Life on Campus',
+              title: localizations.studentHomeButtonLifeCampus,
               gestureTapCallback: () =>
                   Navigator.pushNamed(context, '/student/campus'),
             ),
             HorizontalDivider(),
             RibbonButton(
-              title: 'News + Events',
+              title: localizations.studentHomeButtonNextEvent,
               gestureTapCallback: () =>
                   Navigator.pushNamed(context, '/student/events'),
             ),
             HorizontalDivider(),
             RibbonButton(
-              title: 'Athletics + Campus Venues',
+              title: localizations.studentHomeButtonAthletics,
               gestureTapCallback: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -85,7 +86,7 @@ class StudentHomeContent extends StatelessWidget {
             ),
             HorizontalDivider(),
             RibbonButton(
-              title: 'Indoor Maps',
+              title: localizations.studentHomeButtonMaps,
               gestureTapCallback: () =>
                   _launchIndoorMaps(),
             ),

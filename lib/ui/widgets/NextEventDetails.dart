@@ -3,16 +3,18 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 
 class NextEventDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localizations = AppLocalizations.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Semantics(
             excludeSemantics: true,
-            hint: "1 hr 20 min until the event",
+            hint: localizations.nextEventTimeHint,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -25,17 +27,17 @@ class NextEventDetails extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Time Until',
+                        localizations.nextEventTimeUntilLabel,
                         style: TextStyle(fontSize: 18, fontFamily: 'Avenir'),
                       ),
-                      Text('1 hr 20 min',
+                      Text(localizations.nextEventTimeLabel,
                           style: TextStyle(fontSize: 30, fontFamily: 'Avenir'))
                     ],
                   ),
                 ])),
         Semantics(
           excludeSemantics: true,
-          hint: "15 minutes to alarm",
+          hint: localizations.nextEventAlarmHint,
           child: Column(
             children: <Widget>[
               Image.asset(
@@ -43,7 +45,7 @@ class NextEventDetails extends StatelessWidget {
                 height: 50,
               ),
               Text(
-                '15 min',
+                "15"+localizations.min,
                 style: TextStyle(fontFamily: 'Avenir'),
               )
             ],
@@ -51,7 +53,7 @@ class NextEventDetails extends StatelessWidget {
         ),
         Semantics(
           excludeSemantics: true,
-          hint: "7 minutes to bycycle",
+          hint: localizations.nextEventBycycleHint,
           child: Column(
             children: <Widget>[
               Image.asset(
@@ -59,7 +61,7 @@ class NextEventDetails extends StatelessWidget {
                 height: 50,
               ),
               Text(
-                '7 min',
+                "7"+ localizations.min,
                 style: TextStyle(fontFamily: 'Avenir'),
               )
             ],

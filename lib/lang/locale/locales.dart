@@ -29,9 +29,78 @@ class AppLocalizations {
     return local;
   }
 
+  //StudentHomePanel
   String get studentHomeGoodMorningText {
     return Intl.message('Good Morning, Alex!',
         name: 'studentHomeGoodMorningText');
+  }
+
+  String get studentHomeEventTime {
+    return Intl.message('Next Event 9:30am',
+        name: 'studentHomeEventTime');
+  }
+
+  String get studentHomeEventDescription {
+    return Intl.message('TE 401: Intro to Design Thinking',
+        name: 'studentHomeEventDescription');
+  }
+
+  String get studentHomeEventLocation {
+    return Intl.message('Noble Hall, Room 211',
+        name: 'studentHomeEventLocation');
+  }
+
+  String get studentHomeButtonLifeCampus {
+    return Intl.message('Life on Campus',
+        name: 'studentHomeButtonLifeCampus');
+  }
+
+  String get studentHomeButtonNextEvent {
+    return Intl.message('News + Events',
+        name: 'studentHomeButtonNextEvent');
+  }
+
+  String get studentHomeButtonAthletics {
+    return Intl.message('Athletics + Campus Venues',
+        name: 'studentHomeButtonAthletics');
+  }
+
+  String get studentHomeButtonMaps {
+    return Intl.message('Indoor Maps',
+        name: 'studentHomeButtonMaps');
+  }
+
+  //NextEventDetails
+  String get nextEventTimeHint {
+    return Intl.message("1 hr 20 min until the event",
+        name: 'nextEventTimeHint');
+  }
+
+  String get nextEventTimeUntilLabel {
+    return Intl.message('Time Until',
+        name: 'nextEventTimeUntilLabel');
+  }
+
+  String get nextEventTimeLabel {
+    return Intl.message('1 hr 20 min',
+        name: 'nextEventTimeLabel');
+  }
+
+  String get nextEventAlarmHint {
+    return Intl.message('15 minutes to alarm',
+        name: 'nextEventAlarmHint');
+  }
+
+  String get nextEventBycycleHint {
+    return Intl.message("7 minutes to bycycle",
+        name: 'nextEventBycycleHint');
+  }
+
+  //common
+
+  String get min {
+    return Intl.message("min",
+        name: 'min');
   }
 }
 

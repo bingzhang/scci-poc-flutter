@@ -20,6 +20,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "min" : MessageLookupByLibrary.simpleMessage("分钟"),
+    "nextEventAlarmHint" : MessageLookupByLibrary.simpleMessage("15分钟报警"),
+    "nextEventBycycleHint" : MessageLookupByLibrary.simpleMessage("7分钟自行车"),
+    "nextEventTimeHint" : MessageLookupByLibrary.simpleMessage("活动开始前1小时20分钟"),
+    "nextEventTimeLabel" : MessageLookupByLibrary.simpleMessage("1小时20分钟"),
+    "nextEventTimeUntilLabel" : MessageLookupByLibrary.simpleMessage("时间到了"),
+    "studentHomeButtonAthletics" : MessageLookupByLibrary.simpleMessage("田径+校园场地"),
+    "studentHomeButtonLifeCampus" : MessageLookupByLibrary.simpleMessage("校园生活"),
+    "studentHomeButtonMaps" : MessageLookupByLibrary.simpleMessage("室内地图"),
+    "studentHomeButtonNextEvent" : MessageLookupByLibrary.simpleMessage("新闻+活动"),
+    "studentHomeEventDescription" : MessageLookupByLibrary.simpleMessage("TE 401：设计思维简介"),
+    "studentHomeEventLocation" : MessageLookupByLibrary.simpleMessage("贵族厅，211室"),
+    "studentHomeEventTime" : MessageLookupByLibrary.simpleMessage("下一个活动上午9:30"),
     "studentHomeGoodMorningText" : MessageLookupByLibrary.simpleMessage("早上好，亚历克斯!")
   };
 }

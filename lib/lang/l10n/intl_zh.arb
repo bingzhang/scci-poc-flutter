@@ -4,5 +4,70 @@
   "@studentHomeGoodMorningText": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+    "studentHomeEventTime": "下一个活动上午9:30",
+    "@studentHomeEventTime": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeEventDescription": "TE 401：设计思维简介",
+    "@studentHomeEventDescription": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeEventLocation": "贵族厅，211室",
+    "@studentHomeEventLocation": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonLifeCampus": "校园生活",
+    "@studentHomeButtonLifeCampus": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonNextEvent": "新闻+活动",
+    "@studentHomeButtonNextEvent": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonAthletics": "田径+校园场地",
+    "@studentHomeButtonAthletics": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonMaps": "室内地图",
+    "@studentHomeButtonMaps": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventTimeHint": "活动开始前1小时20分钟",
+    "@nextEventTimeHint": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventTimeUntilLabel": "时间到了",
+    "@nextEventTimeUntilLabel": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventTimeLabel": "1小时20分钟",
+    "@nextEventTimeLabel": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventAlarmHint": "15分钟报警",
+    "@nextEventAlarmHint": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventBycycleHint": "7分钟自行车",
+    "@nextEventBycycleHint": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "min": "分钟",
+    "@min": {
+      "type": "text",
+      "placeholders": {}
+    }
 }

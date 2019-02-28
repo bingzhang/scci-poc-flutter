@@ -4,5 +4,70 @@
   "@studentHomeGoodMorningText": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+    "studentHomeEventTime": "Próximo evento 9:30 am",
+    "@studentHomeEventTime": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeEventDescription": "TE 401:Introducción al pensamiento de diseño",
+    "@studentHomeEventDescription": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeEventLocation": "Salón Noble, Sala 211",
+    "@studentHomeEventLocation": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonLifeCampus": "La vida en el campus",
+    "@studentHomeButtonLifeCampus": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonNextEvent": "Noticias + Eventos",
+    "@studentHomeButtonNextEvent": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonAthletics": "Atletismo + Campus Sedes",
+    "@studentHomeButtonAthletics": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "studentHomeButtonMaps": "Mapas interiores",
+    "@studentHomeButtonMaps": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventTimeHint": "1 h 20 min hasta el evento.",
+    "@nextEventTimeHint": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventTimeUntilLabel": "Tiempo hasta",
+    "@nextEventTimeUntilLabel": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventTimeLabel": "1 hr 20 min",
+    "@nextEventTimeLabel": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventAlarmHint": "15 minutos para alarma",
+    "@nextEventAlarmHint": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "nextEventBycycleHint": "7 minutos en bicicleta",
+    "@nextEventBycycleHint": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "min": "min",
+    "@min": {
+      "type": "text",
+      "placeholders": {}
+    }
 }

@@ -1,7 +1,72 @@
 {
-  "@@last_modified": "2019-02-27T15:58:38.057334",
+  "@@last_modified": "2019-02-28T13:53:55.980035",
   "studentHomeGoodMorningText": "Good Morning, Alex!",
   "@studentHomeGoodMorningText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeEventTime": "Next Event 9:30am",
+  "@studentHomeEventTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeEventDescription": "TE 401: Intro to Design Thinking",
+  "@studentHomeEventDescription": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeEventLocation": "Noble Hall, Room 211",
+  "@studentHomeEventLocation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeButtonLifeCampus": "Life on Campus",
+  "@studentHomeButtonLifeCampus": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeButtonNextEvent": "News + Events",
+  "@studentHomeButtonNextEvent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeButtonAthletics": "Athletics + Campus Venues",
+  "@studentHomeButtonAthletics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeButtonMaps": "Indoor Maps",
+  "@studentHomeButtonMaps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nextEventTimeHint": "1 hr 20 min until the event",
+  "@nextEventTimeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nextEventTimeUntilLabel": "Time Until",
+  "@nextEventTimeUntilLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nextEventTimeLabel": "1 hr 20 min",
+  "@nextEventTimeLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nextEventAlarmHint": "15 minutes to alarm",
+  "@nextEventAlarmHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nextEventBycycleHint": "7 minutes to bycycle",
+  "@nextEventBycycleHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "min": "min",
+  "@min": {
     "type": "text",
     "placeholders": {}
   }
