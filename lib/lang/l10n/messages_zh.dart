@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "studentHomeButtonAthletics" : MessageLookupByLibrary.simpleMessage("田径+校园场地"),
     "studentHomeButtonLifeCampus" : MessageLookupByLibrary.simpleMessage("校园生活"),
     "studentHomeButtonMaps" : MessageLookupByLibrary.simpleMessage("室内地图"),
+    "studentHomeButtonNewsEvent" : MessageLookupByLibrary.simpleMessage("新闻+活动"),
     "studentHomeEventDescription" : MessageLookupByLibrary.simpleMessage("TE 401：设计思维简介"),
     "studentHomeEventLocation" : MessageLookupByLibrary.simpleMessage("贵族厅，211室"),
     "studentHomeEventTime" : MessageLookupByLibrary.simpleMessage("下一个活动上午9:30"),
