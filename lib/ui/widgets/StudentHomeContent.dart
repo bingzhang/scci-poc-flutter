@@ -82,7 +82,7 @@ class StudentHomeContent extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => WebContentPanel(
                           url: 'https://fightingillini.com/',
-                          title: 'Athletics'))),
+                          title: localizations.studentHomeButtonAthleticsActionHeader))),
             ),
             HorizontalDivider(),
             RibbonButton(

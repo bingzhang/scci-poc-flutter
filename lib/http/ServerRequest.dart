@@ -2,7 +2,10 @@
  * Copyright (c) 2019 UIUC. All rights reserved.
  */
 
+import 'dart:ui';
+
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:profile_demo/model/User.dart';
@@ -78,12 +81,17 @@ class ServerRequest {
       return false;
     }
   }
-
   static Future<String> loadUiConfig() async {
+    String lang = Intl?.defaultLocale??Intl.getCurrentLocale();
+    Locale locale = new Locale(lang);
+      return loadUiConfigWithLanguage(lang);
+  }
+
+  static Future<String> loadUiConfigWithLanguage(String lang) async {
     String serverHost = _constructHostValue();
     http.Response response;
     try {
-      response = await http.get('$serverHost/ui/config');
+      response = await http.get('$serverHost/ui/config?lang=$lang');
     } catch (e) {
       print(e.toString());
       return null;

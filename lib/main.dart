@@ -28,9 +28,10 @@ Future<void> _init() async {
 class ProfileDemoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+      return MaterialApp(
         localizationsDelegates: [
-          AppLocalizationsDelegate(),
+          AppLocalizationsDelegate(context),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
         ],
@@ -48,4 +49,5 @@ class ProfileDemoApp extends StatelessWidget {
           '/student/schedule': (context) => StudentSchedulePanel(),
         });
   }
+
 }

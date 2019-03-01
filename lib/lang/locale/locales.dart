@@ -7,18 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:profile_demo/lang/l10n/messages_all.dart';
+import 'package:profile_demo/logic/UiLogic.dart';
 
 class AppLocalizations {
-  static Future<AppLocalizations> load(Locale locale) async {
+  static Future<AppLocalizations> load(BuildContext context,Locale locale) async {
     final String name =
         (locale.countryCode == null || locale.countryCode.isEmpty)
             ? locale.languageCode
             : locale.toString();
 
     final String localName = Intl.canonicalizedLocale(name);
+    //Use callback
 
     return initializeMessages(localName).then((bool _) {
       Intl.defaultLocale = localName;
+      UiLogic().reloadConfig(context);
       return AppLocalizations();
     });
   }
@@ -63,6 +66,11 @@ class AppLocalizations {
   String get studentHomeButtonAthletics {
     return Intl.message('Athletics + Campus Venues',
         name: 'studentHomeButtonAthletics');
+  }
+
+  String get studentHomeButtonAthleticsActionHeader {
+    return Intl.message('Athletics',
+        name: 'studentHomeButtonAthleticsHeader');
   }
 
   String get studentHomeButtonMaps {
@@ -354,7 +362,10 @@ class AppLocalizations {
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
-  const AppLocalizationsDelegate();
+   BuildContext mContext;
+   AppLocalizationsDelegate(BuildContext context){
+    this.mContext = context;
+  }
 
   @override
   bool isSupported(Locale locale) {
@@ -363,7 +374,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   Future<AppLocalizations> load(Locale locale) {
-    return AppLocalizations.load(locale);
+    return AppLocalizations.load(mContext,locale);
   }
 
   @override
