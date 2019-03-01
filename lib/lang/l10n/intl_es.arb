@@ -35,6 +35,11 @@
       "type": "text",
       "placeholders": {}
     },
+    "studentHomeButtonAthleticsActionHeader": "Atletismo",
+    "@studentHomeButtonAthleticsActionHeader": {
+      "type": "text",
+      "placeholders": {}
+    },
     "studentHomeButtonMaps": "Mapas interiores",
     "@studentHomeButtonMaps": {
       "type": "text",
@@ -274,5 +279,50 @@
       "@ok": {
         "type": "text",
         "placeholders": {}
-      }
+      },
+        "semanticsHeaderHint": "Toque para abrir la página de inicio de Illinois",
+        "@semanticsHeaderHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsHeaderLabel": "Universidad de Illinois Urbana-Champaign",
+        "@semanticsHeaderLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsEventPreviewLabel": "Calendario",
+        "@semanticsEventPreviewLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchSettingsLabel": "Ajustes",
+        "@semanticsSearchSettingsLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchSettingsHint": "Toque para editar la configuración de la aplicación",
+        "@semanticsSearchSettingsHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchFieldLabel": "Buscar",
+        "@semanticsSearchFieldLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchFieldHint": "Ingrese su texto de búsqueda",
+        "@semanticsSearchFieldHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchButtonHint": "Toque para iniciar la búsqueda",
+        "@semanticsSearchButtonHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsWeatherLabel": "Ya sea",
+        "@semanticsWeatherLabel": {
+          "type": "text",
+          "placeholders": {}
+        }
 }

@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-02-28T19:19:49.409179",
+  "@@last_modified": "2019-03-01T17:55:52.743754",
   "studentHomeGoodMorningText": "Good Morning, Alex!",
   "@studentHomeGoodMorningText": {
     "type": "text",
@@ -32,6 +32,11 @@
   },
   "studentHomeButtonAthletics": "Athletics + Campus Venues",
   "@studentHomeButtonAthletics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentHomeButtonAthleticsActionHeader": "Athletics",
+  "@studentHomeButtonAthleticsActionHeader": {
     "type": "text",
     "placeholders": {}
   },
@@ -272,6 +277,51 @@
   },
   "ok": "Ok",
   "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsHeaderHint": "Tap to open Illinois home page",
+  "@semanticsHeaderHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsHeaderLabel": "University of Illinois Urbana-Champaign",
+  "@semanticsHeaderLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsEventPreviewLabel": "Calendar",
+  "@semanticsEventPreviewLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchSettingsLabel": "Settings",
+  "@semanticsSearchSettingsLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchSettingsHint": "Tap to edit application settings",
+  "@semanticsSearchSettingsHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchFieldLabel": "Search",
+  "@semanticsSearchFieldLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchFieldHint": "Input your search text",
+  "@semanticsSearchFieldHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchButtonHint": "Tap to start search",
+  "@semanticsSearchButtonHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsWeatherLabel": "Whether",
+  "@semanticsWeatherLabel": {
     "type": "text",
     "placeholders": {}
   }

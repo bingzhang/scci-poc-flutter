@@ -35,6 +35,11 @@
       "type": "text",
       "placeholders": {}
     },
+    "studentHomeButtonAthleticsActionHeader": "竞技",
+    "@studentHomeButtonAthleticsActionHeader": {
+      "type": "text",
+      "placeholders": {}
+    },
     "studentHomeButtonMaps": "室内地图",
     "@studentHomeButtonMaps": {
       "type": "text",
@@ -274,5 +279,50 @@
       "@ok": {
         "type": "text",
         "placeholders": {}
-      }
+      },
+        "semanticsHeaderHint": "点击打开伊利诺伊州主页",
+        "@semanticsHeaderHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsHeaderLabel": "伊利诺伊大学厄巴纳 - 香槟分校",
+        "@semanticsHeaderLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsEventPreviewLabel": "日历",
+        "@semanticsEventPreviewLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchSettingsLabel": "设置",
+        "@semanticsSearchSettingsLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchSettingsHint": "点按以编辑应用程序设置",
+        "@semanticsSearchSettingsHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchFieldLabel": "搜索",
+        "@semanticsSearchFieldLabel": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchFieldHint": "输入您的搜索文本",
+        "@semanticsSearchFieldHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsSearchButtonHint": "点按开始搜索",
+        "@semanticsSearchButtonHint": {
+          "type": "text",
+          "placeholders": {}
+        },
+        "semanticsWeatherLabel": "是否",
+        "@semanticsWeatherLabel": {
+          "type": "text",
+          "placeholders": {}
+        }
 }

@@ -70,7 +70,7 @@ class AppLocalizations {
 
   String get studentHomeButtonAthleticsActionHeader {
     return Intl.message('Athletics',
-        name: 'studentHomeButtonAthleticsHeader');
+        name: 'studentHomeButtonAthleticsActionHeader');
   }
 
   String get studentHomeButtonMaps {

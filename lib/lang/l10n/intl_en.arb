@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-02-28T18:52:59.305775",
+  "@@last_modified": "2019-03-01T17:46:13.589109",
   "studentHomeGoodMorningText": "Good Morning, Alex!",
   "@studentHomeGoodMorningText": {
     "type": "text",
@@ -35,6 +35,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "studentHomeButtonAthleticsActionHeader": "Athletics",
+  "@studentHomeButtonAthleticsActionHeader": {
+    "type": "text",
+    "placeholders": {}
+  },
   "studentHomeButtonMaps": "Indoor Maps",
   "@studentHomeButtonMaps": {
     "type": "text",
@@ -64,214 +69,260 @@
   "@nextEventBycycleHint": {
     "type": "text",
     "placeholders": {}
-  },  "profileEditTitle": "My Profile",
-      "@profileEditTitle": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditNameHint": "Please, type your name",
-      "@profileEditNameHint": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditNameLabel": "Name:",
-      "@profileEditNameLabel": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditNameValidation": "Please, type name and family.",
-      "@profileEditNameValidation": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditPhoneHint": "Please, type your phone number",
-      "@profileEditPhoneHint": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditPhoneLabel": "Phone:",
-      "@profileEditPhoneLabel": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditPhoneValidation": "Please, type valid phone number. Ex: (111) 111-1111",
-      "@profileEditPhoneValidation": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditBirthDateHint": "Please, type your date of birth",
-      "@profileEditBirthDateHint": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditBirthDateLabel": "Date of Birth:",
-      "@profileEditBirthDateLabel": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditBirthDateValidation": "Please, type valid date in format: yyyy/MM/dd",
-      "@profileEditBirthDateValidation": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditRoleStudent": "Student",
-      "@profileEditRoleStudent": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditRoleStaff": "Staff",
-      "@profileEditRoleStaff": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditRoleOther": "Other",
-      "@profileEditRoleOther": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditRoleLabel": "Role:",
-      "@profileEditRoleLabel": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditRoleValidation": "Please, select role.",
-      "@profileEditRoleValidation": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditButtonSave": "Save",
-      "@profileEditButtonSave": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditStateSaveMessage": " to save user profile",
-      "@profileEditStateSaveMessage": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditButtonDelete": "Delete",
-      "@profileEditButtonDelete": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditStateDeleteMessage": " to delete user profile",
-      "@profileEditStateDeleteMessage": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileEditStateDeleteError": "There is no saved profile to delete.",
-      "@profileEditStateDeleteError": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentLifeCampusTitle": "Life on Campus",
-      "@studentLifeCampusTitle": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentEventTitle": "ILLINI Women's Basketball",
-      "@studentEventTitle": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentEventReadMore": "read more",
-      "@studentEventReadMore": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentEventContentMessage": "The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!",
-      "@studentEventContentMessage": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentScheduleEventHeader": "Ready for Lunch?",
-      "@studentScheduleEventHeader": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentScheduleEventTime": "Next Event 1:00pm",
-      "@studentScheduleEventTime": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentScheduleEventDescription": "ARTD 202: ID Studio II",
-      "@studentScheduleEventDescription": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentScheduleEventLocation": "Art + Design, Room 25",
-      "@studentScheduleEventLocation": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentUpToDateWalkDistance": "5min from you",
-      "@studentUpToDateWalkDistance": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentUpToDateEventHeader": "Beckman Institute Cafe",
-      "@studentUpToDateEventHeader": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentUpToDateEventContent": "Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.",
-      "@studentUpToDateEventContent": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentUpToDateDrivingOptions": "Driving Options Nearby",
-      "@studentUpToDateDrivingOptions": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentUpToDateAssignedNext": "Assignments Due Next",
-      "@studentUpToDateAssignedNext": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "studentUpToDateButtonTodaySchedule": "Today's Schedule",
-      "@studentUpToDateButtonTodaySchedule": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileHomeHeaderActionTitle": "University of Illinois at Urbana-Champaign",
-      "@profileHomeHeaderActionTitle": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "profileHomeErrorMessage": "Sorry, unable to load UI. Please try again later",
-      "@profileHomeErrorMessage": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "webPleaseWaith": "Please Wait...",
-      "@webPleaseWaith": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "webCheckInternetConnection": "You need to be online in order to perform this operation. Please check your Internet connection.",
-      "@webCheckInternetConnection": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "min": "min",
-      "@min": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "stateSucceeded": "Succeeded",
-      "@stateSucceeded": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "stateFailed": "Failed",
-      "@stateFailed": {
-        "type": "text",
-        "placeholders": {}
-      },
-      "ok": "Ok",
-      "@ok": {
-        "type": "text",
-        "placeholders": {}
-      }
+  },
+  "profileEditTitle": "My Profile",
+  "@profileEditTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditNameHint": "Please, type your name",
+  "@profileEditNameHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditNameLabel": "Name:",
+  "@profileEditNameLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditNameValidation": "Please, type name and family.",
+  "@profileEditNameValidation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditPhoneHint": "Please, type your phone number",
+  "@profileEditPhoneHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditPhoneLabel": "Phone:",
+  "@profileEditPhoneLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditPhoneValidation": "Please, type valid phone number. Ex: (111) 111-1111",
+  "@profileEditPhoneValidation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditBirthDateHint": "Please, type your date of birth",
+  "@profileEditBirthDateHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditBirthDateLabel": "Date of Birth:",
+  "@profileEditBirthDateLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditBirthDateValidation": "Please, type valid date in format: yyyy/MM/dd",
+  "@profileEditBirthDateValidation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditRoleStudent": "Student",
+  "@profileEditRoleStudent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditRoleStaff": "Staff",
+  "@profileEditRoleStaff": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditRoleOther": "Other",
+  "@profileEditRoleOther": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditRoleLabel": "Role:",
+  "@profileEditRoleLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditRoleValidation": "Please, select role.",
+  "@profileEditRoleValidation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditButtonSave": "Save",
+  "@profileEditButtonSave": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditStateSaveMessage": " to save user profile",
+  "@profileEditStateSaveMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditButtonDelete": "Delete",
+  "@profileEditButtonDelete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditStateDeleteMessage": " to delete user profile",
+  "@profileEditStateDeleteMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileEditStateDeleteError": "There is no saved profile to delete.",
+  "@profileEditStateDeleteError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentLifeCampusTitle": "Life on Campus",
+  "@studentLifeCampusTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentEventTitle": "ILLINI Women's Basketball",
+  "@studentEventTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentEventReadMore": "read more",
+  "@studentEventReadMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentEventContentMessage": "The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!",
+  "@studentEventContentMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventHeader": "Ready for Lunch?",
+  "@studentScheduleEventHeader": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventTime": "Next Event 1:00pm",
+  "@studentScheduleEventTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventDescription": "ARTD 202: ID Studio II",
+  "@studentScheduleEventDescription": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentScheduleEventLocation": "Art + Design, Room 25",
+  "@studentScheduleEventLocation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateWalkDistance": "5min from you",
+  "@studentUpToDateWalkDistance": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateEventHeader": "Beckman Institute Cafe",
+  "@studentUpToDateEventHeader": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateEventContent": "Today launch special is Red Chicken Curry! The menu also features a made to order sandwich, hot soups, and fresh salds.",
+  "@studentUpToDateEventContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateDrivingOptions": "Driving Options Nearby",
+  "@studentUpToDateDrivingOptions": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateAssignedNext": "Assignments Due Next",
+  "@studentUpToDateAssignedNext": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentUpToDateButtonTodaySchedule": "Today's Schedule",
+  "@studentUpToDateButtonTodaySchedule": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileHomeHeaderActionTitle": "University of Illinois at Urbana-Champaign",
+  "@profileHomeHeaderActionTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileHomeErrorMessage": "Sorry, unable to load UI. Please try again later",
+  "@profileHomeErrorMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "webPleaseWaith": "Please Wait...",
+  "@webPleaseWaith": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "webCheckInternetConnection": "You need to be online in order to perform this operation. Please check your Internet connection.",
+  "@webCheckInternetConnection": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "min": "min",
+  "@min": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stateSucceeded": "Succeeded",
+  "@stateSucceeded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stateFailed": "Failed",
+  "@stateFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "Ok",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsHeaderHint": "Tap to open Illinois home page",
+  "@semanticsHeaderHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsHeaderLabel": "University of Illinois Urbana-Champaign",
+  "@semanticsHeaderLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsEventPreviewLabel": "Calendar",
+  "@semanticsEventPreviewLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchSettingsLabel": "Settings",
+  "@semanticsSearchSettingsLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchSettingsHint": "Tap to edit application settings",
+  "@semanticsSearchSettingsHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchFieldLabel": "Search",
+  "@semanticsSearchFieldLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchFieldHint": "Input your search text",
+  "@semanticsSearchFieldHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsSearchButtonHint": "Tap to start search",
+  "@semanticsSearchButtonHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "semanticsWeatherLabel": "Whether",
+  "@semanticsWeatherLabel": {
+    "type": "text",
+    "placeholders": {}
+  }
 }
