@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 
 class HeaderAppBar extends AppBar {
@@ -14,7 +15,7 @@ class HeaderAppBar extends AppBar {
               Semantics(
                 excludeSemantics: true,
                 button: true,
-                hint: 'Tap to open Illinois home page',
+                hint: AppLocalizations.of(context).semanticsHeaderHint,
                 child: IconButton(
                   icon: Image.asset('images/icon-illinois.png'),
                   onPressed: () => Navigator.push(
@@ -28,7 +29,7 @@ class HeaderAppBar extends AppBar {
             centerTitle: true,
             title: Semantics(
               excludeSemantics: true,
-              label: 'University of Illinois Urbana-Champaign',
+              label: AppLocalizations.of(context).semanticsHeaderLabel,
               header: true,
               child: Text('UIUC'),
             ));

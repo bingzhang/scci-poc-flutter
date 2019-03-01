@@ -3,11 +3,13 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations str = AppLocalizations.of(context);
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 3, vertical: 4),
         color: Colors.black26,
@@ -16,8 +18,8 @@ class SearchBar extends StatelessWidget {
           Semantics(
             button: true,
             excludeSemantics: true,
-            label: "Settings",
-            hint: "Tap to edit application settings",
+            label: str.semanticsSearchSettingsLabel,
+            hint: str.semanticsSearchSettingsHint,
             child: GestureDetector(
               onTap: () => Navigator.pushNamed(context, '/edit'),
               child: Image.asset(
@@ -40,8 +42,8 @@ class SearchBar extends StatelessWidget {
                   child: 
                   Semantics(
                     textField: true,
-                    label: "Search",
-                    hint: "Input your search text",
+                    label: str.semanticsSearchFieldLabel,
+                    hint: str.semanticsSearchFieldHint,
                   child: TextField(
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
@@ -52,8 +54,8 @@ class SearchBar extends StatelessWidget {
           Semantics(
             button: true,
             excludeSemantics: true,
-            label: "Search",
-            hint: "Tap to start search",
+            label: str.semanticsSearchFieldLabel,
+            hint: str.semanticsSearchButtonHint,
             child: Image.asset('images/icon-search.png',
               width: 42, height: 42, fit: BoxFit.cover),
                     )

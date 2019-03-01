@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 
 class EventPreview extends StatelessWidget {
   final String headerText;
@@ -33,7 +34,7 @@ class EventPreview extends StatelessWidget {
               padding: EdgeInsets.only(right: 10.0),
               child: Semantics(
                 excludeSemantics: true,
-                label: 'Calendar',
+                label: AppLocalizations.of(context).semanticsEventPreviewLabel,
                 image: true,
                 child: Image.asset('images/icon-schedule.png', height: 50.0),),
             ),

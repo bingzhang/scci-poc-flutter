@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 
 import 'Clock.dart';
 
@@ -15,7 +16,7 @@ class TimeAndWhetherHeader extends StatelessWidget {
         Expanded(child: Column()),
         Column(children: <Widget>[
           Semantics(
-            label: "Whether",
+            label: AppLocalizations.of(context).semanticsWeatherLabel,
             child: Image.asset('images/icon-weather.png',
                 width: 42, height: 42, fit: BoxFit.cover),
           ),

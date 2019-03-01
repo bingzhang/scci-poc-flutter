@@ -292,10 +292,6 @@ class AppLocalizations {
     return Intl.message('You need to be online in order to perform this operation. Please check your Internet connection.',
         name: 'webCheckInternetConnection');
   }
-
-  //HTTP fail messages
-
-
   //common
 
   String get min {
@@ -316,7 +312,45 @@ class AppLocalizations {
         name: 'ok');
   }
 
+  //semantics (Accessability )
+  String get semanticsHeaderHint {
+    return Intl.message('Tap to open Illinois home page',
+        name: 'semanticsHeaderHint');
+  }
+  String get semanticsHeaderLabel {
+    return Intl.message('University of Illinois Urbana-Champaign',
+        name: 'semanticsHeaderLabel');
+  }
 
+  String get semanticsEventPreviewLabel {
+    return Intl.message('Calendar',
+        name: 'semanticsEventPreviewLabel');
+  }
+
+  String get semanticsSearchSettingsLabel {
+    return Intl.message('Settings',
+        name: 'semanticsSearchSettingsLabel');
+  }
+  String get semanticsSearchSettingsHint {
+    return Intl.message("Tap to edit application settings",
+        name: 'semanticsSearchSettingsHint');
+  }
+  String get semanticsSearchFieldLabel {
+    return Intl.message("Search",
+        name: 'semanticsSearchFieldLabel');
+  }
+  String get semanticsSearchFieldHint {
+    return Intl.message("Input your search text",
+        name: 'semanticsSearchFieldHint');
+  }
+  String get semanticsSearchButtonHint {
+    return Intl.message("Tap to start search",
+        name: 'semanticsSearchButtonHint');
+  }
+  String get semanticsWeatherLabel {
+    return Intl.message("Whether",
+        name: 'semanticsWeatherLabel');
+  }
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
