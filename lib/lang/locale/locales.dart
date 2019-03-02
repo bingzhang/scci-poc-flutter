@@ -10,7 +10,7 @@ import 'package:profile_demo/lang/l10n/messages_all.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 
 class AppLocalizations {
-  static Future<AppLocalizations> load(BuildContext context,Locale locale) async {
+  static Future<AppLocalizations> load(BuildContext context,Locale locale, Function onLoadCallback) async {
     final String name =
         (locale.countryCode == null || locale.countryCode.isEmpty)
             ? locale.languageCode
@@ -21,6 +21,7 @@ class AppLocalizations {
 
     return initializeMessages(localName).then((bool _) {
       Intl.defaultLocale = localName;
+      onLoadCallback(localName);
       return AppLocalizations();
     });
   }
@@ -362,8 +363,10 @@ class AppLocalizations {
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
    BuildContext mContext;
-   AppLocalizationsDelegate(BuildContext context){
+   Function onLocaleChangedCallback;
+   AppLocalizationsDelegate(BuildContext context, Function onLocaleChangedCallback){
     this.mContext = context;
+    this.onLocaleChangedCallback = onLocaleChangedCallback;
   }
 
   @override
@@ -373,7 +376,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   Future<AppLocalizations> load(Locale locale) {
-    return AppLocalizations.load(mContext,locale);
+    return AppLocalizations.load(mContext,locale,onLocaleChangedCallback);
   }
 
   @override

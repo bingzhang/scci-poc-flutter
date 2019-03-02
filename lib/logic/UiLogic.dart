@@ -20,12 +20,16 @@ class UiLogic {
 
   UiLogic._internal();
 
-  Future<void> loadUiConfig() async {
-    String uiSettingsToString = await ServerRequest.loadUiConfig();
+  Future<void> loadLocalizedUiConfig(String locale) async {
+    String uiSettingsToString = await ServerRequest.loadUiConfigWithLanguage(locale);
     if (AppUtils.isStringEmpty(uiSettingsToString)) {
       return;
     }
     _uiSettingsJson = await json.decode(uiSettingsToString);
+  }
+
+  Future<void> loadUiConfig() async {
+    return loadLocalizedUiConfig("en");
   }
 
   Map<String, dynamic> get uiSettingsJson => _uiSettingsJson;

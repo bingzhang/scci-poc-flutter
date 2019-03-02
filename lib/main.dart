@@ -16,12 +16,8 @@ import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 
 void main() async {
-  ProfileDemoApp mainWidget = ProfileDemoApp();
-//  await _init();
-  runApp(mainWidget);
-  //Reload the config, after we got locales attached ()
-  await UiLogic().loadUiConfig();
-  mainWidget.refresh();
+  await _init();
+  runApp(ProfileDemoApp());
 }
 
 Future<void> _init() async {
@@ -48,7 +44,7 @@ class ProfileDemoAppState extends State<ProfileDemoApp> {
 
     return MaterialApp(
         localizationsDelegates: [
-          AppLocalizationsDelegate(context),
+          AppLocalizationsDelegate(context,_onLocaleChanged),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
         ],
@@ -65,6 +61,12 @@ class ProfileDemoAppState extends State<ProfileDemoApp> {
           '/student/info': (context) => StudentUpToDateInfoPanel(),
           '/student/schedule': (context) => StudentSchedulePanel(),
         });
+  }
+  _onLocaleChanged(String locale){
+    //reload the config
+      UiLogic().loadLocalizedUiConfig(locale).then((_bool){
+        refresh();
+      });
   }
 
   refresh(){
