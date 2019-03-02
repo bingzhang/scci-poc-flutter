@@ -21,7 +21,6 @@ class AppLocalizations {
 
     return initializeMessages(localName).then((bool _) {
       Intl.defaultLocale = localName;
-      UiLogic().reloadConfig(context);
       return AppLocalizations();
     });
   }

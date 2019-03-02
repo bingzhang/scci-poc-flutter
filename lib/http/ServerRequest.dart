@@ -6,6 +6,7 @@ import 'dart:ui';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:profile_demo/model/User.dart';
@@ -84,7 +85,7 @@ class ServerRequest {
   static Future<String> loadUiConfig() async {
     String lang = Intl?.defaultLocale??Intl.getCurrentLocale();
     Locale locale = new Locale(lang);
-      return loadUiConfigWithLanguage(lang);
+    return loadUiConfigWithLanguage(lang);
   }
 
   static Future<String> loadUiConfigWithLanguage(String lang) async {

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'dart:convert';
 import 'package:profile_demo/http/ServerRequest.dart';
+import 'package:profile_demo/ui/widgets/ProfileHomeContent.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class UiLogic {
@@ -18,15 +19,6 @@ class UiLogic {
   }
 
   UiLogic._internal();
-
-  reloadConfig(BuildContext context){
-    loadUiConfig().then((_bool){
-//      AppBuilderState state = AppBuilder.of(context);
-//      if(state!=null)
-//        state.rebuild();
-    });
-
-  }
 
   Future<void> loadUiConfig() async {
     String uiSettingsToString = await ServerRequest.loadUiConfig();

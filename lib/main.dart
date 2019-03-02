@@ -16,8 +16,12 @@ import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 
 void main() async {
-  await _init();
-  runApp(ProfileDemoApp());
+  ProfileDemoApp mainWidget = ProfileDemoApp();
+//  await _init();
+  runApp(mainWidget);
+  //Reload the config, after we got locales attached ()
+  await UiLogic().loadUiConfig();
+  mainWidget.refresh();
 }
 
 Future<void> _init() async {
@@ -25,11 +29,24 @@ Future<void> _init() async {
   await UiLogic().loadUiConfig();
 }
 
-class ProfileDemoApp extends StatelessWidget {
+class ProfileDemoApp extends StatefulWidget {
+  ProfileDemoAppState appState;
+
+  ProfileDemoAppState createState(){
+    appState = new ProfileDemoAppState();
+    return appState;
+  }
+
+  void refresh(){
+    appState.refresh();
+  }
+}
+
+class ProfileDemoAppState extends State<ProfileDemoApp> {
   @override
   Widget build(BuildContext context) {
 
-      return MaterialApp(
+    return MaterialApp(
         localizationsDelegates: [
           AppLocalizationsDelegate(context),
           GlobalMaterialLocalizations.delegate,
@@ -50,4 +67,10 @@ class ProfileDemoApp extends StatelessWidget {
         });
   }
 
+  refresh(){
+    setState(() {
+
+    });
+  }
 }
+
