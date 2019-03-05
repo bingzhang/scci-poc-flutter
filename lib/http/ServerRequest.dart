@@ -82,11 +82,6 @@ class ServerRequest {
       return false;
     }
   }
-  static Future<String> loadUiConfig() async {
-    String lang = Intl?.defaultLocale??Intl.getCurrentLocale();
-    Locale locale = new Locale(lang);
-    return loadUiConfigWithLanguage(lang);
-  }
 
   static Future<String> loadUiConfigWithLanguage(String lang) async {
     String serverHost = _constructHostValue();

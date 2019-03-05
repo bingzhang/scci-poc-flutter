@@ -47,13 +47,20 @@
         	MapsIndoorsViewController *mapsController = [[MapsIndoorsViewController alloc] init];
             [navigationViewController pushViewController:mapsController animated:YES];
             result(@(YES));
-
+        } else if ([@"language" isEqualToString:call.method]) {
+            result([self getCurrentLanguage]);
         } else {
             result(FlutterMethodNotImplemented);
         }
     }];
 	
 	return [super application:application didFinishLaunchingWithOptions:launchOptions];
+}
+- (NSString*) getCurrentLanguage{
+    NSString * language = [[NSLocale preferredLanguages] firstObject];
+    NSDictionary *languageDic = [NSLocale componentsFromLocaleIdentifier:language];
+    NSString *languageCode = [languageDic objectForKey:@"kCFLocaleLanguageCodeKey"];
+    return languageCode;
 }
 
 #pragma mark UINavigationControllerDelegate

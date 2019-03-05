@@ -3,6 +3,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'dart:convert';
 import 'package:profile_demo/http/ServerRequest.dart';
@@ -11,6 +12,7 @@ import 'package:profile_demo/utility/Utils.dart';
 
 class UiLogic {
   static final UiLogic _logic = new UiLogic._internal();
+  String _configLanguage;
 
   Map<String, dynamic> _uiSettingsJson;
 
@@ -21,15 +23,24 @@ class UiLogic {
   UiLogic._internal();
 
   Future<void> loadLocalizedUiConfig(String locale) async {
+    print("localization config last: $_configLanguage : new: $locale");
+    if(_configLanguage == locale){
+      return;
+    }
     String uiSettingsToString = await ServerRequest.loadUiConfigWithLanguage(locale);
+
     if (AppUtils.isStringEmpty(uiSettingsToString)) {
       return;
     }
+    _configLanguage = locale;
+    print("localization config stored: $_configLanguage");
     _uiSettingsJson = await json.decode(uiSettingsToString);
   }
 
+  static const platform = const MethodChannel("com.uiuc.profile/native_call");
   Future<void> loadUiConfig() async {
-    return loadLocalizedUiConfig("en");
+    String language = await platform.invokeMethod('language');
+    return loadLocalizedUiConfig(language);
   }
 
   Map<String, dynamic> get uiSettingsJson => _uiSettingsJson;

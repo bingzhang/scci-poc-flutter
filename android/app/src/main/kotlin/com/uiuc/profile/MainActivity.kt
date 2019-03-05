@@ -9,6 +9,7 @@ import android.os.Bundle
 import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
+import java.util.*
 
 class MainActivity : FlutterActivity() {
     private val USER_NAME = "user_name"
@@ -23,7 +24,9 @@ class MainActivity : FlutterActivity() {
                 val name = methodCall.argument<String>(USER_NAME);
                 launchIndoorMaps(name)
                 result.success(null)
-            }  else {
+            }  else if (methodCall.method == "language"){
+                result.success(getLanguage())
+            }else {
                 result.notImplemented()
             }
         }
@@ -35,4 +38,7 @@ class MainActivity : FlutterActivity() {
         startActivity(intent)
     }
 
+    private fun getLanguage(): String {
+        return Locale.getDefault().language
+    }
 }
