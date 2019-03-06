@@ -260,6 +260,16 @@
         "type": "text",
         "placeholders": {}
       },
+  "eventStartsAtPrefix": "開始於",
+  "@eventStartsAtPrefix": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noEventsMessage": "沒有事件!",
+  "@noEventsMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
       "min": "分钟",
       "@min": {
         "type": "text",

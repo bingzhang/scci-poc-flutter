@@ -260,6 +260,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "eventStartsAtPrefix": "Starts at",
+  "@eventStartsAtPrefix": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noEventsMessage": "There are no events!",
+  "@noEventsMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
   "min": "min",
   "@min": {
     "type": "text",

@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/EventsLogic.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
 import 'package:profile_demo/utility/Utils.dart';
@@ -39,6 +40,7 @@ class _EventsPanelState extends State<EventsPanel> {
   }
 
   Widget _buildListView() {
+    AppLocalizations localizations = AppLocalizations.of(context);
     List<dynamic> events = EventsLogic().getAllEvents();
     int eventsCount = (events != null) ? events.length : 0;
     if (eventsCount > 0) {
@@ -58,7 +60,8 @@ class _EventsPanelState extends State<EventsPanel> {
           DateTime eventDateTime = serverDateFormat.parse(eventTimeString);
           String formattedEventTime =
               DateFormat('yy/MM/dd h:mm a').format(eventDateTime);
-          String startsAtString = 'Starts at $formattedEventTime';
+          String startAtPrefix = localizations.eventStartsAtPrefix;
+          String startsAtString = '$startAtPrefix $formattedEventTime';
           String eventLocationDescription;
           Map<String, dynamic> eventLocation = event['location'];
           if (eventLocation != null) {
@@ -74,7 +77,7 @@ class _EventsPanelState extends State<EventsPanel> {
       );
     } else {
       return Text(
-        'There are no events!',
+        localizations.noEventsMessage,
         textAlign: TextAlign.center,
       );
     }

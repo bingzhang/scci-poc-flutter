@@ -20,12 +20,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "eventStartsAtPrefix" : MessageLookupByLibrary.simpleMessage("Starts at"),
     "min" : MessageLookupByLibrary.simpleMessage("min"),
     "nextEventAlarmHint" : MessageLookupByLibrary.simpleMessage("15 minutes to alarm"),
     "nextEventBycycleHint" : MessageLookupByLibrary.simpleMessage("7 minutes to bycycle"),
     "nextEventTimeHint" : MessageLookupByLibrary.simpleMessage("1 hr 20 min until the event"),
     "nextEventTimeLabel" : MessageLookupByLibrary.simpleMessage("1 hr 20 min"),
     "nextEventTimeUntilLabel" : MessageLookupByLibrary.simpleMessage("Time Until"),
+    "noEventsMessage" : MessageLookupByLibrary.simpleMessage("There are no events!"),
     "ok" : MessageLookupByLibrary.simpleMessage("Ok"),
     "profileEditBirthDateHint" : MessageLookupByLibrary.simpleMessage("Please, type your date of birth"),
     "profileEditBirthDateLabel" : MessageLookupByLibrary.simpleMessage("Date of Birth:"),

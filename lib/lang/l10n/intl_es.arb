@@ -260,6 +260,16 @@
         "type": "text",
         "placeholders": {}
       },
+  "eventStartsAtPrefix": "Empieza a",
+  "@eventStartsAtPrefix": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noEventsMessage": "No hay eventos!",
+  "@noEventsMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
       "min": "minuto",
       "@min": {
         "type": "text",

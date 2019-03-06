@@ -300,8 +300,17 @@ class AppLocalizations {
     return Intl.message('You need to be online in order to perform this operation. Please check your Internet connection.',
         name: 'webCheckInternetConnection');
   }
-  //common
 
+  //EventsPanel
+  String get eventStartsAtPrefix {
+    return Intl.message('Starts at', name: 'eventStartsAtPrefix');
+  }
+
+  String get noEventsMessage {
+    return Intl.message('There are no events!', name: 'noEventsMessage');
+  }
+
+  //common
   String get min {
     return Intl.message("min",
         name: 'min');

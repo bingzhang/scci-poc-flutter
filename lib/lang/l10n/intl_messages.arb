@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-03-01T17:55:52.743754",
+  "@@last_modified": "2019-03-06T14:55:19.045886",
   "studentHomeGoodMorningText": "Good Morning, Alex!",
   "@studentHomeGoodMorningText": {
     "type": "text",
@@ -257,6 +257,16 @@
   },
   "webCheckInternetConnection": "You need to be online in order to perform this operation. Please check your Internet connection.",
   "@webCheckInternetConnection": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eventStartsAtPrefix": "Starts at",
+  "@eventStartsAtPrefix": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noEventsMessage": "There are no events!",
+  "@noEventsMessage": {
     "type": "text",
     "placeholders": {}
   },

@@ -20,12 +20,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "eventStartsAtPrefix" : MessageLookupByLibrary.simpleMessage("開始於"),
     "min" : MessageLookupByLibrary.simpleMessage("分钟"),
     "nextEventAlarmHint" : MessageLookupByLibrary.simpleMessage("15分钟报警"),
     "nextEventBycycleHint" : MessageLookupByLibrary.simpleMessage("7分钟自行车"),
     "nextEventTimeHint" : MessageLookupByLibrary.simpleMessage("活动开始前1小时20分钟"),
     "nextEventTimeLabel" : MessageLookupByLibrary.simpleMessage("1小时20分钟"),
     "nextEventTimeUntilLabel" : MessageLookupByLibrary.simpleMessage("时间到了"),
+    "noEventsMessage" : MessageLookupByLibrary.simpleMessage("沒有事件!"),
     "ok" : MessageLookupByLibrary.simpleMessage("好"),
     "profileEditBirthDateHint" : MessageLookupByLibrary.simpleMessage("请输入您的出生日期"),
     "profileEditBirthDateLabel" : MessageLookupByLibrary.simpleMessage("出生日期:"),
