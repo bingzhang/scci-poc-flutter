@@ -5,7 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
-import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:profile_demo/ui/page_routers/SlidePanelRoute.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
@@ -111,11 +110,10 @@ class StudentHomeContent extends StatelessWidget {
 
   _launchIndoorMaps() async {
     try {
-      String userName = ProfileLogic()?.getUser()?.name;
-      await AppConstants.platformChannel.invokeMethod('indoorMaps',{"user_name":userName});
+      await AppConstants.platformChannel.invokeMethod('indoorMaps');
     } on PlatformException catch (e) {
       print(e.message);
     }
-}
+  }
 
 }
