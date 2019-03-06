@@ -6,7 +6,7 @@ import 'package:profile_demo/http/ServerRequest.dart';
 
 class EventsLogic {
   static final EventsLogic _logic = new EventsLogic._internal();
-  String _eventsJson;
+  List<dynamic> _eventsJson;
 
   factory EventsLogic() {
     return _logic;
@@ -18,7 +18,7 @@ class EventsLogic {
     _eventsJson = await ServerRequest.loadAllEvents();
   }
 
-  String getAllEvents() {
+  List<dynamic> getAllEvents() {
     return _eventsJson;
   }
 }

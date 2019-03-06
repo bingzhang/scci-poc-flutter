@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
+import 'package:profile_demo/utility/Utils.dart';
 
 class EventPreview extends StatelessWidget {
   final String headerText;
@@ -20,38 +21,53 @@ class EventPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _buildWidgets(context));
+  }
+
+  List<Widget> _buildWidgets(BuildContext context) {
+    List<Widget> widgets = List();
+    if (!AppUtils.isStringEmpty(headerText)) {
+      Text headerView = Text(
+        headerText,
+        style: TextStyle(fontFamily: 'Avenir', fontSize: 40),
+      );
+      widgets.add(headerView);
+    }
+    Row row = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Text(
-          headerText,
-          style: TextStyle(fontFamily: 'Avenir', fontSize: 40),
+        Padding(
+          padding: EdgeInsets.only(right: 10.0),
+          child: Semantics(
+            excludeSemantics: true,
+            label: AppLocalizations.of(context).semanticsEventPreviewLabel,
+            image: true,
+            child: Image.asset('images/icon-schedule.png', height: 50.0),
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(right: 10.0),
-              child: Semantics(
-                excludeSemantics: true,
-                label: AppLocalizations.of(context).semanticsEventPreviewLabel,
-                image: true,
-                child: Image.asset('images/icon-schedule.png', height: 50.0),),
+            Text(
+              eventTime,
+              style:
+                  TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  eventTime,
-                  style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.bold),
-                ),
-                Text(eventDescription, style: TextStyle(fontFamily: 'Avenir',)),
-                Text(eventLocation, style: TextStyle(fontFamily: 'Avenir',))
-              ],
-            )
+            Text(eventDescription,
+                style: TextStyle(
+                  fontFamily: 'Avenir',
+                )),
+            Text(eventLocation,
+                style: TextStyle(
+                  fontFamily: 'Avenir',
+                ))
           ],
         )
       ],
     );
+    widgets.add(row);
+    return widgets;
   }
 }

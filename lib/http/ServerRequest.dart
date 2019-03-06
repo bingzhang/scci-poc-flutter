@@ -98,7 +98,7 @@ class ServerRequest {
     }
   }
 
-  static Future<String> loadAllEvents() async {
+  static Future<List<dynamic>> loadAllEvents() async {
     String serverHost = _constructHostValue();
     http.Response response;
     try {
@@ -109,7 +109,8 @@ class ServerRequest {
     }
 
     if (response.statusCode == 200) {
-      return response.body;
+      List<dynamic> eventsJson = json.decode(response.body);
+      return eventsJson;
     } else {
       print('Failed to load all events');
       print(response.body);
