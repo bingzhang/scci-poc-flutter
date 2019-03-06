@@ -16,6 +16,7 @@
     <string name="floor">Piso</string>
     <string name="fields">campos</string>
     <string name="ok">De acuerdo</string>
+    <string name="cancel">Cancel</string>
     <string name="study_room">Sala de estudio</string>
     <string name="route_failed_msg">Error al recuperar la ruta</string>
     <string name="map_control_failed">MapsIndoors control de mapa %1$s error al inicializar con error:\n\n%2$s</string>

@@ -40,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.fragment.app.FragmentActivity;
@@ -59,8 +60,9 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private Route currentRoute;
     private List<Marker> markerList;
 
-    private JSONArray eventsData;
-    private JSONObject destinationLocation;
+
+    private Event.List eventsData;
+    private HashMap<Marker,Event> markedEvents;
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
     private static final LatLng ORIGIN_LOCATION = new LatLng(57.087210, 9.958428);
@@ -176,21 +178,19 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void initEventsData(){
+        markedEvents = new HashMap<>();
         String eventsStr = getIntent().getExtras().getString("events");
         String eventStr = getIntent().getExtras().getString("event");
         try {
-        if(eventsStr!=null){
-            eventsData = new JSONArray(eventsStr);
-        } else if (eventStr!=null){
+        if (eventStr!=null){
             JSONObject event = new JSONObject(eventStr);
             if(event!=null){
-                eventsData = new JSONArray();
-                eventsData.put(event);
-                JSONObject location = event.optJSONObject("location");
-                if(location!=null)
-                destinationLocation = location;
+                JSONArray wrapper = new JSONArray();
+                wrapper.put(event);
+                eventsStr = wrapper.toString();
             }
         }
+        eventsData = Event.List.create(new JSONArray(eventsStr));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -220,7 +220,11 @@ public class MapsIndoorsActivity extends FragmentActivity {
         directionsRenderer = new MPDirectionsRenderer(this, googleMap, mapControl, null);
         mapControl.setGoogleMap(googleMap, mapFragment.getView());
         mapControl.setOnMarkerClickListener(marker -> {
-            showMarkerAlertDialog(marker);
+            Event event  = markedEvents.get(marker);
+            if(event!=null)
+                showRoutDialog(event);
+            else
+                showMarkerAlertDialog(marker);
             return true;
         });
         mapControl.setOnFloorUpdateListener((building, i) -> {
@@ -232,9 +236,11 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private void mapControlDidInit(MIError error) {
         if (error == null) {
             runOnUiThread(() -> {
-                mapControl.selectFloor(optLocationFloor(destinationLocation));
+                mapControl.selectFloor(0);
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 17f));
-                buildRouting();
+                //only when click
+//                if(destinationLocation!=null)
+//                    buildRouting();
             });
         } else {
             String errorMsg = getString(R.string.map_control_failed, "'com.mapsindoors.mapssdk.MapControl'", error.message);
@@ -247,19 +253,21 @@ public class MapsIndoorsActivity extends FragmentActivity {
         updateMarkers();
     }
 
-    private void buildRouting() {
+    private void buildRouting(Event event) {
         routingProvider.setOnRouteResultListener((route, error) -> {
             if (route != null) {
                 directionsRenderer.setRoute(route);
                 currentRoute = route;
+
             } else {
                 showAlertDialog(getString(R.string.alert_dialog_default_title), getString(R.string.route_failed_msg));
             }
             runOnUiThread(() -> updateUi());
         });
         Point originPoint = new Point(ORIGIN_LOCATION);
-        LatLng point = optLocationPoint(destinationLocation);
-        Point destinationPoint = new Point(point.latitude,point.longitude, 1);
+
+        Event.Location location = event.getLocation();
+        Point destinationPoint = new Point(location.getLat(),location.getLng(), 1);
         routingProvider.query(originPoint, destinationPoint);
     }
 
@@ -267,50 +275,32 @@ public class MapsIndoorsActivity extends FragmentActivity {
         if (markerList == null) {
             markerList = new ArrayList<>();
             Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, getUserName(), R.drawable.maps_icon_male_toilet));
-            userMarkerOrigin.setTag(0); //Store floor in tag property
+            userMarkerOrigin.setTag(String.valueOf(0)); //Store floor in tag property
             markerList.add(userMarkerOrigin);
-            if(eventsData!=null && eventsData.length()>0) {
-                for(int i = 0; i<eventsData.length();i++){
-                    markerList.add(constructEventMarker(eventsData.optJSONObject(i)));
+            if(eventsData!=null && !eventsData.isEmpty()) {
+                for(Event each : eventsData){
+                    markerList.add(constructEventMarker(each));
                 }
             }
             updateMarkers();
         }
     }
-    private Marker constructEventMarker(JSONObject data){
-        Marker userMarkerDestination = googleMap.addMarker(constructEventMarkerOptions(data));
+    private Marker constructEventMarker(Event data){
+        Marker marker = googleMap.addMarker(constructEventMarkerOptions(data));
         //Store floor in tag property
-        int floor = 1;
-        JSONObject location = data.optJSONObject("location");
-        if(location!=null){
-            floor = location.optInt("floor");
-        }
-        userMarkerDestination.setTag(floor);
-        return userMarkerDestination;
+        int floor = data.getLocation().getFloor();
+        markedEvents.put(marker,data);
+        marker.setTag(String.valueOf(floor));
+        return marker;
     }
 
 
-    private MarkerOptions constructEventMarkerOptions(JSONObject data){
+    private MarkerOptions constructEventMarkerOptions(Event data){
         if (data!=null){
-            JSONObject location = data.optJSONObject("location");
-            if(location!=null) {
-                return constructUserMarkerOptions(optLocationPoint(location), location.optString("description"), R.drawable.maps_icon_study_zone);
+            Event.Location location = data.getLocation();
+            return constructUserMarkerOptions(location.getPoint(), location.getDescription(), R.drawable.maps_icon_study_zone);
             }
-        }
         return null;
-    }
-
-    private LatLng optLocationPoint(JSONObject location){
-        if(location!=null){
-            return new LatLng(location.optDouble("latitude"),location.optDouble("longtitude"));
-        }
-        return new LatLng(0,0);
-    }
-    private int optLocationFloor(JSONObject location){
-        if(location!=null){
-            return location.optInt("floor");
-        }
-        return 0;
     }
 
     private MarkerOptions constructUserMarkerOptions(LatLng markerLocation, String title, int iconResource) {
@@ -328,7 +318,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             return;
         }
         for (Marker marker : markerList) {
-            int markerFloorIndex = (marker.getTag() != null) ? (int) marker.getTag() : 0;
+            int markerFloorIndex = (marker.getTag() != null) ? Integer.valueOf((String) marker.getTag()) : 0;
             int currentFloorIndex = (mapControl != null) ? mapControl.getCurrentFloorIndex() : 0;
             boolean markerVisible = (markerFloorIndex == currentFloorIndex);
             marker.setVisible(markerVisible);
@@ -448,6 +438,18 @@ public class MapsIndoorsActivity extends FragmentActivity {
             AlertDialog alertDialog = dialogBuilder.create();
             alertDialog.show();
         });
+    }
+
+    private void showRoutDialog(Event event){
+        String message = String.format("Navigate to \"%s\" (%s)?", event.getName(), event.getLocation().description);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setMessage(message);
+        dialogBuilder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
+            buildRouting(event);
+        });
+        dialogBuilder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 
     private String getUserName() {
