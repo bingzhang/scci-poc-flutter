@@ -53,11 +53,22 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 	    // Destination: B216, RTX / lat: 57.0861893, lng: 9.9578803, floor:1, location Id: b44d339f96a9497c8523d440
 		//_destLocationCoord = CLLocationCoordinate2DMake(57.0861893, 9.9578803); //(57.086189, 9.957973);
 		
-		NSString *eventJsonString = [_parameters inaStringForKey:@"event"];
-		NSData *eventJsonData = (eventJsonString != nil) ? [eventJsonString dataUsingEncoding:NSUTF8StringEncoding] : nil;
-		NSDictionary *event = (eventJsonData != nil) ? [NSJSONSerialization JSONObjectWithData:eventJsonData options:0 error:NULL] : nil;
-		if ([event isKindOfClass:[NSDictionary class]]) {
-			_destinationEvents = [[NSArray alloc] initWithObjects:event, nil];
+		if (_destinationEvents == nil) {
+			NSString *eventsJsonString = [_parameters inaStringForKey:@"events"];
+			NSData *eventsJsonData = (eventsJsonString != nil) ? [eventsJsonString dataUsingEncoding:NSUTF8StringEncoding] : nil;
+			NSArray *events = (eventsJsonData != nil) ? [NSJSONSerialization JSONObjectWithData:eventsJsonData options:0 error:NULL] : nil;
+			if ([events isKindOfClass:[NSArray class]]) {
+				_destinationEvents = events;
+			}
+		}
+
+		if (_destinationEvents == nil) {
+			NSString *eventJsonString = [_parameters inaStringForKey:@"event"];
+			NSData *eventJsonData = (eventJsonString != nil) ? [eventJsonString dataUsingEncoding:NSUTF8StringEncoding] : nil;
+			NSDictionary *event = (eventJsonData != nil) ? [NSJSONSerialization JSONObjectWithData:eventJsonData options:0 error:NULL] : nil;
+			if ([event isKindOfClass:[NSDictionary class]]) {
+				_destinationEvents = [[NSArray alloc] initWithObjects:event, nil];
+			}
 		}
 	}
 	return self;
@@ -145,9 +156,10 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 	}
 	else if (_destinationMarkers == nil) {
 		[self createMarkers];
-		if ((_directionsRenderer == nil) && (_destinationMarkers.count == 1)) {
-			GMSMarker *destinationMarker = _destinationMarkers.firstObject;
-			[self searchRouteToEvent:destinationMarker.userData];
+		if (_destinationMarkers.count == 1) {
+			//[self promptNavigateToMarker:_destinationMarkers.firstObject];
+			//[self searchRouteToEvent:((GMSMarker*)(_destinationMarkers.firstObject)).userData];
+			[self selectMarker:_destinationMarkers.firstObject];
 		}
 	}
 }
@@ -475,10 +487,20 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 		[self searchRouteToEvent:marker.userData];
 	}]];
 	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-		_mapView.selectedMarker = marker;
+		[self selectMarker:marker];
 	}]];
 	[self presentViewController:alertController animated:YES completion:nil];
 
+}
+
+- (void)selectMarker:(GMSMarker*)marker {
+	NSDictionary *eventLocation = [marker.userData isKindOfClass:[NSDictionary class]] ? [marker.userData inaDictForKey:@"location"] : nil;
+	NSNumber *eventFloor = [eventLocation inaNumberForKey:@"floor"];
+	if ((eventFloor != nil) && ![eventFloor isEqualToNumber:_mapControl.currentFloor]) {
+		_mapControl.currentFloor = eventFloor;
+		[self updateMarkers];
+	}
+	_mapView.selectedMarker = marker;
 }
 
 #pragma mark GMSMapViewDelegate
