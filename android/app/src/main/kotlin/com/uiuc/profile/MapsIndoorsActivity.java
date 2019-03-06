@@ -5,6 +5,7 @@
 package com.uiuc.profile;
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -34,6 +35,10 @@ import com.mapsindoors.mapssdk.RoutingProvider;
 import com.mapsindoors.mapssdk.dbglog;
 import com.mapsindoors.mapssdk.errors.MIError;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +59,12 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private Route currentRoute;
     private List<Marker> markerList;
 
-    private String userName;
+    private JSONArray eventsData;
+    private JSONObject destinationLocation;
 
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
     private static final LatLng ORIGIN_LOCATION = new LatLng(57.087210, 9.958428);
-    private static final LatLng DESTINATION_LOCATION = new LatLng(57.0861893, 9.9578803);
+//    private static final LatLng DESTINATION_LOCATION = new LatLng(57.0861893, 9.9578803);
 
     private int currentLegIndex = 0;
     private int currentStepIndex = -1;
@@ -74,6 +80,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
             dbglog.setCustomTagPrefix(TAG + "_");
         }
         init();
+        initEventsData();
         initMapFragment();
     }
 
@@ -161,12 +168,32 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void init() {
-        userName = getIntent().getExtras().getString("user_name");
         MapsIndoors.initialize(
                 getApplicationContext(),
                 getString(R.string.mapsindoors_api_key)
         );
         MapsIndoors.setGoogleAPIKey(getString(R.string.google_maps_api_key));
+    }
+
+    private void initEventsData(){
+        String eventsStr = getIntent().getExtras().getString("events");
+        String eventStr = getIntent().getExtras().getString("event");
+        try {
+        if(eventsStr!=null){
+            eventsData = new JSONArray(eventsStr);
+        } else if (eventStr!=null){
+            JSONObject event = new JSONObject(eventStr);
+            if(event!=null){
+                eventsData = new JSONArray();
+                eventsData.put(event);
+                JSONObject location = event.optJSONObject("location");
+                if(location!=null)
+                destinationLocation = location;
+            }
+        }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initMapFragment() {
@@ -205,7 +232,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private void mapControlDidInit(MIError error) {
         if (error == null) {
             runOnUiThread(() -> {
-                mapControl.selectFloor(0);
+                mapControl.selectFloor(optLocationFloor(destinationLocation));
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 17f));
                 buildRouting();
             });
@@ -231,7 +258,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
             runOnUiThread(() -> updateUi());
         });
         Point originPoint = new Point(ORIGIN_LOCATION);
-        Point destinationPoint = new Point(DESTINATION_LOCATION.latitude, DESTINATION_LOCATION.longitude, 1);
+        LatLng point = optLocationPoint(destinationLocation);
+        Point destinationPoint = new Point(point.latitude,point.longitude, 1);
         routingProvider.query(originPoint, destinationPoint);
     }
 
@@ -241,12 +269,58 @@ public class MapsIndoorsActivity extends FragmentActivity {
             Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, getUserName(), R.drawable.maps_icon_male_toilet));
             userMarkerOrigin.setTag(0); //Store floor in tag property
             markerList.add(userMarkerOrigin);
-            Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_LOCATION, getString(R.string.study_room), R.drawable.maps_icon_study_zone));
-            userMarkerDestination.setTag(1); //Store floor in tag property
-            markerList.add(userMarkerDestination);
-
+            if(eventsData!=null && eventsData.length()>0) {
+                for(int i = 0; i<eventsData.length();i++){
+                    markerList.add(constructEventMarker(eventsData.optJSONObject(i)));
+                }
+            }
             updateMarkers();
         }
+    }
+    private Marker constructEventMarker(JSONObject data){
+        Marker userMarkerDestination = googleMap.addMarker(constructEventMarkerOptions(data));
+        //Store floor in tag property
+        int floor = 1;
+        JSONObject location = data.optJSONObject("location");
+        if(location!=null){
+            floor = location.optInt("floor");
+        }
+        userMarkerDestination.setTag(floor);
+        return userMarkerDestination;
+    }
+
+
+    private MarkerOptions constructEventMarkerOptions(JSONObject data){
+        if (data!=null){
+            JSONObject location = data.optJSONObject("location");
+            if(location!=null) {
+                return constructUserMarkerOptions(optLocationPoint(location), location.optString("description"), R.drawable.maps_icon_study_zone);
+            }
+        }
+        return null;
+    }
+
+    private LatLng optLocationPoint(JSONObject location){
+        if(location!=null){
+            return new LatLng(location.optDouble("latitude"),location.optDouble("longtitude"));
+        }
+        return new LatLng(0,0);
+    }
+    private int optLocationFloor(JSONObject location){
+        if(location!=null){
+            return location.optInt("floor");
+        }
+        return 0;
+    }
+
+    private MarkerOptions constructUserMarkerOptions(LatLng markerLocation, String title, int iconResource) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(markerLocation);
+        markerOptions.zIndex(1);
+        markerOptions.title(title);
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(iconResource));
+        markerOptions.visible(false);
+        return markerOptions;
     }
 
     private void updateMarkers() {
@@ -264,16 +338,6 @@ public class MapsIndoorsActivity extends FragmentActivity {
                 marker.hideInfoWindow();
             }
         }
-    }
-
-    private MarkerOptions constructUserMarkerOptions(LatLng markerLocation, String title, int iconResource) {
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(markerLocation);
-        markerOptions.zIndex(1);
-        markerOptions.title(title);
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(iconResource));
-        markerOptions.visible(false);
-        return markerOptions;
     }
 
     private void makeNextStep(int legIndex, int stepIndex) {
