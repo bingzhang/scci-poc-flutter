@@ -2,11 +2,7 @@
  * Copyright (c) 2019 UIUC. All rights reserved.
  */
 
-import 'dart:ui';
-
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
-import 'package:profile_demo/lang/locale/locales.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:profile_demo/model/User.dart';
@@ -97,6 +93,25 @@ class ServerRequest {
       return response.body;
     } else {
       print('Failed to load ui config');
+      print(response.body);
+      return null;
+    }
+  }
+
+  static Future<String> loadAllEvents() async {
+    String serverHost = _constructHostValue();
+    http.Response response;
+    try {
+      response = await http.get('$serverHost/events');
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      print('Failed to load all events');
       print(response.body);
       return null;
     }

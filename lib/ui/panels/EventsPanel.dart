@@ -3,6 +3,8 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:profile_demo/logic/EventsLogic.dart';
+import 'dart:convert';
 
 class EventsPanel extends StatefulWidget {
   final String title;
@@ -12,7 +14,7 @@ class EventsPanel extends StatefulWidget {
   @override
   _EventsPanelState createState() => _EventsPanelState(title);
 }
-
+ 
 class _EventsPanelState extends State<EventsPanel> {
   final panelTitle;
 
@@ -20,12 +22,14 @@ class _EventsPanelState extends State<EventsPanel> {
 
   @override
   Widget build(BuildContext context) {
+    String eventsString = EventsLogic().getAllEvents();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(panelTitle),
         centerTitle: true,
       ),
-      body: Text('TODO: implement Events'),
+      body: Text(eventsString),
     );
   }
 }
