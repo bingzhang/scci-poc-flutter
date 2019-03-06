@@ -238,9 +238,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
             runOnUiThread(() -> {
                 mapControl.selectFloor(0);
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATION, 17f));
-                //only when click
-//                if(destinationLocation!=null)
-//                    buildRouting();
+                if(eventsData!=null && eventsData.size()==1){
+                    //We got only the destination
+                    buildRouting(eventsData.get(0));
+                }
             });
         } else {
             String errorMsg = getString(R.string.map_control_failed, "'com.mapsindoors.mapssdk.MapControl'", error.message);
