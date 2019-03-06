@@ -18,6 +18,7 @@ import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
+import 'package:profile_demo/utility/Utils.dart';
 
 class StudentHomeContent extends StatelessWidget {
   @override
@@ -108,14 +109,13 @@ class StudentHomeContent extends StatelessWidget {
         context, SlidePanelRoute(widget: StudentSchedulePanel()));
   }
 
-   static const platform = const MethodChannel("com.uiuc.profile/native_call");
   _launchIndoorMaps() async {
     try {
       String userName = ProfileLogic()?.getUser()?.name;
-      await platform.invokeMethod('indoorMaps',{"user_name":userName});
+      await AppConstants.platformChannel.invokeMethod('indoorMaps',{"user_name":userName});
     } on PlatformException catch (e) {
       print(e.message);
-    } 
+    }
 }
 
 }

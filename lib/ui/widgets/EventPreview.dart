@@ -11,19 +11,24 @@ class EventPreview extends StatelessWidget {
   final String eventTime;
   final String eventDescription;
   final String eventLocation;
+  final GestureTapCallback onTap;
 
   EventPreview(
       {this.headerText,
       this.eventTime,
       this.eventDescription,
-      this.eventLocation});
+      this.eventLocation,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _buildWidgets(context));
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _buildWidgets(context)),
+    );
   }
 
   List<Widget> _buildWidgets(BuildContext context) {

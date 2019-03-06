@@ -2,9 +2,12 @@
  * Copyright (c) 2019 UIUC. All rights reserved.
  */
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:profile_demo/ui/widgets/EventPreview.dart';
+import 'package:flutter/services.dart';
 import 'package:profile_demo/logic/EventsLogic.dart';
+import 'package:profile_demo/ui/widgets/EventPreview.dart';
+import 'package:profile_demo/utility/Utils.dart';
 import 'package:intl/intl.dart';
 
 class EventsPanel extends StatefulWidget {
@@ -64,7 +67,8 @@ class _EventsPanelState extends State<EventsPanel> {
           EventPreview eventView = EventPreview(
               eventLocation: eventLocationDescription,
               eventDescription: startsAtString,
-              eventTime: eventName);
+              eventTime: eventName,
+              onTap: () => _launchIndoorMapsForEvent(event));
           return eventView;
         },
       );
@@ -73,6 +77,16 @@ class _EventsPanelState extends State<EventsPanel> {
         'There are no events!',
         textAlign: TextAlign.center,
       );
+    }
+  }
+
+  void _launchIndoorMapsForEvent(Map<String, dynamic> event) async {
+    String eventString = json.encode(event);
+    try {
+      await AppConstants.platformChannel
+          .invokeMethod('indoorMaps', {"event": eventString});
+    } on PlatformException catch (e) {
+      print(e.message);
     }
   }
 }

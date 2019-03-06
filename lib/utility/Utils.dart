@@ -3,6 +3,7 @@
  */
 
 import 'dart:convert';
+import 'package:flutter/services.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -96,6 +97,7 @@ class AppUtils {
 
 class AppConstants {
   static const String serverHost = "https://profile.inabyte.com";
+  static const MethodChannel platformChannel = const MethodChannel("com.uiuc.profile/native_call");
 }
 
 class UiUtils {
