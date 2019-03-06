@@ -23,15 +23,16 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	GMSMapView   *_mapView;
 	MPMapControl *_mapControl;
 	UIActivityIndicatorView *_activityView;
-	UIButton *_prevButton, *_nextButton;
+	UIButton *_prevButton, *_nextButton, *_clearButton;
 	UILabel *_stepLabel;
 
+	GMSCameraPosition *_directionsInitialCameraPosition;
 	MPDirectionsRenderer *_directionsRenderer;
 
 	NSDictionary *_parameters;
 	NSArray *_destinationEvents;
 	NSArray *_destinationMarkers;
-	CLLocationCoordinate2D _orgLocationCoord;
+	GMSMarker *_originMarker;
 	NavStatus _navStatus;
 }
 @end
@@ -47,7 +48,7 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 		self.navigationItem.title = NSLocalizedString(@"Indoor Maps", nil);
 	
 		// Origin: Aalborg Kaserne (Gl. Høvej / Aalborg) 9400 Nørresundby, Denmark
-		_orgLocationCoord = CLLocationCoordinate2DMake(57.087210, 9.958428);
+		//_orgLocationCoord = CLLocationCoordinate2DMake(57.087210, 9.958428);
 
 	    // Destination: B216, RTX / lat: 57.0861893, lng: 9.9578803, floor:1, location Id: b44d339f96a9497c8523d440
 		//_destLocationCoord = CLLocationCoordinate2DMake(57.0861893, 9.9578803); //(57.086189, 9.957973);
@@ -78,6 +79,12 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 	_activityView.color = [UIColor blackColor];
 	[_mapView addSubview:_activityView];
 	
+	_clearButton = [[UIButton alloc] initWithFrame:CGRectZero];
+	[_clearButton setImage:[UIImage imageNamed:@"button-icon-clear"] forState:UIControlStateNormal];
+	[_clearButton addTarget:self action:@selector(didClear) forControlEvents:UIControlEventTouchUpInside];
+	[_clearButton setHidden:true];
+	[_mapView addSubview:_clearButton];
+
 	_prevButton = [[UIButton alloc] initWithFrame:CGRectZero];
 	[_prevButton setImage:[UIImage imageNamed:@"button-icon-prev"] forState:UIControlStateNormal];
 	[_prevButton addTarget:self action:@selector(didPrev) forControlEvents:UIControlEventTouchUpInside];
@@ -110,11 +117,16 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 	_activityView.frame = CGRectMake((contentSize.width - activitySize.width) / 2, (contentSize.height - activitySize.height) / 2, activitySize.width, activitySize.height);
 	
 	CGFloat buttonSize = 42;
-	CGFloat x = 0, y = contentSize.height - 5 * buttonSize / 2, w = contentSize.width;
+	CGFloat x = 0, y, w = contentSize.width;
 	x += buttonSize / 2; w = MAX(w - buttonSize, 0);
-
+	
+	y = 3 * buttonSize;
+	_clearButton.frame = CGRectMake(x, y, buttonSize, buttonSize);
+	
+	y = contentSize.height - 3 * buttonSize;
 	_prevButton.frame = CGRectMake(x, y, buttonSize, buttonSize);
 	_nextButton.frame = CGRectMake(x + w - buttonSize, y, buttonSize, buttonSize);
+
 	x += buttonSize; w = MAX(w - 2 * buttonSize, 0);
 	_stepLabel.frame = CGRectMake(x, y - buttonSize / 2, w, 2 * buttonSize);
 	
@@ -170,15 +182,15 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 
 - (void)createMarkers {
 
-	// Add origin
-	GMSMarker *orgMarker = [[GMSMarker alloc] init];
-	orgMarker.position = _orgLocationCoord;
-	orgMarker.icon = [UIImage imageNamed:@"maps-icon-male-toilet"];
-	orgMarker.title = self.userName;
-	orgMarker.snippet = NSLocalizedString(@"Origin Location", nil);
-	orgMarker.zIndex = 1;
-	orgMarker.groundAnchor = CGPointMake(0.5, 0.5);
-	orgMarker.map = _mapView;
+	// Add origin: Aalborg Kaserne (Gl. Høvej / Aalborg) 9400 Nørresundby, Denmark
+	_originMarker = [[GMSMarker alloc] init];
+	_originMarker.position = CLLocationCoordinate2DMake(57.087210, 9.958428);;
+	_originMarker.icon = [UIImage imageNamed:@"maps-icon-male-toilet"];
+	_originMarker.title = self.userName;
+	_originMarker.snippet = NSLocalizedString(@"Origin Location", nil);
+	_originMarker.zIndex = 1;
+	_originMarker.groundAnchor = CGPointMake(0.5, 0.5);
+	_originMarker.map = _mapView;
 	
 	// Add destinations
 	NSMutableArray *markers = [[NSMutableArray alloc] init];
@@ -221,14 +233,20 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 
 - (void)searchRouteToEvent:(NSDictionary*)event {
 	
+	_directionsRenderer.map = nil;
+	_directionsRenderer.route = nil;
+	_directionsRenderer = nil;
 	_navStatus = NavStatus_Unknown;
 	[self updateNav];
+	
+	if (_directionsInitialCameraPosition == nil)
+		_directionsInitialCameraPosition = _mapView.camera;
 
     [_activityView startAnimating];
 	
 	NSDictionary *eventLocation = [event inaDictForKey:@"location"];
 
-    MPPoint *org = [[MPPoint alloc] initWithLat:_orgLocationCoord.latitude lon:_orgLocationCoord.longitude];
+    MPPoint *org = [[MPPoint alloc] initWithLat:_originMarker.position.latitude lon:_originMarker.position.longitude];
     MPPoint *dest = [[MPPoint alloc] initWithLat:[eventLocation inaDoubleForKey:@"latitude"] lon:[eventLocation inaDoubleForKey:@"longtitude"] zValue:[eventLocation inaIntegerForKey:@"floor"]];
     MPDirectionsQuery *query = [[MPDirectionsQuery alloc] initWithOriginPoint:org destination:dest];
     MPDirectionsService *directions = [[MPDirectionsService alloc] init];
@@ -241,7 +259,6 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 			_directionsRenderer.route = route;
 
 			_navStatus = NavStatus_Start;
-			_prevButton.hidden = _nextButton.hidden = _stepLabel.hidden = false;
 			[self updateNav];
 		}
 		else {
@@ -256,7 +273,7 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 
 - (void)updateNav {
 
-	_prevButton.hidden = _nextButton.hidden = _stepLabel.hidden = (_navStatus == NavStatus_Unknown);
+	_clearButton.hidden = _prevButton.hidden = _nextButton.hidden = _stepLabel.hidden = (_navStatus == NavStatus_Unknown);
 	
 	if (_navStatus == NavStatus_Start) {
 		_stepLabel.text = NSLocalizedString(@"START", nil);
@@ -317,6 +334,19 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 }
 
 #pragma mark Route Navigation
+
+- (void)didClear {
+	_directionsRenderer.map = nil;
+	_directionsRenderer.route = nil;
+	_directionsRenderer = nil;
+	_navStatus = NavStatus_Unknown;
+	[self updateNav];
+	
+	if (_directionsInitialCameraPosition != nil) {
+		[_mapView animateWithCameraUpdate:[GMSCameraUpdate setTarget:_directionsInitialCameraPosition.target zoom:_directionsInitialCameraPosition.zoom]];
+		_directionsInitialCameraPosition = nil;
+	}
+}
 
 - (void)didPrev {
 	if (_navStatus == NavStatus_Start) {
@@ -444,7 +474,9 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 		[self searchRouteToEvent:marker.userData];
 	}]];
-	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+		_mapView.selectedMarker = marker;
+	}]];
 	[self presentViewController:alertController animated:YES completion:nil];
 
 }
@@ -452,13 +484,16 @@ static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
 #pragma mark GMSMapViewDelegate
 
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(nonnull GMSMarker *)marker {
-	if ([_destinationMarkers containsObject:marker]) {
-		[self promptNavigateToMarker:marker];
-		return TRUE;
+	if (_originMarker == marker) {
+		return FALSE; // so default behavior
+	}
+	else if ([_destinationMarkers containsObject:marker]) {
+		[self promptNavigateToMarker:marker]; // prompt
+		return TRUE; // do nothing
 	}
 	else {
-		[self showMarkerDetails:marker];
-		return FALSE;
+		[self showMarkerDetails:marker]; // dispaly details
+		return FALSE; // do default behavior
 	}
 }
 
