@@ -238,7 +238,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private void addMarkers() {
         if (markerList == null) {
             markerList = new ArrayList<>();
-            Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, userName, R.drawable.maps_icon_male_toilet));
+            Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, getUserName(), R.drawable.maps_icon_male_toilet));
             userMarkerOrigin.setTag(0); //Store floor in tag property
             markerList.add(userMarkerOrigin);
             Marker userMarkerDestination = googleMap.addMarker(constructUserMarkerOptions(DESTINATION_LOCATION, getString(R.string.study_room), R.drawable.maps_icon_study_zone));
@@ -384,6 +384,22 @@ public class MapsIndoorsActivity extends FragmentActivity {
             AlertDialog alertDialog = dialogBuilder.create();
             alertDialog.show();
         });
+    }
+
+    private String getUserName() {
+        SharedPreferences prefs = getSharedPreferences("FlutterSharedPreferences", MODE_PRIVATE);
+        String userJsonString = prefs.getString("flutter.user", null);
+        if (userJsonString != null) {
+            try {
+                JSONObject user = new JSONObject(userJsonString);
+                if (user != null)
+                    return user.optString("name");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "Unknown";
     }
 
 }
