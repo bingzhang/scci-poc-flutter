@@ -9,4 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MapsIndoorsViewController : UIViewController
+- (instancetype)initWithParamters:(NSDictionary*)parameters;
 @end

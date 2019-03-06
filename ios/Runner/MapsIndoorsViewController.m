@@ -20,69 +20,85 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 };
 
 @interface MapsIndoorsViewController () <GMSMapViewDelegate, MPMapControlDelegate, MPDirectionsRendererDelegate> {
-	GMSMapView   *mapView;
-	MPMapControl *mapControl;
-	MPDirectionsRenderer *directionsRenderer;
-	NSMutableArray *markers;
-	CLLocationCoordinate2D orgLocationCoord, destLocationCoord;
-	UIActivityIndicatorView *activityView;
-	UIButton *prevButton, *nextButton;
-	UILabel *stepLabel;
-	NavStatus navStatus;
+	GMSMapView   *_mapView;
+	MPMapControl *_mapControl;
+	UIActivityIndicatorView *_activityView;
+	UIButton *_prevButton, *_nextButton;
+	UILabel *_stepLabel;
+
+	MPDirectionsRenderer *_directionsRenderer;
+
+	NSDictionary *_parameters;
+	NSArray *_destinationEvents;
+	NSArray *_destinationMarkers;
+	CLLocationCoordinate2D _orgLocationCoord;
+	NavStatus _navStatus;
 }
 @end
 
+static NSString * const kEventsUrl = @"https://profile.inabyte.com/events";
+
 @implementation MapsIndoorsViewController
 
-- (id)init {
+- (instancetype)initWithParamters:(NSDictionary*)parameters {
 	if (self = [super init]) {
+		_parameters = parameters;
+
 		self.navigationItem.title = NSLocalizedString(@"Indoor Maps", nil);
 	
 		// Origin: Aalborg Kaserne (Gl. Høvej / Aalborg) 9400 Nørresundby, Denmark
-		orgLocationCoord = CLLocationCoordinate2DMake(57.087210, 9.958428);
+		_orgLocationCoord = CLLocationCoordinate2DMake(57.087210, 9.958428);
 
 	    // Destination: B216, RTX / lat: 57.0861893, lng: 9.9578803, floor:1, location Id: b44d339f96a9497c8523d440
-		destLocationCoord = CLLocationCoordinate2DMake(57.0861893, 9.9578803); //(57.086189, 9.957973);
+		//_destLocationCoord = CLLocationCoordinate2DMake(57.0861893, 9.9578803); //(57.086189, 9.957973);
+		
+		NSString *eventJsonString = [_parameters inaStringForKey:@"event"];
+		NSData *eventJsonData = (eventJsonString != nil) ? [eventJsonString dataUsingEncoding:NSUTF8StringEncoding] : nil;
+		NSDictionary *event = (eventJsonData != nil) ? [NSJSONSerialization JSONObjectWithData:eventJsonData options:0 error:NULL] : nil;
+		if ([event isKindOfClass:[NSDictionary class]]) {
+			_destinationEvents = [[NSArray alloc] initWithObjects:event, nil];
+		}
 	}
 	return self;
 }
 
+
 - (void)loadView {
 
 	GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:57.08585 longitude:9.95751 zoom:17]; // 57.08585, 9.95751
-	mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-	mapView.myLocationEnabled = YES;
-	mapView.delegate = self;
-	self.view = mapView;
+	_mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+	_mapView.myLocationEnabled = YES;
+	_mapView.delegate = self;
+	self.view = _mapView;
 
-	mapControl = [[MPMapControl alloc] initWithMap:mapView];
-	mapControl.delegate = self;
+	_mapControl = [[MPMapControl alloc] initWithMap:_mapView];
+	_mapControl.delegate = self;
 
-	activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-	activityView.color = [UIColor blackColor];
-	[mapView addSubview:activityView];
+	_activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+	_activityView.color = [UIColor blackColor];
+	[_mapView addSubview:_activityView];
 	
-	prevButton = [[UIButton alloc] initWithFrame:CGRectZero];
-	[prevButton setImage:[UIImage imageNamed:@"button-icon-prev"] forState:UIControlStateNormal];
-	[prevButton addTarget:self action:@selector(didPrev) forControlEvents:UIControlEventTouchUpInside];
-	[prevButton setHidden:true];
-	[mapView addSubview:prevButton];
+	_prevButton = [[UIButton alloc] initWithFrame:CGRectZero];
+	[_prevButton setImage:[UIImage imageNamed:@"button-icon-prev"] forState:UIControlStateNormal];
+	[_prevButton addTarget:self action:@selector(didPrev) forControlEvents:UIControlEventTouchUpInside];
+	[_prevButton setHidden:true];
+	[_mapView addSubview:_prevButton];
 
-	nextButton = [[UIButton alloc] initWithFrame:CGRectZero];
-	[nextButton setImage:[UIImage imageNamed:@"button-icon-next"] forState:UIControlStateNormal];
-	[nextButton addTarget:self action:@selector(didNext) forControlEvents:UIControlEventTouchUpInside];
-	[nextButton setHidden:true];
-	[mapView addSubview:nextButton];
+	_nextButton = [[UIButton alloc] initWithFrame:CGRectZero];
+	[_nextButton setImage:[UIImage imageNamed:@"button-icon-next"] forState:UIControlStateNormal];
+	[_nextButton addTarget:self action:@selector(didNext) forControlEvents:UIControlEventTouchUpInside];
+	[_nextButton setHidden:true];
+	[_mapView addSubview:_nextButton];
 
-	stepLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-	stepLabel.font = [UIFont systemFontOfSize:18];
-	stepLabel.numberOfLines = 2;
-	stepLabel.textAlignment = NSTextAlignmentCenter;
-	stepLabel.textColor = [UIColor blackColor];
-	stepLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.5];
-	stepLabel.shadowOffset = CGSizeMake(2, 2);
-	stepLabel.hidden = true;
-	[mapView addSubview:stepLabel];
+	_stepLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+	_stepLabel.font = [UIFont systemFontOfSize:18];
+	_stepLabel.numberOfLines = 2;
+	_stepLabel.textAlignment = NSTextAlignmentCenter;
+	_stepLabel.textColor = [UIColor blackColor];
+	_stepLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.5];
+	_stepLabel.shadowOffset = CGSizeMake(2, 2);
+	_stepLabel.hidden = true;
+	[_mapView addSubview:_stepLabel];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -90,63 +106,112 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	
 	CGSize contentSize = self.view.frame.size;
 	
-	CGSize activitySize = [activityView sizeThatFits:contentSize];
-	activityView.frame = CGRectMake((contentSize.width - activitySize.width) / 2, (contentSize.height - activitySize.height) / 2, activitySize.width, activitySize.height);
+	CGSize activitySize = [_activityView sizeThatFits:contentSize];
+	_activityView.frame = CGRectMake((contentSize.width - activitySize.width) / 2, (contentSize.height - activitySize.height) / 2, activitySize.width, activitySize.height);
 	
 	CGFloat buttonSize = 42;
 	CGFloat x = 0, y = contentSize.height - 5 * buttonSize / 2, w = contentSize.width;
 	x += buttonSize / 2; w = MAX(w - buttonSize, 0);
 
-	prevButton.frame = CGRectMake(x, y, buttonSize, buttonSize);
-	nextButton.frame = CGRectMake(x + w - buttonSize, y, buttonSize, buttonSize);
+	_prevButton.frame = CGRectMake(x, y, buttonSize, buttonSize);
+	_nextButton.frame = CGRectMake(x + w - buttonSize, y, buttonSize, buttonSize);
 	x += buttonSize; w = MAX(w - 2 * buttonSize, 0);
-	stepLabel.frame = CGRectMake(x, y - buttonSize / 2, w, 2 * buttonSize);
+	_stepLabel.frame = CGRectMake(x, y - buttonSize / 2, w, 2 * buttonSize);
 	
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addMarkers];
-	[self searchRoute];
+    [self prepateDisplay];
 }
 
-- (void)addMarkers {
+#pragma mark Display
 
-	if (markers == nil) {
-	
-		markers = [[NSMutableArray alloc] init];
-
-		GMSMarker *orgMarker = [[GMSMarker alloc] init];
-		orgMarker.position = orgLocationCoord;
-		orgMarker.icon = [UIImage imageNamed:@"maps-icon-male-toilet"];
-		orgMarker.title = self.userName;
-		orgMarker.snippet = NSLocalizedString(@"Origin Location", nil);
-		orgMarker.zIndex = 1;
-		orgMarker.groundAnchor = CGPointMake(0.5, 0.5);
-		//orgMarker.map = mapView;
-		[markers addObject:orgMarker];
-
-		GMSMarker *destMarker = [[GMSMarker alloc] init];
-		destMarker.position = destLocationCoord;
-		destMarker.icon = [UIImage imageNamed:@"maps-icon-study-zone"];
-		destMarker.title = NSLocalizedString(@"Study Room", nil);
-		destMarker.snippet = NSLocalizedString(@"Destination Location", nil);
-		destMarker.zIndex = 1;
-		destMarker.groundAnchor = CGPointMake(0.5, 0.5);
-		destMarker.userData = @{@"floor":@(1)}; // Let's keep floor as user data property
-		//destMarker.map = mapView;
-		[markers addObject:destMarker];
-
-		[self updateMarkers];
+- (void)prepateDisplay {
+    if (_destinationEvents.count == 0) {
+    	[self loadDestinationEvents];
+	}
+	else if (_destinationMarkers == nil) {
+		[self createMarkers];
+		if ((_directionsRenderer == nil) && (_destinationMarkers.count == 1)) {
+			GMSMarker *destinationMarker = _destinationMarkers.firstObject;
+			[self searchRouteToEvent:destinationMarker.userData];
+		}
 	}
 }
 
+- (void)loadDestinationEvents {
+    [_activityView startAnimating];
+	
+	[[NSURLSession.sharedSession dataTaskWithURL:[NSURL URLWithString:kEventsUrl] completionHandler:^(NSData* data, NSURLResponse* response, NSError* error) {
+		NSArray *eventsList = nil;
+		NSHTTPURLResponse *httpResponse = [response isKindOfClass:[NSHTTPURLResponse class]] ? ((NSHTTPURLResponse*)response) : nil;
+		if ((200 <= httpResponse.statusCode) && (httpResponse.statusCode <= 206) && (data != nil) && (error == nil)) {
+			NSArray *jsonList = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+			if ([jsonList isKindOfClass:[NSArray class]]) {
+				eventsList = jsonList;
+			}
+		}
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[_activityView stopAnimating];
+			if (eventsList != nil) {
+				_destinationEvents = eventsList;
+				[self prepateDisplay];
+			}
+			else {
+				NSString *title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+				UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:@"Failed to load events" preferredStyle:UIAlertControllerStyleAlert];
+				[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+				[self presentViewController:alertController animated:YES completion:nil];
+			}
+		});
+	}] resume];
+}
+
+- (void)createMarkers {
+
+	// Add origin
+	GMSMarker *orgMarker = [[GMSMarker alloc] init];
+	orgMarker.position = _orgLocationCoord;
+	orgMarker.icon = [UIImage imageNamed:@"maps-icon-male-toilet"];
+	orgMarker.title = self.userName;
+	orgMarker.snippet = NSLocalizedString(@"Origin Location", nil);
+	orgMarker.zIndex = 1;
+	orgMarker.groundAnchor = CGPointMake(0.5, 0.5);
+	orgMarker.map = _mapView;
+	
+	// Add destinations
+	NSMutableArray *markers = [[NSMutableArray alloc] init];
+	for (NSDictionary *event in _destinationEvents) {
+		if ([event isKindOfClass:[NSDictionary class]]) {
+			NSDictionary *eventLocation = [event inaDictForKey:@"location"];
+			if (eventLocation != nil) {
+				GMSMarker *destMarker = [[GMSMarker alloc] init];
+				destMarker.position = CLLocationCoordinate2DMake(
+					[eventLocation inaDoubleForKey:@"latitude"],
+					[eventLocation inaDoubleForKey:@"longtitude"]);
+				destMarker.icon = [UIImage imageNamed:@"maps-icon-study-zone"];
+				destMarker.title = [event inaStringForKey:@"name"];
+				destMarker.snippet = [eventLocation inaStringForKey:@"description"];
+				destMarker.zIndex = 1;
+				destMarker.groundAnchor = CGPointMake(0.5, 0.5);
+				destMarker.userData = event;
+				[markers addObject:destMarker];
+			}
+		}
+	}
+	_destinationMarkers = markers;
+
+	[self updateMarkers];
+}
+
 - (void)updateMarkers {
-	for (GMSMarker *marker in markers) {
-		NSNumber *floor = [marker.userData inaNumberForKey:@"floor"];
-		bool markerVisible = (floor == nil) || (floor.intValue == mapControl.currentFloor.intValue);
+	for (GMSMarker *marker in _destinationMarkers) {
+		NSDictionary *eventLocation = [marker.userData isKindOfClass:[NSDictionary class]] ? [marker.userData inaDictForKey:@"location"] : nil;
+		NSNumber *eventFloor = [eventLocation inaNumberForKey:@"floor"];
+		bool markerVisible = (eventFloor == nil) || (eventFloor.intValue == _mapControl.currentFloor.intValue);
 		if (markerVisible && (marker.map == nil)) {
-			marker.map = mapView;
+			marker.map = _mapView;
 		}
 		else if (!markerVisible && (marker.map != nil)) {
 			marker.map = nil;
@@ -154,34 +219,33 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	}
 }
 
-- (NSString*)userName {
-	NSString *userString = [[NSUserDefaults standardUserDefaults] stringForKey:@"flutter.user"];
-	NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-	return [userData isKindOfClass:[NSDictionary class]] ? [userData inaStringForKey:@"name"] : NSLocalizedString(@"User Name", nil);
-}
+- (void)searchRouteToEvent:(NSDictionary*)event {
+	
+	_navStatus = NavStatus_Unknown;
+	[self updateNav];
 
-- (void)searchRoute {
+    [_activityView startAnimating];
 	
-    [activityView startAnimating];
-	
-    MPPoint *org = [[MPPoint alloc] initWithLat:orgLocationCoord.latitude lon:orgLocationCoord.longitude];
-    MPPoint *dest = [[MPPoint alloc] initWithLat:destLocationCoord.latitude lon:destLocationCoord.longitude zValue:1];
+	NSDictionary *eventLocation = [event inaDictForKey:@"location"];
+
+    MPPoint *org = [[MPPoint alloc] initWithLat:_orgLocationCoord.latitude lon:_orgLocationCoord.longitude];
+    MPPoint *dest = [[MPPoint alloc] initWithLat:[eventLocation inaDoubleForKey:@"latitude"] lon:[eventLocation inaDoubleForKey:@"longtitude"] zValue:[eventLocation inaIntegerForKey:@"floor"]];
     MPDirectionsQuery *query = [[MPDirectionsQuery alloc] initWithOriginPoint:org destination:dest];
     MPDirectionsService *directions = [[MPDirectionsService alloc] init];
     [directions routingWithQuery:query completionHandler:^(MPRoute * _Nullable route, NSError * _Nullable error) {
-	    [activityView stopAnimating];
+	    [_activityView stopAnimating];
 		
 	    if (route != nil) {
-			directionsRenderer = [[MPDirectionsRenderer alloc] init];
-			directionsRenderer.map = mapView;
-			directionsRenderer.route = route;
+			_directionsRenderer = [[MPDirectionsRenderer alloc] init];
+			_directionsRenderer.map = _mapView;
+			_directionsRenderer.route = route;
 
-			navStatus = NavStatus_Start;
-			prevButton.hidden = nextButton.hidden = stepLabel.hidden = false;
+			_navStatus = NavStatus_Start;
+			_prevButton.hidden = _nextButton.hidden = _stepLabel.hidden = false;
 			[self updateNav];
 		}
 		else {
-	        NSString *title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+	        NSString *title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 			NSString *message = error.localizedDescription ?: NSLocalizedString(@"Failed to find a route", nil);
 			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
 			[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
@@ -192,29 +256,29 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 
 - (void)updateNav {
 
-	prevButton.hidden = nextButton.hidden = stepLabel.hidden = (navStatus == NavStatus_Unknown);
+	_prevButton.hidden = _nextButton.hidden = _stepLabel.hidden = (_navStatus == NavStatus_Unknown);
 	
-	if (navStatus == NavStatus_Start) {
-		stepLabel.text = NSLocalizedString(@"START", nil);
-		prevButton.enabled = false;
-		nextButton.enabled = true;
+	if (_navStatus == NavStatus_Start) {
+		_stepLabel.text = NSLocalizedString(@"START", nil);
+		_prevButton.enabled = false;
+		_nextButton.enabled = true;
 	}
-	else if (navStatus == NavStatus_Progress) {
-		NSInteger legIndex = directionsRenderer.routeLegIndex;
-		MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < directionsRenderer.route.legs.count)) ? [directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
+	else if (_navStatus == NavStatus_Progress) {
+		NSInteger legIndex = _directionsRenderer.routeLegIndex;
+		MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < _directionsRenderer.route.legs.count)) ? [_directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
 		
-		NSInteger stepIndex = directionsRenderer.routeStepIndex;
+		NSInteger stepIndex = _directionsRenderer.routeStepIndex;
 		MPRouteStep *step = ((0 <= stepIndex) && (stepIndex < leg.steps.count)) ? [leg.steps objectAtIndex:stepIndex] : nil;
 
 		if (0 < step.html_instructions.length) {
-			//stepLabel.text = step.html_instructions;
+			//_stepLabel.text = step.html_instructions;
 			
 			NSString *html = [NSString stringWithFormat:@"<html>\
 				<head><style>body{ font-family: Helvetica; font-weight: regular; font-size: 18px; color:#000000 } </style></head>\
 				<body><center>%@</center></body>\
 			</html>", step.html_instructions];
 			
-			stepLabel.attributedText = [[NSAttributedString alloc]
+			_stepLabel.attributedText = [[NSAttributedString alloc]
 				initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
 				options:@{
 					NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
@@ -225,99 +289,105 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 			];
 		}
 		else if ((0 < step.maneuver.length) || (0 < step.highway.length) || (0 < step.routeContext.length)) {
-			stepLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", step.routeContext, step.highway, step.maneuver];
+			_stepLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", step.routeContext, step.highway, step.maneuver];
 		}
 		else if ((0 < step.distance.intValue) || (0 < step.duration.intValue)) {
-			stepLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d m / %d sec", nil), step.distance.intValue, step.duration.intValue];
+			_stepLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d m / %d sec", nil), step.distance.intValue, step.duration.intValue];
 		}
 		else {
-			stepLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Leg %d / Step %d", nil), (int)legIndex + 1, (int)stepIndex + 1];
+			_stepLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Leg %d / Step %d", nil), (int)legIndex + 1, (int)stepIndex + 1];
 		}
 
-		prevButton.enabled = nextButton.enabled = true;
+		_prevButton.enabled = _nextButton.enabled = true;
 		
 		[self updateCurerntFloor:step.start_location.zLevel];
 	}
-	else if (navStatus == NavStatus_Finished) {
-		stepLabel.text = NSLocalizedString(@"FINISH", nil);
-		prevButton.enabled = true;
-		nextButton.enabled = false;
+	else if (_navStatus == NavStatus_Finished) {
+		_stepLabel.text = NSLocalizedString(@"FINISH", nil);
+		_prevButton.enabled = true;
+		_nextButton.enabled = false;
 	}
 }
 
 - (void)updateCurerntFloor:(NSNumber*)floor {
-	if ((floor != nil) && ([floor integerValue] != [mapControl.currentFloor integerValue])) {
-		mapControl.currentFloor = floor;
+	if ((floor != nil) && ([floor integerValue] != [_mapControl.currentFloor integerValue])) {
+		_mapControl.currentFloor = floor;
 		[self floorDidChange:floor];
 	}
 }
 
-#pragma mark Handlers
+#pragma mark Route Navigation
 
 - (void)didPrev {
-	if (navStatus == NavStatus_Start) {
+	if (_navStatus == NavStatus_Start) {
 	}
-	else if (navStatus == NavStatus_Progress) {
-		NSInteger legIndex = directionsRenderer.routeLegIndex;
-		NSInteger stepIndex = directionsRenderer.routeStepIndex;
+	else if (_navStatus == NavStatus_Progress) {
+		NSInteger legIndex = _directionsRenderer.routeLegIndex;
+		NSInteger stepIndex = _directionsRenderer.routeStepIndex;
 		
 		if (0 < stepIndex) {
-			directionsRenderer.routeStepIndex = --stepIndex;
+			_directionsRenderer.routeStepIndex = --stepIndex;
 		}
 		else if (0 < legIndex) {
-			directionsRenderer.routeLegIndex = --legIndex;
-			MPRouteLeg *leg = [directionsRenderer.route.legs objectAtIndex:legIndex];
-			directionsRenderer.routeStepIndex = leg.steps.count - 1;
+			_directionsRenderer.routeLegIndex = --legIndex;
+			MPRouteLeg *leg = [_directionsRenderer.route.legs objectAtIndex:legIndex];
+			_directionsRenderer.routeStepIndex = leg.steps.count - 1;
 		}
 		else {
-			navStatus = NavStatus_Start;
-			directionsRenderer.routeLegIndex = directionsRenderer.routeStepIndex = -1;
+			_navStatus = NavStatus_Start;
+			_directionsRenderer.routeLegIndex = _directionsRenderer.routeStepIndex = -1;
 		}
 	}
-	else if (navStatus == NavStatus_Finished) {
-		navStatus = NavStatus_Progress;
+	else if (_navStatus == NavStatus_Finished) {
+		_navStatus = NavStatus_Progress;
 		
-		directionsRenderer.routeLegIndex = directionsRenderer.route.legs.count - 1;
+		_directionsRenderer.routeLegIndex = _directionsRenderer.route.legs.count - 1;
 
-		MPRouteLeg *leg = directionsRenderer.route.legs.lastObject;
-		directionsRenderer.routeStepIndex = leg.steps.count - 1;
+		MPRouteLeg *leg = _directionsRenderer.route.legs.lastObject;
+		_directionsRenderer.routeStepIndex = leg.steps.count - 1;
 	}
 
 	[self updateNav];
 }
 
 - (void)didNext {
-	if (navStatus == NavStatus_Start) {
-		navStatus = NavStatus_Progress;
-		directionsRenderer.routeLegIndex = directionsRenderer.routeStepIndex = 0;
+	if (_navStatus == NavStatus_Start) {
+		_navStatus = NavStatus_Progress;
+		_directionsRenderer.routeLegIndex = _directionsRenderer.routeStepIndex = 0;
 	}
-	else if (navStatus == NavStatus_Progress) {
-		NSInteger legIndex = directionsRenderer.routeLegIndex;
-		NSInteger stepIndex = directionsRenderer.routeStepIndex;
+	else if (_navStatus == NavStatus_Progress) {
+		NSInteger legIndex = _directionsRenderer.routeLegIndex;
+		NSInteger stepIndex = _directionsRenderer.routeStepIndex;
 
-		MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < directionsRenderer.route.legs.count)) ? [directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
+		MPRouteLeg *leg = ((0 <= legIndex) && (legIndex < _directionsRenderer.route.legs.count)) ? [_directionsRenderer.route.legs objectAtIndex:legIndex] : nil;
 		
 		if ((stepIndex + 1) < leg.steps.count) {
-			directionsRenderer.routeStepIndex = ++stepIndex;
+			_directionsRenderer.routeStepIndex = ++stepIndex;
 		}
-		else if ((legIndex + 1) < directionsRenderer.route.legs.count) {
-			directionsRenderer.routeLegIndex = ++legIndex;
-			directionsRenderer.routeStepIndex = 0;
+		else if ((legIndex + 1) < _directionsRenderer.route.legs.count) {
+			_directionsRenderer.routeLegIndex = ++legIndex;
+			_directionsRenderer.routeStepIndex = 0;
 		}
 		else {
-			navStatus = NavStatus_Finished;
-			directionsRenderer.routeLegIndex = directionsRenderer.routeStepIndex = -1;
+			_navStatus = NavStatus_Finished;
+			_directionsRenderer.routeLegIndex = _directionsRenderer.routeStepIndex = -1;
 		}
 	}
-	else if (navStatus == NavStatus_Finished) {
+	else if (_navStatus == NavStatus_Finished) {
 	}
 
 	[self updateNav];
 }
 
-#pragma mark GMSMapViewDelegate
+#pragma mark Helpers
 
-- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(nonnull GMSMarker *)marker {
+- (NSString*)userName {
+	NSString *userString = [[NSUserDefaults standardUserDefaults] stringForKey:@"flutter.user"];
+	NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
+	return [userData isKindOfClass:[NSDictionary class]] ? [userData inaStringForKey:@"name"] : NSLocalizedString(@"User Name", nil);
+}
+
+- (void)showMarkerDetails:(GMSMarker*)marker {
 	NSMutableString *markerDescription = [[NSMutableString alloc] init];
 	[markerDescription appendString:@"GMSMarker Fields\n"];
 	[markerDescription appendFormat:@"Title: %@\n", marker.title];
@@ -335,7 +405,7 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	[markerDescription appendFormat:@"Ground Anchor: x = %.2f, y = %.2f\n", marker.groundAnchor.x, marker.groundAnchor.y];
 	[markerDescription appendFormat:@"Info Window Anchor: x = %.2f, y = %.2f\n", marker.infoWindowAnchor.x, marker.infoWindowAnchor.y];
 
-    MPLocation *location = [mapControl getLocation:marker];
+    MPLocation *location = [_mapControl getLocation:marker];
     if (location != nil) {
 		[markerDescription appendString:@"\n"];
 		[markerDescription appendString:@"MPLocation Fields\n"];
@@ -365,7 +435,31 @@ typedef NS_ENUM(NSInteger, NavStatus) {
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:marker.title message:markerDescription preferredStyle:UIAlertControllerStyleAlert];
 	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
 	[self presentViewController:alertController animated:YES completion:nil];
-	return FALSE;
+}
+
+- (void)promptNavigateToMarker:(GMSMarker*)marker {
+	NSString *title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+	NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Navigate to \"%@\" (%@)?", nil), marker.title, marker.snippet];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+		[self searchRouteToEvent:marker.userData];
+	}]];
+	[alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+	[self presentViewController:alertController animated:YES completion:nil];
+
+}
+
+#pragma mark GMSMapViewDelegate
+
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(nonnull GMSMarker *)marker {
+	if ([_destinationMarkers containsObject:marker]) {
+		[self promptNavigateToMarker:marker];
+		return TRUE;
+	}
+	else {
+		[self showMarkerDetails:marker];
+		return FALSE;
+	}
 }
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {

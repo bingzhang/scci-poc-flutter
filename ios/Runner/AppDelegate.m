@@ -44,7 +44,7 @@
 	[nativeCallChannel setMethodCallHandler:^(FlutterMethodCall* call, FlutterResult result) {
 	
         if ([@"indoorMaps" isEqualToString:call.method]) {
-        	MapsIndoorsViewController *mapsController = [[MapsIndoorsViewController alloc] init];
+        	MapsIndoorsViewController *mapsController = [[MapsIndoorsViewController alloc] initWithParamters:[call.arguments isKindOfClass:[NSDictionary class]] ? call.arguments : nil];
             [navigationViewController pushViewController:mapsController animated:YES];
             result(@(YES));
         } else if ([@"language" isEqualToString:call.method]) {
