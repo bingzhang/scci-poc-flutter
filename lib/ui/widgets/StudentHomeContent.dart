@@ -2,10 +2,13 @@
  * Copyright (c) 2019 UIUC. All rights reserved.
  */
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:profile_demo/lang/locale/locales.dart';
+import 'package:profile_demo/logic/EventsLogic.dart';
 import 'package:profile_demo/ui/page_routers/SlidePanelRoute.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/panels/student/StudentSchedulePanel.dart';
@@ -109,8 +112,11 @@ class StudentHomeContent extends StatelessWidget {
   }
 
   _launchIndoorMaps() async {
+    List<dynamic> events = EventsLogic().getAllEvents();
+    String eventsString = (events != null) ? json.encode(events) : null;
     try {
-      await AppConstants.platformChannel.invokeMethod('indoorMaps');
+      await AppConstants.platformChannel.invokeMethod(
+          'indoorMaps', {"events": eventsString});
     } on PlatformException catch (e) {
       print(e.message);
     }
