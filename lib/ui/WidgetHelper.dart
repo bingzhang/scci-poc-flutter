@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:profile_demo/model/Role.dart';
+import 'package:profile_demo/ui/panels/EventsPanel.dart';
 import 'package:profile_demo/ui/panels/MapsPanel.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:profile_demo/ui/widgets/RoundedImageButton.dart';
@@ -119,6 +120,10 @@ class WidgetHelper {
         tapGesture = () {
           _openMapsPanel(context, destinationTitle, destinationValue);
         };
+      } else if (destinationType == 'events') {
+        tapGesture = () {
+          _openEventsPanel(context, destinationTitle);
+        };
       }
       return tapGesture;
     }
@@ -138,6 +143,11 @@ class WidgetHelper {
     LatLng location = new LatLng(latitude, longitude);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => new MapsPanel(pos:location,title: title)));
+  }
+
+  static void _openEventsPanel(BuildContext context, String title) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => EventsPanel(title: title)));
   }
 
   static Widget _getPanelById(String panelId) {
