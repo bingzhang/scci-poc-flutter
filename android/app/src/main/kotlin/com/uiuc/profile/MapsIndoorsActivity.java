@@ -376,6 +376,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
             } else if ((currentStep.getManeuver() != null)) {
                 stepsText = String.format("%s %s | %s | %s", getString(R.string.floor), currentStep.getStartFloorname(), currentStep.getHighway(), currentStep.getManeuver());
             }
+        } else {
+            if(stepsSize>0) {
+                stepsText = currentStepIndex <= 0? "START" : ""; // navigation over
+            }
         }
         if (stepsTextView != null) {
             stepsTextView.setText((htmlText != null) ? htmlText : stepsText);
@@ -446,7 +450,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
         dialogBuilder.setMessage(message);
         dialogBuilder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
             buildRouting(event);
-        });
+            });
         dialogBuilder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
