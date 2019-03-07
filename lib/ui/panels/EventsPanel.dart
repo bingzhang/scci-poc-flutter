@@ -9,7 +9,6 @@ import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/EventsLogic.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/model/Role.dart';
-import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:intl/intl.dart';
@@ -103,8 +102,7 @@ class _EventsPanelState extends State<EventsPanel> {
   }
 
   void _loadEvents() async {
-    User currentUser = ProfileLogic().getUser();
-    Role userRole = currentUser?.role;
+    Role userRole = ProfileLogic().getUser()?.role;
     _events = await EventsLogic().getEventsBy(userRole);
   }
 }
