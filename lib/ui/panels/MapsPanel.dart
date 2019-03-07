@@ -49,7 +49,7 @@ class MapsState extends State<MapsPanel> {
   }
 
   _addMarker(LatLng pos) {
-    Future<Marker> initialMarker = mapController.addMarker(new MarkerOptions(
+    mapController.addMarker(new MarkerOptions(
         position: pos, infoWindowText: new InfoWindowText(this.infoText, "")));
   }
 }

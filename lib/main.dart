@@ -26,16 +26,8 @@ Future<void> _init() async {
 }
 
 class ProfileDemoApp extends StatefulWidget {
-  ProfileDemoAppState appState;
 
-  ProfileDemoAppState createState(){
-    appState = new ProfileDemoAppState();
-    return appState;
-  }
-
-  void refresh(){
-    appState.refresh();
-  }
+  ProfileDemoAppState createState() => ProfileDemoAppState();
 }
 
 class ProfileDemoAppState extends State<ProfileDemoApp> {
