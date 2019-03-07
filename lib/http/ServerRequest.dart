@@ -118,6 +118,29 @@ class ServerRequest {
     }
   }
 
+  static Future<List<dynamic>> loadEventsByRole(String role) async {
+    String serverHost = _constructHostValue();
+    String roleQueryParams = (!AppUtils.isStringEmpty(role))
+        ? '?role=$role'
+        : '';
+    http.Response response;
+    try {
+      response = await http.get('$serverHost/events$roleQueryParams');
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+
+    if (response.statusCode == 200) {
+      List<dynamic> eventsJson = json.decode(response.body);
+      return eventsJson;
+    } else {
+      print('Failed to load events for role "$role"');
+      print(response.body);
+      return null;
+    }
+  }
+
   static String _constructHostValue() {
     String host = AppConstants.serverHost;
     if (host.startsWith("http://") || host.startsWith("https://")) {

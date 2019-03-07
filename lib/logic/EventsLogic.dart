@@ -3,6 +3,8 @@
  */
 
 import 'package:profile_demo/http/ServerRequest.dart';
+import 'package:profile_demo/model/Role.dart';
+import 'package:profile_demo/utility/Utils.dart';
 
 class EventsLogic {
   static final EventsLogic _logic = new EventsLogic._internal();
@@ -20,5 +22,14 @@ class EventsLogic {
 
   List<dynamic> getAllEvents() {
     return _eventsJson;
+  }
+
+  Future<List<dynamic>> loadEventsByRole(Role role) async {
+    if (role == null || role == Role.unknown) {
+      return null;
+    }
+    String roleToString = AppUtils.userRoleToString(role);
+    List<dynamic> events = await ServerRequest.loadEventsByRole(roleToString);
+    return events;
   }
 }
