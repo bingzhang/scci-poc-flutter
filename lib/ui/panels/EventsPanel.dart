@@ -3,6 +3,7 @@
  */
 
 import 'dart:convert';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
@@ -25,6 +26,7 @@ class EventsPanel extends StatefulWidget {
 class _EventsPanelState extends State<EventsPanel> {
   final _panelTitle;
   List<dynamic> _events;
+  bool _loading = false;
 
   _EventsPanelState(this._panelTitle) : super();
 
@@ -37,18 +39,22 @@ class _EventsPanelState extends State<EventsPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_panelTitle),
-        centerTitle: true,
-      ),
-      body: Center(
-          child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-              child: _buildListView())),
-    );
+        appBar: AppBar(
+          title: Text(_panelTitle),
+          centerTitle: true,
+        ),
+        body: ModalProgressHUD(
+            child: Center(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                    child: _buildListView())),
+            inAsyncCall: _loading));
   }
 
   Widget _buildListView() {
+    if (_loading) {
+      return Container();
+    }
     AppLocalizations localizations = AppLocalizations.of(context);
     int eventsCount = (_events != null) ? _events.length : 0;
     if (eventsCount > 0) {
@@ -102,7 +108,15 @@ class _EventsPanelState extends State<EventsPanel> {
   }
 
   void _loadEvents() async {
+    setLoading(true);
     Role userRole = ProfileLogic().getUser()?.role;
     _events = await EventsLogic().getEventsBy(userRole);
+    setLoading(false);
+  }
+
+  void setLoading(bool isLoading) {
+    setState(() {
+      _loading = isLoading;
+    });
   }
 }
