@@ -295,6 +295,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "illinoisTitle": "Illinois",
+  "@illinoisTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
   "semanticsHeaderHint": "Tap to open Illinois home page",
   "@semanticsHeaderHint": {
     "type": "text",

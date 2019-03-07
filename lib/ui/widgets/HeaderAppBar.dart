@@ -22,7 +22,7 @@ class HeaderAppBar extends AppBar {
                       context,
                       MaterialPageRoute(
                           builder: (context) => WebContentPanel(
-                              url: 'https://illinois.edu', title: 'Illinois'))),
+                              url: 'https://illinois.edu', title: AppLocalizations.of(context).illinoisTitle))),
                 ),
               )
             ],
@@ -31,6 +31,6 @@ class HeaderAppBar extends AppBar {
               excludeSemantics: true,
               label: AppLocalizations.of(context).semanticsHeaderLabel,
               header: true,
-              child: Text('Illinois'),
+              child: Text(AppLocalizations.of(context).illinoisTitle),
             ));
 }

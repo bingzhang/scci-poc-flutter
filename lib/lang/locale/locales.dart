@@ -334,6 +334,11 @@ class AppLocalizations {
         name: 'ok');
   }
 
+  String get illinoisTitle {
+    return Intl.message("Illinois",
+        name: 'illinoisTitle');
+  }
+
   //semantics (Accessability )
   String get semanticsHeaderHint {
     return Intl.message('Tap to open Illinois home page',

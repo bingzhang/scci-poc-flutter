@@ -51,7 +51,7 @@ class ProfileDemoAppState extends State<ProfileDemoApp> {
           GlobalWidgetsLocalizations.delegate
         ],
         supportedLocales: [Locale("en"), Locale("es"), Locale("zh")],
-        title: 'Illinois',
+        title: AppLocalizations.of(context).illinoisTitle,
         theme: ThemeData(
           primaryColor: UiConstants.appBrandColor,
         ),

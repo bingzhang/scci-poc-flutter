@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "eventStartsAtPrefix" : MessageLookupByLibrary.simpleMessage("開始於"),
+    "illinoisTitle" : MessageLookupByLibrary.simpleMessage("伊利諾伊"),
     "min" : MessageLookupByLibrary.simpleMessage("分钟"),
     "nextEventAlarmHint" : MessageLookupByLibrary.simpleMessage("15分钟报警"),
     "nextEventBycycleHint" : MessageLookupByLibrary.simpleMessage("7分钟自行车"),
