@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
+import 'package:profile_demo/ui/panels/EventsPanel.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
 import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
@@ -43,12 +44,22 @@ class StudentEventsPanel extends StatelessWidget {
                 ),
               ])
             )),
-            
+
             Container(height: 1, color: Colors.black26,),
-            Container(padding:EdgeInsets.fromLTRB(10, 10, 10, 10), child:
-              Text(str.studentHomeButtonNewsEvent, style: TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w700, fontSize: 16),)
+            Container(padding: EdgeInsets.fromLTRB(10, 10, 10, 10), child:
+            InkWell(
+              onTap: () =>
+                  Navigator.push(context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EventsPanel(title: 'Events'))),
+              child: Row(children: <Widget>[Text(str.studentHomeButtonNewsEvent,
+                style: TextStyle(fontFamily: 'Avenir',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16),)
+              ],),)
             ),
-            
+
             Container(height: 1, color: Colors.black26,),
             Container(height: 84, padding:EdgeInsets.fromLTRB(10, 10, 10, 10), child:
               ListView(scrollDirection: Axis.horizontal, children: <Widget>[
