@@ -5,7 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
-import 'package:profile_demo/ui/WidgetHelper.dart';
 
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';

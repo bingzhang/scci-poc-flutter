@@ -20,14 +20,14 @@ class Option extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _Title(data["title"]),
-          _Image(data["image"]),
+          _title(data["title"]),
+          _image(data["image"]),
         ],
       ),
     );
   }
 
-  Text _Title(Map<String,dynamic> titleData){
+  Text _title(Map<String,dynamic> titleData){
     String text;
     int textColor = 0xff000000; //default
     String fontFamily = 'Avenir';
@@ -61,7 +61,7 @@ class Option extends StatelessWidget {
     );
   }
 
-  Widget _Image(Map<String,dynamic> imageData){
+  Widget _image(Map<String,dynamic> imageData){
     if(imageData!=null)
       return parseImage(imageData,62.0,62.0);
     else

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:profile_demo/lang/l10n/messages_all.dart';
-import 'package:profile_demo/logic/UiLogic.dart';
 
 class AppLocalizations {
   static Future<AppLocalizations> load(BuildContext context,Locale locale, Function onLoadCallback) async {

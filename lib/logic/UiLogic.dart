@@ -4,10 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 import 'dart:convert';
 import 'package:profile_demo/http/ServerRequest.dart';
-import 'package:profile_demo/ui/widgets/ProfileHomeContent.dart';
 import 'package:profile_demo/utility/Utils.dart';
 
 class UiLogic {
