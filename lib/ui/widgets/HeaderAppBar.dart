@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 UIUC. All rights reserved.
+ * Copyright (c) 2019 Illinois. All rights reserved.
  */
 
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class HeaderAppBar extends AppBar {
                       context,
                       MaterialPageRoute(
                           builder: (context) => WebContentPanel(
-                              url: 'https://illinois.edu', title: 'UIUC'))),
+                              url: 'https://illinois.edu', title: 'Illinois'))),
                 ),
               )
             ],
@@ -31,6 +31,6 @@ class HeaderAppBar extends AppBar {
               excludeSemantics: true,
               label: AppLocalizations.of(context).semanticsHeaderLabel,
               header: true,
-              child: Text('UIUC'),
+              child: Text('Illinois'),
             ));
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2019 UIUC. All rights reserved.
+  ~ Copyright (c) 2019 Illinois. All rights reserved.
   -->
 
 <resources>
@@ -8,7 +8,7 @@
     <string name="mapsindoors_api_key" translatable="false">73dec0092e784856a2c69b8a</string>
 
 
-    <string name="alert_dialog_default_title">UIUC</string>
+    <string name="alert_dialog_default_title">Illinois</string>
     <string name="poi_details_alert_dialog_title">POI details</string>
 
     <string name="next_step">Next</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 UIUC. All rights reserved.
+ * Copyright (c) 2019 Illinois. All rights reserved.
  */
 
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class ProfileDemoAppState extends State<ProfileDemoApp> {
           GlobalWidgetsLocalizations.delegate
         ],
         supportedLocales: [Locale("en"), Locale("es"), Locale("zh")],
-        title: 'UIUC',
+        title: 'Illinois',
         theme: ThemeData(
           primaryColor: UiConstants.appBrandColor,
         ),
