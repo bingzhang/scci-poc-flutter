@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "studentEventContentMessage" : MessageLookupByLibrary.simpleMessage("ILLINI的战斗本赛季开局不错！ 快来加入我们本周五晚上9点的本赛季主赛！"),
     "studentEventReadMore" : MessageLookupByLibrary.simpleMessage("阅读更多"),
     "studentEventTitle" : MessageLookupByLibrary.simpleMessage("伊利诺女子篮球队"),
+    "studentEventsHeader" : MessageLookupByLibrary.simpleMessage("活動"),
     "studentHomeButtonAthletics" : MessageLookupByLibrary.simpleMessage("田径+校园场地"),
     "studentHomeButtonAthleticsActionHeader" : MessageLookupByLibrary.simpleMessage("竞技"),
     "studentHomeButtonLifeCampus" : MessageLookupByLibrary.simpleMessage("校园生活"),

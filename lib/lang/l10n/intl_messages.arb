@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-03-06T14:55:19.045886",
+  "@@last_modified": "2019-03-07T09:29:15.535701",
   "studentHomeGoodMorningText": "Good Morning, Alex!",
   "@studentHomeGoodMorningText": {
     "type": "text",
@@ -187,6 +187,11 @@
   },
   "studentEventContentMessage": "The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!",
   "@studentEventContentMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "studentEventsHeader": "Events",
+  "@studentEventsHeader": {
     "type": "text",
     "placeholders": {}
   },

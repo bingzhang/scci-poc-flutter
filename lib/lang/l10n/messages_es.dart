@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "studentEventContentMessage" : MessageLookupByLibrary.simpleMessage("¡Los combates del ILLINI han tenido un buen comienzo esta temporada! ¡Únete a nosotros para su juego de temporada de la temporada este viernes a las 9 pm!"),
     "studentEventReadMore" : MessageLookupByLibrary.simpleMessage("Lee mas"),
     "studentEventTitle" : MessageLookupByLibrary.simpleMessage("Baloncesto femenino ILLINI"),
+    "studentEventsHeader" : MessageLookupByLibrary.simpleMessage("Eventos"),
     "studentHomeButtonAthletics" : MessageLookupByLibrary.simpleMessage("Atletismo + Campus Sedes"),
     "studentHomeButtonAthleticsActionHeader" : MessageLookupByLibrary.simpleMessage("Atletismo"),
     "studentHomeButtonLifeCampus" : MessageLookupByLibrary.simpleMessage("La vida en el campus"),

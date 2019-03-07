@@ -52,7 +52,7 @@ class StudentEventsPanel extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              EventsPanel(title: 'Events'))),
+                              EventsPanel(title: str.studentEventsHeader))),
               child: Row(children: <Widget>[Text(str.studentHomeButtonNewsEvent,
                 style: TextStyle(fontFamily: 'Avenir',
                     fontWeight: FontWeight.w700,

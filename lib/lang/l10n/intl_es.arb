@@ -225,6 +225,11 @@
         "type": "text",
         "placeholders": {}
       },
+      "studentEventsHeader": "Eventos",
+        "@studentEventsHeader": {
+          "type": "text",
+          "placeholders": {}
+      },
       "studentUpToDateDrivingOptions": "Opciones de conducción cercanas",
       "@studentUpToDateDrivingOptions": {
         "type": "text",

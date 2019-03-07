@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "studentEventContentMessage" : MessageLookupByLibrary.simpleMessage("The fighting ILLINI are off to a good start this season! Come join us for their home game of the season this Friday at 9pm!"),
     "studentEventReadMore" : MessageLookupByLibrary.simpleMessage("read more"),
     "studentEventTitle" : MessageLookupByLibrary.simpleMessage("ILLINI Women\'s Basketball"),
+    "studentEventsHeader" : MessageLookupByLibrary.simpleMessage("Events"),
     "studentHomeButtonAthletics" : MessageLookupByLibrary.simpleMessage("Athletics + Campus Venues"),
     "studentHomeButtonAthleticsActionHeader" : MessageLookupByLibrary.simpleMessage("Athletics"),
     "studentHomeButtonLifeCampus" : MessageLookupByLibrary.simpleMessage("Life on Campus"),

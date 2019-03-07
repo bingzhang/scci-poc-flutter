@@ -229,6 +229,11 @@ class AppLocalizations {
         name: 'studentEventContentMessage');
   }
 
+  String get studentEventsHeader {
+    return Intl.message('Events',
+        name: 'studentEventsHeader');
+  }
+
   //StudentSchedulePanel
   String get studentScheduleEventHeader {
     return Intl.message('Ready for Lunch?',
