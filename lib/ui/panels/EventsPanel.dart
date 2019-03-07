@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/EventsLogic.dart';
+import 'package:profile_demo/logic/ProfileLogic.dart';
+import 'package:profile_demo/model/Role.dart';
+import 'package:profile_demo/model/User.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
 import 'package:profile_demo/utility/Utils.dart';
 import 'package:intl/intl.dart';
@@ -21,15 +24,22 @@ class EventsPanel extends StatefulWidget {
 }
 
 class _EventsPanelState extends State<EventsPanel> {
-  final panelTitle;
+  final _panelTitle;
+  List<dynamic> _events;
 
-  _EventsPanelState(this.panelTitle) : super();
+  _EventsPanelState(this._panelTitle) : super();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadEvents();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(panelTitle),
+        title: Text(_panelTitle),
         centerTitle: true,
       ),
       body: Center(
@@ -41,8 +51,7 @@ class _EventsPanelState extends State<EventsPanel> {
 
   Widget _buildListView() {
     AppLocalizations localizations = AppLocalizations.of(context);
-    List<dynamic> events = EventsLogic().getAllEvents();
-    int eventsCount = (events != null) ? events.length : 0;
+    int eventsCount = (_events != null) ? _events.length : 0;
     if (eventsCount > 0) {
       return ListView.separated(
         separatorBuilder: (context, index) => Padding(
@@ -53,7 +62,7 @@ class _EventsPanelState extends State<EventsPanel> {
             ),
         itemCount: eventsCount,
         itemBuilder: (context, index) {
-          Map<String, dynamic> event = events[index];
+          Map<String, dynamic> event = _events[index];
           String eventName = event['name'];
           String eventTimeString = event['time'];
           DateFormat serverDateFormat = DateFormat('yyyy-MM-dd HH:mm:SS');
@@ -91,5 +100,11 @@ class _EventsPanelState extends State<EventsPanel> {
     } on PlatformException catch (e) {
       print(e.message);
     }
+  }
+
+  void _loadEvents() {
+    User currentUser = ProfileLogic().getUser();
+    Role userRole = currentUser?.role;
+    _events = EventsLogic().filterEventsBy(userRole);
   }
 }

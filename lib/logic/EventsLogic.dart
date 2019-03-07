@@ -24,6 +24,50 @@ class EventsLogic {
     return _eventsJson;
   }
 
+  /// Events filter logic:
+  ///
+  /// 'Student' -> Student & Other
+  ///
+  /// 'Staff' -> Staff & Other
+  ///
+  /// 'Other' -> Other
+  List<dynamic> filterEventsBy(Role role) {
+    if (role == null || role == Role.unknown) {
+      return null;
+    }
+    if (_eventsJson == null) {
+      return null;
+    }
+    var rolesArr;
+    switch (role) {
+      case Role.student:
+        rolesArr = [
+          AppUtils.userRoleToString(Role.student),
+          AppUtils.userRoleToString(Role.other)
+        ];
+        break;
+      case Role.staff:
+        rolesArr = [
+          AppUtils.userRoleToString(Role.staff),
+          AppUtils.userRoleToString(Role.other)
+        ];
+        break;
+      case Role.other:
+        rolesArr = [AppUtils.userRoleToString(Role.other)];
+        break;
+      default:
+        break;
+    }
+    List<dynamic> filteredEvents = List();
+    for (var event in _eventsJson) {
+      String eventRole = event['user_role'];
+      if (rolesArr != null && rolesArr.contains(eventRole)) {
+        filteredEvents.add(event);
+      }
+    }
+    return filteredEvents;
+  }
+
   Future<List<dynamic>> loadEventsByRole(Role role) async {
     if (role == null || role == Role.unknown) {
       return null;
