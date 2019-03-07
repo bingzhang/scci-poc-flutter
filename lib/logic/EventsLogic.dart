@@ -8,7 +8,6 @@ import 'package:profile_demo/utility/Utils.dart';
 
 class EventsLogic {
   static final EventsLogic _logic = new EventsLogic._internal();
-  List<dynamic> _eventsJson;
 
   factory EventsLogic() {
     return _logic;
@@ -16,12 +15,8 @@ class EventsLogic {
 
   EventsLogic._internal();
 
-  Future<void> loadAllEvents() async {
-    _eventsJson = await ServerRequest.loadAllEvents();
-  }
-
-  List<dynamic> getAllEvents() {
-    return _eventsJson;
+  Future<List<dynamic>> loadAllEvents() async {
+    return await ServerRequest.loadAllEvents();
   }
 
   /// Events filter logic:
@@ -31,11 +26,12 @@ class EventsLogic {
   /// 'Staff' -> Staff & Other
   ///
   /// 'Other' -> Other
-  List<dynamic> filterEventsBy(Role role) {
+  Future<List<dynamic>> getEventsBy(Role role) async {
     if (role == null || role == Role.unknown) {
       return null;
     }
-    if (_eventsJson == null) {
+    List<dynamic> allEvents = await loadAllEvents();
+    if (allEvents == null) {
       return null;
     }
     var rolesArr;
@@ -59,21 +55,12 @@ class EventsLogic {
         break;
     }
     List<dynamic> filteredEvents = List();
-    for (var event in _eventsJson) {
+    for (var event in allEvents) {
       String eventRole = event['user_role'];
       if (rolesArr != null && rolesArr.contains(eventRole)) {
         filteredEvents.add(event);
       }
     }
     return filteredEvents;
-  }
-
-  Future<List<dynamic>> loadEventsByRole(Role role) async {
-    if (role == null || role == Role.unknown) {
-      return null;
-    }
-    String roleToString = AppUtils.userRoleToString(role);
-    List<dynamic> events = await ServerRequest.loadEventsByRole(roleToString);
-    return events;
   }
 }

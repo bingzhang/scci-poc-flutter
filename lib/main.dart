@@ -12,7 +12,6 @@ import 'package:profile_demo/ui/panels/student/StudentLifeInCampusPanel.dart';
 import 'package:profile_demo/ui/panels/student/StudentUpToDateInfoPanel.dart';
 import 'package:profile_demo/ui/panels/student/StudentSchedulePanel.dart';
 import 'package:profile_demo/utility/Utils.dart';
-import 'package:profile_demo/logic/EventsLogic.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/logic/UiLogic.dart';
 
@@ -24,7 +23,6 @@ void main() async {
 Future<void> _init() async {
   await ProfileLogic().loadUser();
   await UiLogic().loadUiConfig();
-  await EventsLogic().loadAllEvents();
 }
 
 class ProfileDemoApp extends StatefulWidget {

@@ -112,7 +112,7 @@ class StudentHomeContent extends StatelessWidget {
   }
 
   _launchIndoorMaps() async {
-    List<dynamic> events = EventsLogic().getAllEvents();
+    List<dynamic> events = await EventsLogic().loadAllEvents();
     String eventsString = (events != null) ? json.encode(events) : null;
     try {
       await AppConstants.platformChannel.invokeMethod(

@@ -102,9 +102,9 @@ class _EventsPanelState extends State<EventsPanel> {
     }
   }
 
-  void _loadEvents() {
+  void _loadEvents() async {
     User currentUser = ProfileLogic().getUser();
     Role userRole = currentUser?.role;
-    _events = EventsLogic().filterEventsBy(userRole);
+    _events = await EventsLogic().getEventsBy(userRole);
   }
 }
