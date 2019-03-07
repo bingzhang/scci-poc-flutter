@@ -64,6 +64,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private Event.List eventsData;
     private HashMap<Marker,Event> markedEvents;
 
+    private Marker userMarker; //for now it is static
+    private Marker destinationMarker;
+
+    private static double ZOOM_TRESHHOLD = 17f;
     private static final LatLng BUILDING_LOCATION = new LatLng(57.08585, 9.95751);
     private static final LatLng ORIGIN_LOCATION = new LatLng(57.087210, 9.958428);
 //    private static final LatLng DESTINATION_LOCATION = new LatLng(57.0861893, 9.9578803);
@@ -230,7 +234,45 @@ public class MapsIndoorsActivity extends FragmentActivity {
         mapControl.setOnFloorUpdateListener((building, i) -> {
             didFloorUpdate();
         });
+        mapControl.setOnCurrentBuildingChangedListener(building -> {
+            Log.d(TAG, "setOnCurrentBuildingChangedListener" + building);
+        });
+        mapControl.addOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+            @Override
+            public void onCameraMove() {
+                Log.d(TAG, "addOnCameraMoveListener");
+                updateMarkers();
+            }
+        });
+        mapControl.addOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
+            @Override
+            public void onCameraMoveStarted(int i) {
+                Log.d(TAG, "addOnCameraMoveStartedListener "+i);
+            }
+        });
+        mapControl.addOnCameraMoveCanceledListener(new GoogleMap.OnCameraMoveCanceledListener() {
+            @Override
+            public void onCameraMoveCanceled() {
+                Log.d(TAG, "addOnCameraMoveCanceledListener ");
+            }
+        });
         mapControl.init(this::mapControlDidInit);
+        googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+
+            }
+        });
     }
 
     private void mapControlDidInit(MIError error) {
@@ -255,6 +297,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void buildRouting(Event event) {
+        destinationMarker = findMarker(event);
+        updateMarkers();
         routingProvider.setOnRouteResultListener((route, error) -> {
             if (route != null) {
                 directionsRenderer.setRoute(route);
@@ -265,7 +309,8 @@ public class MapsIndoorsActivity extends FragmentActivity {
             }
             runOnUiThread(() -> updateUi());
         });
-        Point originPoint = new Point(ORIGIN_LOCATION);
+        LatLng userPosition =userMarker!=null? userMarker.getPosition() : null;
+        Point originPoint = userPosition!=null ? new Point(userPosition): new Point(ORIGIN_LOCATION);
 
         Event.Location location = event.getLocation();
         Point destinationPoint = new Point(location.getLat(),location.getLng(), 1);
@@ -275,9 +320,10 @@ public class MapsIndoorsActivity extends FragmentActivity {
     private void addMarkers() {
         if (markerList == null) {
             markerList = new ArrayList<>();
-            Marker userMarkerOrigin = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, getUserName(), R.drawable.maps_icon_male_toilet));
-            userMarkerOrigin.setTag(String.valueOf(0)); //Store floor in tag property
-            markerList.add(userMarkerOrigin);
+            userMarker = googleMap.addMarker(constructUserMarkerOptions(ORIGIN_LOCATION, getUserName(), R.drawable.maps_icon_male_toilet));
+            userMarker.setTag(String.valueOf(0)); //Store floor in tag property
+            userMarker.setDraggable(true);
+            markerList.add(userMarker);
             if(eventsData!=null && !eventsData.isEmpty()) {
                 for(Event each : eventsData){
                     markerList.add(constructEventMarker(each));
@@ -321,12 +367,22 @@ public class MapsIndoorsActivity extends FragmentActivity {
         for (Marker marker : markerList) {
             int markerFloorIndex = (marker.getTag() != null) ? Integer.valueOf((String) marker.getTag()) : 0;
             int currentFloorIndex = (mapControl != null) ? mapControl.getCurrentFloorIndex() : 0;
-            boolean markerVisible = (markerFloorIndex == currentFloorIndex);
-            marker.setVisible(markerVisible);
-            if (markerVisible) {
-                marker.showInfoWindow();
+            boolean sameFloor =  (markerFloorIndex == currentFloorIndex);
+
+            if(userMarker!=null && userMarker.equals(marker)){
+                boolean visible = true;//always visible
+                marker.setVisible(visible);
+            } else if (destinationMarker!=null && destinationMarker.equals(marker)){
+                boolean zoomedOut = googleMap.getCameraPosition().zoom<=ZOOM_TRESHHOLD;
+                boolean visible = zoomedOut? true : sameFloor;
+                marker.setVisible(visible);
             } else {
-                marker.hideInfoWindow();
+                marker.setVisible(sameFloor);
+                if (sameFloor) {
+                    marker.showInfoWindow();
+                } else {
+                    marker.hideInfoWindow();
+                }
             }
         }
     }
@@ -471,6 +527,16 @@ public class MapsIndoorsActivity extends FragmentActivity {
             }
         }
         return "Unknown";
+    }
+
+    //util
+    Marker findMarker(Event event){
+        if(markedEvents!=null&&!markedEvents.isEmpty())
+        for(Marker marker:markedEvents.keySet()){
+            if(markedEvents.get(marker).equals(event))
+                return marker;
+        }
+        return null;
     }
 
 }
