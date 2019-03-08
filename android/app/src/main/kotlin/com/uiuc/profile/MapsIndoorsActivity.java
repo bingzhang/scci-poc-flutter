@@ -378,11 +378,11 @@ public class MapsIndoorsActivity extends FragmentActivity {
                 marker.setVisible(visible);
             } else {
                 marker.setVisible(sameFloor);
-                if (sameFloor) {
-                    marker.showInfoWindow();
-                } else {
-                    marker.hideInfoWindow();
-                }
+//                if (sameFloor) {
+//                    marker.showInfoWindow();
+//                } else {
+//                    marker.hideInfoWindow();
+//                }
             }
         }
     }
