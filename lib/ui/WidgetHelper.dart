@@ -137,9 +137,9 @@ class WidgetHelper {
     }
 
   static void _openMapsPanel(BuildContext context, String title, String destination) {
-    List<String> latlong =  destination.split(",");
-    double latitude = double.tryParse(latlong[0]);
-    double longitude = double.tryParse(latlong[1]);
+    List<String> latLong =  destination.split(",");
+    double latitude = double.tryParse(latLong[0]);
+    double longitude = double.tryParse(latLong[1]);
     LatLng location = new LatLng(latitude, longitude);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => new MapsPanel(pos:location,title: title)));
