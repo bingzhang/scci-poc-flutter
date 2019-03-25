@@ -32,7 +32,7 @@ class FoodAndMerchFragment : Fragment() {
 
         GlobalScope.async {
             try {
-                VenueNext.initialize("lulu:prd:demo-01d6eaytpdxrpbeh5mmf0m1192", "4b848e2558c0a76bb289e0f1c643e688ce15473efa14beab03c5f4d518fb1d75", self.context!!).await()
+                VenueNext.initialize(getString(R.string.fm_sdk_key), getString(R.string.fm_sdk_secret), self.context!!).await()
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     findNavController().navigate(R.id.action_main_to_stands)
