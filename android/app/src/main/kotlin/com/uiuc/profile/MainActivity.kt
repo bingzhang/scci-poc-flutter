@@ -6,6 +6,7 @@ package com.uiuc.profile
 
 import android.content.Intent
 import android.os.Bundle
+import com.uiuc.profile.ui.food_and_merch.FoodAndMerchActivity
 import com.uiuc.profile.ui.maps.MapsIndoorsActivity
 import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodCall
@@ -23,18 +24,22 @@ class MainActivity : FlutterActivity() {
         GeneratedPluginRegistrant.registerWith(this)
 
         MethodChannel(flutterView, nativeChannel).setMethodCallHandler { methodCall, result ->
-            if (methodCall.method == "indoorMaps") {
-                launchIndoorMaps(methodCall)
-                result.success(null)
-            }  else if (methodCall.method == "language"){
-                result.success(getLanguage())
-            }else {
-                result.notImplemented()
+            when {
+                methodCall.method == "indoorMaps" -> {
+                    launchIndoorMaps(methodCall)
+                    result.success(null)
+                }
+                methodCall.method == "language" -> result.success(getLanguage())
+                methodCall.method == "foodAndMerch" -> {
+                    launchFnMSdk()
+                    result.success(null)
+                }
+                else -> result.notImplemented()
             }
         }
     }
 
-    private fun launchIndoorMaps(methodCall:  MethodCall) {
+    private fun launchIndoorMaps(methodCall: MethodCall) {
         val singleEvent = methodCall.argument<String>(EVENT)
         val events = methodCall.argument<String>(EVENTS)
         val intent = Intent(this, MapsIndoorsActivity::class.java)
@@ -45,5 +50,10 @@ class MainActivity : FlutterActivity() {
 
     private fun getLanguage(): String {
         return Locale.getDefault().language
+    }
+
+    private fun launchFnMSdk() {
+        val intent = Intent(this, FoodAndMerchActivity::class.java)
+        startActivity(intent)
     }
 }

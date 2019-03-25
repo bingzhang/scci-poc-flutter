@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Illinois. All rights reserved.
+ */
+
 package com.uiuc.profile.ui.food_and_merch
 
 import android.os.Bundle

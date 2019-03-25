@@ -42,6 +42,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.maps.MapsIndoorsActivity"/>
-        <activity android:name=".ui.food_and_merch.FoodAndMerchActivity"/>
+        <activity
+            android:name=".ui.food_and_merch.FoodAndMerchActivity"
+            android:theme="@style/FnMTheme"/>
     </application>
 </manifest>
