@@ -6,7 +6,7 @@ package com.uiuc.profile
 
 import android.content.Intent
 import android.os.Bundle
-import com.uiuc.profile.activities.MapsIndoorsActivity
+import com.uiuc.profile.ui.maps.MapsIndoorsActivity
 import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel

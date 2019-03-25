@@ -41,6 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MapsIndoorsActivity"/>
+        <activity android:name=".ui.maps.MapsIndoorsActivity"/>
+        <activity android:name=".ui.food_and_merch.FoodAndMerchActivity"/>
     </application>
 </manifest>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/app_navigation">
+
+    <include app:graph="@navigation/order_navigation" />
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.uiuc.profile.ui.food_and_merch.FoodAndMerchFragment"
+        tools:layout="@layout/fragment_food_and_merch">
+        <action
+            android:id="@+id/action_main_to_stands"
+            app:destination="@id/order_navigation" />
+    </fragment>
+
+</navigation>

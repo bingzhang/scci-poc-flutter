@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Illinois. All rights reserved.
  */
 
-package com.uiuc.profile.activities;
+package com.uiuc.profile.ui.maps;
 
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
