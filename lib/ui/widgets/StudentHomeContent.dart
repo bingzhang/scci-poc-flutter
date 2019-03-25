@@ -5,12 +5,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/logic/EventsLogic.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
+import 'package:profile_demo/platform/Communicator.dart';
 import 'package:profile_demo/ui/page_routers/SlidePanelRoute.dart';
 import 'package:profile_demo/ui/panels/WebContentPanel.dart';
 import 'package:profile_demo/ui/panels/student/StudentSchedulePanel.dart';
@@ -22,7 +22,6 @@ import 'package:profile_demo/ui/widgets/TimeAndWhetherHeader.dart';
 import 'package:profile_demo/ui/widgets/HeaderAppBar.dart';
 import 'package:profile_demo/ui/widgets/HorizontalDivider.dart';
 import 'package:profile_demo/ui/widgets/SearchBar.dart';
-import 'package:profile_demo/utility/Utils.dart';
 
 class StudentHomeContent extends StatelessWidget {
   @override
@@ -117,12 +116,7 @@ class StudentHomeContent extends StatelessWidget {
     Role userRole = ProfileLogic().getUser()?.role;
     List<dynamic> events = await EventsLogic().getEventsBy(userRole);
     String eventsString = (events != null) ? json.encode(events) : null;
-    try {
-      await AppConstants.platformChannel.invokeMethod(
-          'indoorMaps', {"events": eventsString});
-    } on PlatformException catch (e) {
-      print(e.message);
-    }
+    Communicator.launchIndoorMaps(eventsString);
   }
 
 }

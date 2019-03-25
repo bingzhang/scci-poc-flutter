@@ -2,10 +2,9 @@
  * Copyright (c) 2019 Illinois. All rights reserved.
  */
 
-import 'package:flutter/services.dart';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:profile_demo/platform/Communicator.dart';
 import 'package:profile_demo/model/Role.dart';
 import 'package:profile_demo/ui/panels/EventsPanel.dart';
 import 'package:profile_demo/ui/panels/MapsPanel.dart';
@@ -138,7 +137,7 @@ class WidgetHelper {
       };
     } else if (destinationType == 'food_and_merch') {
       tapGesture = () {
-        _openFnM(context, destinationTitle);
+        _openFnM(destinationTitle);
       };
     }
     return tapGesture;
@@ -173,12 +172,8 @@ class WidgetHelper {
         MaterialPageRoute(builder: (context) => EventsPanel(title: title)));
   }
 
-  static void _openFnM(BuildContext context, String title) async {
-    try {
-      await AppConstants.platformChannel.invokeMethod('foodAndMerch');
-    } on PlatformException catch (e) {
-      print(e.message);
-    }
+  static void _openFnM(String title) {
+    Communicator.launchFnM(title);
   }
 
   static Widget _getPanelById(String panelId) {

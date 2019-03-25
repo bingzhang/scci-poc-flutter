@@ -5,13 +5,12 @@
 import 'dart:convert';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:profile_demo/lang/locale/locales.dart';
 import 'package:profile_demo/logic/EventsLogic.dart';
 import 'package:profile_demo/logic/ProfileLogic.dart';
 import 'package:profile_demo/model/Role.dart';
+import 'package:profile_demo/platform/Communicator.dart';
 import 'package:profile_demo/ui/widgets/EventPreview.dart';
-import 'package:profile_demo/utility/Utils.dart';
 import 'package:intl/intl.dart';
 
 class EventsPanel extends StatefulWidget {
@@ -99,12 +98,7 @@ class _EventsPanelState extends State<EventsPanel> {
 
   void _launchIndoorMapsForEvent(Map<String, dynamic> event) async {
     String eventString = json.encode(event);
-    try {
-      await AppConstants.platformChannel
-          .invokeMethod('indoorMaps', {"event": eventString});
-    } on PlatformException catch (e) {
-      print(e.message);
-    }
+    Communicator.launchIndoorMapsForEvent(eventString);
   }
 
   void _loadEvents() async {

@@ -97,7 +97,6 @@ class AppUtils {
 
 class AppConstants {
   static const String serverHost = "https://profile.inabyte.com";
-  static const MethodChannel platformChannel = const MethodChannel("com.uiuc.profile/native_call");
 }
 
 class UiUtils {
