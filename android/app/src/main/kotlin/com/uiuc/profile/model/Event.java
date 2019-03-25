@@ -1,4 +1,8 @@
-package com.uiuc.profile;
+/*
+ * Copyright (c) 2019 Illinois. All rights reserved.
+ */
+
+package com.uiuc.profile.model;
 
 import com.google.android.gms.maps.model.LatLng;
 

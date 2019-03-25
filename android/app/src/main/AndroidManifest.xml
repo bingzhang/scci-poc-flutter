@@ -41,6 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MapsIndoorsActivity"/>
+        <activity android:name=".activities.MapsIndoorsActivity"/>
     </application>
 </manifest>

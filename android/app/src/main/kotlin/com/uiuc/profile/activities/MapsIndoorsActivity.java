@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Illinois. All rights reserved.
  */
 
-package com.uiuc.profile;
+package com.uiuc.profile.activities;
 
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
@@ -34,6 +34,8 @@ import com.mapsindoors.mapssdk.RouteStep;
 import com.mapsindoors.mapssdk.RoutingProvider;
 import com.mapsindoors.mapssdk.dbglog;
 import com.mapsindoors.mapssdk.errors.MIError;
+import com.uiuc.profile.R;
+import com.uiuc.profile.model.Event;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -502,7 +504,7 @@ public class MapsIndoorsActivity extends FragmentActivity {
     }
 
     private void showRoutDialog(Event event){
-        String message = String.format("Navigate to \"%s\" (%s)?", event.getName(), event.getLocation().description);
+        String message = String.format("Navigate to \"%s\" (%s)?", event.getName(), event.getLocation().getDescription());
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setMessage(message);
         dialogBuilder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
