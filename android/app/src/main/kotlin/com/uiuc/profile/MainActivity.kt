@@ -15,8 +15,8 @@ import io.flutter.plugins.GeneratedPluginRegistrant
 import java.util.*
 
 class MainActivity : FlutterActivity() {
-    val EVENT = "event"
-    val EVENTS = "events"
+    private val event = "event"
+    private val events = "events"
     private val nativeChannel = "com.uiuc.profile/native_call"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +40,11 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun launchIndoorMaps(methodCall: MethodCall) {
-        val singleEvent = methodCall.argument<String>(EVENT)
-        val events = methodCall.argument<String>(EVENTS)
+        val singleEvent = methodCall.argument<String>(event)
+        val events = methodCall.argument<String>(events)
         val intent = Intent(this, MapsIndoorsActivity::class.java)
-        intent.putExtra(EVENT, singleEvent)
-        intent.putExtra(EVENTS, events)
+        intent.putExtra(event, singleEvent)
+        intent.putExtra(this.events, events)
         startActivity(intent)
     }
 
