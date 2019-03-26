@@ -11,6 +11,7 @@
     <color name="steps_label_text_color">#000000</color>
 
     <color name="colorPrimary">#fff</color>
+    <color name="colorHeader">#1C263A</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#0075BD</color>
 </resources>
