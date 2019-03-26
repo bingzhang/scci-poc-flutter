@@ -7,9 +7,6 @@
     <string name="google_maps_api_key" translatable="false">AIzaSyBOyWpp0LBhbaYiQUGUbc_YLcW8pRoA5Sc</string>
     <string name="mapsindoors_api_key" translatable="false">73dec0092e784856a2c69b8a</string>
 
-    <string name="fm_sdk_key" translatable="false">lulu:prd:demo-01d6eaytpdxrpbeh5mmf0m1192</string>
-    <string name="fm_sdk_secret" translatable="false">4b848e2558c0a76bb289e0f1c643e688ce15473efa14beab03c5f4d518fb1d75</string>
-
     <string name="alert_dialog_default_title">Illinois</string>
     <string name="poi_details_alert_dialog_title">POI details</string>
 

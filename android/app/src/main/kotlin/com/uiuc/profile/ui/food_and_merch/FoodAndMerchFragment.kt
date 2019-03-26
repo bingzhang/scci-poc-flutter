@@ -10,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.uiuc.profile.BuildConfig
 import com.uiuc.profile.R
 import com.venuenext.vncore.VenueNext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class FoodAndMerchFragment : Fragment() {
 
@@ -32,7 +32,7 @@ class FoodAndMerchFragment : Fragment() {
 
         GlobalScope.async {
             try {
-                VenueNext.initialize(getString(R.string.fm_sdk_key), getString(R.string.fm_sdk_secret), self.context!!).await()
+                VenueNext.initialize(BuildConfig.FMSdkKey, BuildConfig.FMSdkSecret, self.context!!).await()
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     findNavController().navigate(R.id.action_main_to_stands)
