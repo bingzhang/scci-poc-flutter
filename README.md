@@ -10,7 +10,8 @@ Steps: https://flutter.io/docs/get-started/install
 
 #### 3.1 Android
 ##### 3.1.1 Go to applications root directory - `cd <app dir>`
-##### 3.1.2 Run `flutter build apk` (`flutter build` defaults to `--release`). 
+##### 3.1.2 Add values for `FMSdkKey` and `FMSdkSecret` in android root project gradle.properties. These are required for VN FnM sdk
+##### 3.1.3 Run `flutter build apk` (`flutter build` defaults to `--release`). 
 ##### Note: Release APK is created at `<app dir>/build/app/outputs/apk/release/app-release.apk`.
 #### 3.2 iOS
 ##### 3.2.1 Go to applications root directory - `cd <app dir>`
